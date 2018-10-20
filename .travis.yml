@@ -50,5 +50,5 @@ jobs:
       env: semantic-release
       script:
         - npm run build
-        - npm run generate-bundle-report
+        - npm run bundle-report
         - npm run semantic-release
