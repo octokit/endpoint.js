@@ -4,12 +4,12 @@ const sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 const expect = chai.expect
 
-const endpoint = require('.')
+const endpoint = require('..')
 
-const pkg = require('./package.json')
+const pkg = require('../package.json')
 const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`
 
-describe('smoke', () => {
+describe('endpoint()', () => {
   it('is a function', () => {
     expect(endpoint).to.be.a('function')
   })
