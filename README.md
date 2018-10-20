@@ -200,6 +200,25 @@ request(myEndpoint(`GET /orgs/:org/repos`))
 
 You can call `.defaults()` again on the returned method, the defaults will cascade.
 
+```js
+const myProjectEndpoint = endpoint.defaults({
+  baseUrl: 'http://github-enterprise.acme-inc.com/api/v3',
+  headers: {
+    'user-agent': 'myApp/1.2.3'
+  },
+  org: 'my-project'
+})
+const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
+  headers: {
+    authorization: `token 0000000000000000000000000000000000000001`
+  }
+})
+```
+
+`myProjectEndpointWithAuth` now defaults the `baseUrl`, `headers['user-agent']`,
+`org` and `headers['authorization']` on top of `headers['accept']` that is set
+by the global default.
+
 ## Special cases
 
 ### The `data` parameter – set request body directly
