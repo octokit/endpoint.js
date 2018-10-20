@@ -43,34 +43,34 @@ The method returns an object with 3 or 4 keys
 <table>
   <thead>
     <tr>
-      <th>
+      <th align=left>
         key
       </th>
-      <th>
+      <th align=left>
         type
       </th>
-      <th>
+      <th align=left>
         description
       </th>
     </tr>
   </thead>
   <tr>
-    <th><code>method</code></th>
+    <th align=left><code>method</code></th>
     <td>String</td>
     <td>The http method. Always lowercase</td>
   </tr>
   <tr>
-    <th><code>url</code></th>
+    <th align=left><code>url</code></th>
     <td>String</td>
     <td>The url with placeholders replaced with passed parameters</td>
   </tr>
   <tr>
-    <th><code>headers</code></th>
+    <th align=left><code>headers</code></th>
     <td>Object</td>
     <td>All header names are lowercased</td>
   </tr>
   <tr>
-    <th><code>body</code></th>
+    <th align=left><code>body</code></th>
     <td>Any</td>
     <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests</td>
   </tr>
@@ -109,19 +109,19 @@ axios(options)
 <table>
   <thead>
     <tr>
-      <th>
+      <th align=left>
         name
       </th>
-      <th>
+      <th align=left>
         type
       </th>
-      <th>
+      <th align=left>
         description
       </th>
     </tr>
   </thead>
   <tr>
-    <th>
+    <th align=left>
       <code>baseUrl</code>
     </th>
     <td>
@@ -131,7 +131,7 @@ axios(options)
       <strong>Required.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>, case insensitive. <em>Defaults to <code>https://api.github.com</code></em>.
     </td>
   </tr>
-    <th>
+    <th align=left>
       <code>headers</code>
     </th>
     <td>
@@ -144,7 +144,7 @@ axios(options)
     </td>
   </tr>
   <tr>
-    <th>
+    <th align=left>
       <code>method</code>
     </th>
     <td>
@@ -155,7 +155,7 @@ axios(options)
     </td>
   </tr>
   <tr>
-    <th>
+    <th align=left>
       <code>url</code>
     </th>
     <td>
