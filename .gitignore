@@ -1,4 +1,5 @@
 .nyc_output/
 coverage/
-cypress
+cypress/
+dist/
 node_modules/
