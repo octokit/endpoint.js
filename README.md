@@ -10,6 +10,9 @@ then pass into your request library of choice.
 
 ```js
 const endpoint = require('@octokit/endpoint')
+
+// Following GitHub docs formatting:
+// https://developer.github.com/v3/repos/#list-organization-repositories
 const options = endpoint('GET /orgs/:org/repos', {
   headers: {
     authorization: 'token 0000000000000000000000000000000000000001'
@@ -19,7 +22,7 @@ const options = endpoint('GET /orgs/:org/repos', {
 })
 ```
 
-Alternative
+Alternatively, pass in a method and a url
 
 ```js
 const options = endpoint({
@@ -160,7 +163,7 @@ axios(options)
     </td>
     <td>
       <strong>Required.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
-      e.g. `/orgs/:org/repos`. The `url` is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
+      e.g. <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
     </td>
   </tr>
 </table>
@@ -173,7 +176,7 @@ All other options will passed depending on the `method` and `url` options.
 
 ## endpoint.defaults()
 
-Override or set default options. Example
+Override or set default options. Example:
 
 ```js
 const request = require('request')
