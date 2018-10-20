@@ -32,17 +32,23 @@ jobs:
       sudo: required
       addons:
         chrome: stable
-      env: bundle size, typescript validation
+      env: browser tests
       script:
-        # test bundle size
-        - npm run build:browser
+        - npm run test:browser
+    - node_js: lts/*
+      sudo: required
+      addons:
+        chrome: stable
+      env: bundle size
+      script:
+        - npm run build
         - npx bundlesize
-        # test typescript definitions
-        - npm run validate:ts
 
     # release stage: run semantic release & update the docs
     - stage: release
       node_js: lts/*
       env: semantic-release
       script:
+        - npm run build:browser
+        - npm run generate-bundle-report
         - npm run semantic-release
