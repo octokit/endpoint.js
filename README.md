@@ -198,6 +198,8 @@ const myEndpoint = require('@octokit/endpoint').defaults({
 request(myEndpoint(`GET /orgs/:org/repos`))
 ```
 
+You can call `.defaults()` again on the returned method, the defaults will cascade.
+
 ## Special cases
 
 ### The `data` parameter – set request body directly
