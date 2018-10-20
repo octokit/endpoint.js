@@ -2,6 +2,11 @@
 
 > Turns REST API endpoints into generic request options
 
+[![@latest](https://img.shields.io/npm/v/@octokit/endpoint.svg)](https://www.npmjs.com/package/@octokit/endpoint)
+[![Build Status](https://travis-ci.org/octokit/endpoint.js.svg?branch=master)](https://travis-ci.org/octokit/endpoint.js)
+[![Coverage Status](https://coveralls.io/repos/github/octokit/endpoint.js/badge.svg)](https://coveralls.io/github/octokit/endpoint.js)
+[![Greenkeeper](https://badges.greenkeeper.io/octokit/endpoint.js.svg)](https://greenkeeper.io/)
+
 `@octokit/endpoint` combines [GitHub REST API](https://developer.github.com/v3/)
 with your options and turns them into generic request options which you can
 then pass into your request library of choice.
