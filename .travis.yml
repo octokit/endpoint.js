@@ -28,6 +28,17 @@ jobs:
       script:
         - npm run test
         - npm run coverage:upload
+    - node_js: lts/*
+      sudo: required
+      addons:
+        chrome: stable
+      env: bundle size, typescript validation
+      script:
+        # test bundle size
+        - npm run build:browser
+        - npx bundlesize
+        # test typescript definitions
+        - npm run validate:ts
 
     # release stage: run semantic release & update the docs
     - stage: release
