@@ -49,6 +49,6 @@ jobs:
       node_js: lts/*
       env: semantic-release
       script:
-        - npm run build:browser
+        - npm run build
         - npm run generate-bundle-report
         - npm run semantic-release
