@@ -188,7 +188,8 @@ const request = require('request')
 const myEndpoint = require('@octokit/endpoint').defaults({
   baseUrl: 'http://github-enterprise.acme-inc.com/api/v3',
   headers: {
-    'user-agent': 'myApp/1.2.3'
+    'user-agent': 'myApp/1.2.3',
+    authorization: `token 0000000000000000000000000000000000000001`
   },
   org: 'my-project',
   per_page: 100
