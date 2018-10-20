@@ -14,7 +14,7 @@
     "coverage": "nyc report --reporter=html && open coverage/index.html",
     "coverage:upload": "nyc report --reporter=text-lcov | coveralls",
     "pretest": "standard && standard-markdown *.md",
-    "test": "nyc mocha test.js",
+    "test": "nyc mocha test/*-test.js",
     "semantic-release": "semantic-release"
   },
   "repository": {
