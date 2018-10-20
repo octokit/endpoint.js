@@ -34,4 +34,31 @@ describe('endpoint.defaults()', () => {
       }
     })
   })
+
+  it('repeated defaults', () => {
+    const myProjectEndpoint = endpoint.defaults({
+      baseUrl: 'http://github-enterprise.acme-inc.com/api/v3',
+      headers: {
+        'user-agent': 'myApp/1.2.3'
+      },
+      org: 'my-project'
+    })
+    const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
+      headers: {
+        authorization: `token 0000000000000000000000000000000000000001`
+      }
+    })
+
+    const options2 = myProjectEndpointWithAuth(`GET /orgs/:org/repos`)
+
+    expect(options2).to.deep.equal({
+      method: 'get',
+      url: 'http://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos',
+      headers: {
+        accept: 'application/vnd.github.v3+json',
+        'user-agent': 'myApp/1.2.3',
+        authorization: `token 0000000000000000000000000000000000000001`
+      }
+    })
+  })
 })
