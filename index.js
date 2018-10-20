@@ -1,6 +1,7 @@
-const endpointDefaults = require('./lib/endpoint-defaults')
+const withDefaults = require('./with-defaults')
 const endpointWithDefaults = require('./lib/endpoint-with-defaults')
-const getDefaults = require('./lib/get-defaults')
+const DEFAULTS = require('./lib/defaults')
 
-module.exports = endpointWithDefaults.bind(null, getDefaults())
-module.exports.defaults = endpointDefaults
+module.exports = endpointWithDefaults.bind(null, DEFAULTS)
+module.exports.DEFAULTS = DEFAULTS
+module.exports.defaults = withDefaults
