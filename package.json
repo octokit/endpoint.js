@@ -64,7 +64,7 @@
   "bundlesize": [
     {
       "path": "./dist/octokit-endpoint.min.js.gz",
-      "maxSize": "10 kB"
+      "maxSize": "3KB"
     }
   ],
   "release": {
