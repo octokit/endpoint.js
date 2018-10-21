@@ -13,8 +13,7 @@ then pass into your request library of choice.
 
 `@octokit/endopint` is meant to run in all JavaScript environments. Browser
 builds can be downloaded from each [Release](https://github.com/octokit/endpoint.js/releases).
-The bundle size is currently 9.15KB (minified and gzipped). [Help us reduce the
-bundle size](Reduce bundle size for browsers) 🙏
+Minified and gzipped, the build is less than 3kb.
 
 ## Usage
 
