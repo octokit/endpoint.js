@@ -181,7 +181,7 @@ All other options will passed depending on the `method` and `url` options.
 
 1. If the option key is a placeholder in the `url`, it will be used as replacement. For example, if the passed options are `{url: '/orgs/:org/repos', org: 'foo'}` the returned `options.url` is `https://api.github.com/orgs/foo/repos`
 2. If the `method` is `GET` or `HEAD`, the option is passed as query parameter
-3. Otherwise the parameter is passed as request body.
+3. Otherwise the parameter is passed in the request body as JSON key.
 
 ## endpoint.defaults()
 
