@@ -83,6 +83,17 @@ The method returns an object with 3 or 4 keys
     <td>Any</td>
     <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests</td>
   </tr>
+  <tr>
+    <th align=left>
+      <code>data</code>
+    </th>
+    <td>
+      Any
+    </td>
+    <td>
+      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The `data` parameter"</a> below.
+    </td>
+  </tr>
 </table>
 
 
@@ -225,6 +236,7 @@ by the global default.
 
 ## Special cases
 
+<a name="data-parameter"></a>
 ### The `data` parameter – set request body directly
 
 Some endpoints such as [Render a Markdown document in raw mode](https://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) don’t have parameters that are sent as request body keys, instead the request body needs to be set directly. In these cases, set the `data` parameter.
