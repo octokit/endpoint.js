@@ -134,10 +134,12 @@ describe('endpoint()', () => {
   })
 
   it('Put without request body', () => {
-    const options = endpoint('PUT /user/starred/octocat/hello-world', {
+    const options = endpoint('PUT /user/starred/:owner/:repo', {
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`
-      }
+      },
+      owner: 'octocat',
+      repo: 'hello-world'
     })
 
     expect(options).to.deep.equal({
