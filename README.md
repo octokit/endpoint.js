@@ -201,7 +201,7 @@ Override or set default options. Example:
 ```js
 const request = require('request')
 const myEndpoint = require('@octokit/endpoint').defaults({
-  baseUrl: 'http://github-enterprise.acme-inc.com/api/v3',
+  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
   headers: {
     'user-agent': 'myApp/1.2.3',
     authorization: `token 0000000000000000000000000000000000000001`
@@ -217,7 +217,7 @@ You can call `.defaults()` again on the returned method, the defaults will casca
 
 ```js
 const myProjectEndpoint = endpoint.defaults({
-  baseUrl: 'http://github-enterprise.acme-inc.com/api/v3',
+  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
   headers: {
     'user-agent': 'myApp/1.2.3'
   },
@@ -233,6 +233,18 @@ const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
 `myProjectEndpointWithAuth` now defaults the `baseUrl`, `headers['user-agent']`,
 `org` and `headers['authorization']` on top of `headers['accept']` that is set
 by the global default.
+
+## endpoint.DEFAULTS
+
+The current default options.
+
+```js
+endpoint.DEFAULTS.baseUrl // https://api.github.com
+const myEndpoint = endpoint.defaults({
+  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3'
+})
+myEndpoint.DEFAULTS.baseUrl // https://github-enterprise.acme-inc.com/api/v3
+```
 
 ## Special cases
 
