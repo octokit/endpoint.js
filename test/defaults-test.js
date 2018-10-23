@@ -13,7 +13,7 @@ describe('endpoint.defaults()', () => {
 
   it('README example', () => {
     const myEndpoint = endpoint.defaults({
-      baseUrl: 'http://github-enterprise.acme-inc.com/api/v3',
+      baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
       headers: {
         'user-agent': 'myApp/1.2.3',
         authorization: `token 0000000000000000000000000000000000000001`
@@ -26,7 +26,7 @@ describe('endpoint.defaults()', () => {
 
     expect(options).to.deep.equal({
       method: 'get',
-      url: 'http://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos?per_page=100',
+      url: 'https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos?per_page=100',
       headers: {
         accept: 'application/vnd.github.v3+json',
         'user-agent': 'myApp/1.2.3',
@@ -37,7 +37,7 @@ describe('endpoint.defaults()', () => {
 
   it('repeated defaults', () => {
     const myProjectEndpoint = endpoint.defaults({
-      baseUrl: 'http://github-enterprise.acme-inc.com/api/v3',
+      baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
       headers: {
         'user-agent': 'myApp/1.2.3'
       },
@@ -53,12 +53,20 @@ describe('endpoint.defaults()', () => {
 
     expect(options2).to.deep.equal({
       method: 'get',
-      url: 'http://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos',
+      url: 'https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos',
       headers: {
         accept: 'application/vnd.github.v3+json',
         'user-agent': 'myApp/1.2.3',
         authorization: `token 0000000000000000000000000000000000000001`
       }
     })
+  })
+
+  it('.DEFAULTS', () => {
+    expect(endpoint.DEFAULTS.baseUrl).to.equal('https://api.github.com')
+    const myEndpoint = endpoint.defaults({
+      baseUrl: 'https://github-enterprise.acme-inc.com/api/v3'
+    })
+    expect(myEndpoint.DEFAULTS.baseUrl).to.equal('https://github-enterprise.acme-inc.com/api/v3')
   })
 })
