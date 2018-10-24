@@ -230,4 +230,24 @@ describe('endpoint()', () => {
       }
     })
   })
+
+  it('request parameter', () => {
+    const options = endpoint('GET /', {
+      request: {
+        timeout: 100
+      }
+    })
+
+    expect(options).to.deep.equal({
+      method: 'get',
+      url: 'https://api.github.com/',
+      headers: {
+        accept: 'application/vnd.github.v3+json',
+        'user-agent': userAgent
+      },
+      request: {
+        timeout: 100
+      }
+    })
+  })
 })
