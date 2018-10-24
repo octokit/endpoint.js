@@ -1,3 +1,5 @@
+const Agent = require('http').Agent
+
 const chai = require('chai')
 const getUserAgent = require('universal-user-agent')
 const sinonChai = require('sinon-chai')
@@ -249,5 +251,15 @@ describe('endpoint()', () => {
         timeout: 100
       }
     })
+  })
+
+  it('request.agent', () => {
+    const options = endpoint('GET /', {
+      request: {
+        agent: new Agent()
+      }
+    })
+
+    expect(options.request.agent).to.be.an.instanceof(Agent)
   })
 })
