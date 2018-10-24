@@ -83,17 +83,6 @@ The method returns an object with 3 or 4 keys
     <td>Any</td>
     <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests</td>
   </tr>
-  <tr>
-    <th align=left>
-      <code>data</code>
-    </th>
-    <td>
-      Any
-    </td>
-    <td>
-      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The `data` parameter"</a> below.
-    </td>
-  </tr>
 </table>
 
 
@@ -184,6 +173,17 @@ axios(options)
     <td>
       <strong>Required.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
       e.g. <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>data</code>
+    </th>
+    <td>
+      Any
+    </td>
+    <td>
+      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The `data` parameter"</a> below.
     </td>
   </tr>
 </table>
