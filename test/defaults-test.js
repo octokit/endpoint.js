@@ -25,7 +25,7 @@ describe('endpoint.defaults()', () => {
     const options = myEndpoint(`GET /orgs/:org/repos`)
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos?per_page=100',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -52,7 +52,7 @@ describe('endpoint.defaults()', () => {
     const options2 = myProjectEndpointWithAuth(`GET /orgs/:org/repos`)
 
     expect(options2).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos',
       headers: {
         accept: 'application/vnd.github.v3+json',
