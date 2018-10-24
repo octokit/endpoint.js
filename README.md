@@ -183,7 +183,19 @@ axios(options)
       Any
     </td>
     <td>
-      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The `data` parameter"</a> below.
+      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The <code>data</code> parameter"</a> below.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>request</code>
+    </th>
+    <td>
+      Object
+    </td>
+    <td>
+      Pass request-related options here, such as [node-fetch extensions options](https://github.com/bitinn/node-fetch#options).
+      The <code>request</code> object will be returned as is.
     </td>
   </tr>
 </table>
