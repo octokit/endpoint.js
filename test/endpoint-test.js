@@ -23,7 +23,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://api.github.com/orgs/octokit/repos?type=private',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -39,7 +39,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://api.github.com/orgs/octokit/repos?type=private',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -52,7 +52,7 @@ describe('endpoint()', () => {
     const options = endpoint('GET /')
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://api.github.com/',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -70,7 +70,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://api.github.com/',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -83,7 +83,7 @@ describe('endpoint()', () => {
     const options = endpoint('GET https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master')
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -111,7 +111,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'post',
+      method: 'POST',
       url: 'https://api.github.com/repos/octocat/hello-world/issues',
       headers: {
         accept: 'text/html;charset=utf-8',
@@ -142,7 +142,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'put',
+      method: 'PUT',
       url: 'https://api.github.com/user/starred/octocat/hello-world',
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`,
@@ -167,7 +167,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'post',
+      method: 'POST',
       url: 'https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets?name=example.zip&label=short%20description',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -186,7 +186,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://api.github.com/orgs/octokit/repos?access_token=abc4567&type=private',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -205,7 +205,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'post',
+      method: 'POST',
       url: 'https://api.github.com/markdown/raw',
       headers: {
         accept: 'text/html;charset=utf-8',
@@ -222,7 +222,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://api.github.com/search/issues?q=location%3AJyv%C3%A4skyl%C3%A4',
       headers: {
         accept: 'application/vnd.github.v3+json',
@@ -239,7 +239,7 @@ describe('endpoint()', () => {
     })
 
     expect(options).to.deep.equal({
-      method: 'get',
+      method: 'GET',
       url: 'https://api.github.com/',
       headers: {
         accept: 'application/vnd.github.v3+json',
