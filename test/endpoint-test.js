@@ -97,8 +97,7 @@ describe('endpoint()', () => {
       owner: 'octocat',
       repo: 'hello-world',
       headers: {
-        accept: 'text/html;charset=utf-8',
-        'content-type': 'text/plain'
+        accept: 'text/html;charset=utf-8'
       },
       title: 'Found a bug',
       body: "I'm having a problem with this.",
@@ -116,7 +115,7 @@ describe('endpoint()', () => {
       url: 'https://api.github.com/repos/octocat/hello-world/issues',
       headers: {
         accept: 'text/html;charset=utf-8',
-        'content-type': 'text/plain',
+        'content-type': 'application/json; charset=utf-8',
         'user-agent': userAgent
       },
       body: {
