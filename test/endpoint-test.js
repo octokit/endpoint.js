@@ -149,7 +149,8 @@ describe('endpoint()', () => {
         accept: 'application/vnd.github.v3+json',
         'content-length': 0,
         'user-agent': userAgent
-      }
+      },
+      body: ''
     })
   })
 
