@@ -49,9 +49,9 @@ describe('endpoint.defaults()', () => {
       }
     })
 
-    const options2 = myProjectEndpointWithAuth(`GET /orgs/:org/repos`)
+    const options = myProjectEndpointWithAuth(`GET /orgs/:org/repos`)
 
-    expect(options2).to.deep.equal({
+    expect(options).to.deep.equal({
       method: 'GET',
       url: 'https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos',
       headers: {
