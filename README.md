@@ -258,6 +258,43 @@ const myEndpoint = endpoint.defaults({
 myEndpoint.DEFAULTS.baseUrl // https://github-enterprise.acme-inc.com/api/v3
 ```
 
+## endpoint.options()
+
+Get the defaulted endpoint options, but without parsing them into request options
+
+```js
+const myProjectEndpoint = endpoint.defaults({
+  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
+  headers: {
+    'user-agent': 'myApp/1.2.3'
+  },
+  org: 'my-project'
+})
+myProjectEndpoint.options('GET /orgs/:org/repos', {
+  headers: {
+    authorization: `token 0000000000000000000000000000000000000001`
+  },
+  type: 'private'
+})
+// {
+//   baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
+//   method: 'GET',
+//   url: '/orgs/:org/repos',
+//   headers: {
+//     accept: 'application/vnd.github.v3+json',
+//     authorization: `token 0000000000000000000000000000000000000001`,
+//     'user-agent': 'myApp/1.2.3'
+//   },
+//   org: 'my-project',
+//   type: 'private'
+// }
+```
+
+## endpoint.parse()
+
+Stateless method to turn endpoint options into request options. Calling
+`endpoint(options)` is the same as calling `endpoint.parse(endpoint.options(options))`
+
 ## Special cases
 
 <a name="data-parameter"></a>
