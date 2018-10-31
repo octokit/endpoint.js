@@ -15,6 +15,23 @@ then pass into your request library of choice.
 builds can be downloaded from each [Release](https://github.com/octokit/endpoint.js/releases).
 Minified and gzipped, the build is less than 3kb.
 
+<!-- update table of contents by running `npx markdown-toc README.md -i` -->
+<!-- toc -->
+
+- [Usage](#usage)
+- [API](#api)
+  * [endpoint()](#endpoint)
+  * [endpoint.defaults()](#endpointdefaults)
+  * [endpoint.DEFAULTS](#endpointdefaults)
+  * [endpoint.merge()](#endpointmerge)
+  * [endpoint.parse()](#endpointparse)
+- [Special cases](#special-cases)
+  * [The `data` parameter – set request body directly](#the-data-parameter-%E2%80%93-set-request-body-directly)
+  * [Set parameters for both the URL/query and the request body](#set-parameters-for-both-the-urlquery-and-the-request-body)
+- [LICENSE](#license)
+
+<!-- tocstop -->
+
 ## Usage
 
 ```js
@@ -29,25 +46,151 @@ const options = endpoint('GET /orgs/:org/repos', {
   org: 'octokit',
   type: 'private'
 })
+
+// {
+//   method: 'GET',
+//   url: 'https://api.github.com/orgs/octokit/repos?type=private',
+//   headers: {
+//     accept: 'application/vnd.github.v3+json',
+//     authorization: 'token 0000000000000000000000000000000000000001',
+//     'user-agent': 'octokit/endpoint.js v1.2.3'
+//   }
+// }
 ```
 
-Alternatively, pass in a method and a url
+Alternatively, pass in all options in a single object
 
 ```js
-const options = endpoint({
-  // route options
-  method: 'GET',
-  url: '/orgs/:org/repos',
-  headers: {
-    authorization: 'token 0000000000000000000000000000000000000001'
-  },
-  // parameters
-  org: 'octokit',
-  type: 'private'
-})
+const options = endpoint({ method, url, headers, org, type })
 ```
 
-The method returns an object with 3 or 4 keys
+Using `@octokit/endpoint` with common request libraries
+
+```js
+// using with fetch (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+fetch(options.url, ...options)
+// using with request (https://github.com/request/request)
+request(options)
+// using with got (https://github.com/sindresorhus/got)
+got[options.method](options.url, options)
+// using with axios
+axios(options)
+```
+
+
+## API
+
+### endpoint()
+
+`endpoint(route, options)` or `endpoint(options)`.
+
+**Options**
+
+<table>
+  <thead>
+    <tr>
+      <th align=left>
+        name
+      </th>
+      <th align=left>
+        type
+      </th>
+      <th align=left>
+        description
+      </th>
+    </tr>
+  </thead>
+  <tr>
+    <th align=left>
+      <code>route</code>
+    </th>
+    <td>
+      String
+    </td>
+    <td>
+      If <code>route</code> is set it has to be a string consisting of the request method and URL, e.g. <code>GET /orgs/:org</code>
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.baseUrl</code>
+    </th>
+    <td>
+      String
+    </td>
+    <td>
+      <strong>Required.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>, case insensitive. <em>Defaults to <code>https://api.github.com</code></em>.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.headers</code>
+    </th>
+    <td>
+      Object
+    </td>
+    <td>
+      Custom headers. Passed headers are merged with defaults:<br>
+      <em><code>headers['user-agent']</code> defaults to <code>octokit-endpoint.js/1.2.3</code> (where <code>1.2.3</code> is the released version)</em>.<br>
+      <em><code>headers['accept']</code> defaults to <code>application/vnd.github.v3+json</code>.<br>
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.method</code>
+    </th>
+    <td>
+      String
+    </td>
+    <td>
+      <strong>Required.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>, case insensitive. <em>Defaults to <code>Get</code></em>.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.url</code>
+    </th>
+    <td>
+      String
+    </td>
+    <td>
+      <strong>Required.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
+      e.g. <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.data</code>
+    </th>
+    <td>
+      Any
+    </td>
+    <td>
+      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The <code>data</code> parameter"</a> below.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.request</code>
+    </th>
+    <td>
+      Object
+    </td>
+    <td>
+      Pass custom meta information for the request. The <code>request</code> object will be returned as is.
+    </td>
+  </tr>
+</table>
+
+All other options will passed depending on the `method` and `url` options.
+
+1. If the option key is a placeholder in the `url`, it will be used as replacement. For example, if the passed options are `{url: '/orgs/:org/repos', org: 'foo'}` the returned `options.url` is `https://api.github.com/orgs/foo/repos`
+2. If the `method` is `GET` or `HEAD`, the option is passed as query parameter
+3. Otherwise the parameter is passed in the request body as JSON key.
+
+**Result**
+
+`endpoint()` is a synchronous method and returns an object with the following keys
 
 <table>
   <thead>
@@ -85,128 +228,7 @@ The method returns an object with 3 or 4 keys
   </tr>
 </table>
 
-
-The above examples shown above return
-
-```js
-{
-  method: 'get',
-  url: 'https://api.github.com/orgs/octokit/repos?type=private',
-  headers: {
-    accept: 'application/vnd.github.v3+json',
-    authorization: 'token 0000000000000000000000000000000000000001',
-    'user-agent': 'octokit/endpoint.js v1.2.3'
-  }
-}
-```
-
-### Using `@octokit/endpoint` with common request libraries
-
-```js
-// using with fetch (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-fetch(options.url, ...options)
-// using with request (https://github.com/request/request)
-request(options)
-// using with got (https://github.com/sindresorhus/got)
-got[options.method](options.url, options)
-// using with axios
-axios(options)
-```
-
-## Options
-
-<table>
-  <thead>
-    <tr>
-      <th align=left>
-        name
-      </th>
-      <th align=left>
-        type
-      </th>
-      <th align=left>
-        description
-      </th>
-    </tr>
-  </thead>
-  <tr>
-    <th align=left>
-      <code>baseUrl</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <strong>Required.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>, case insensitive. <em>Defaults to <code>https://api.github.com</code></em>.
-    </td>
-  </tr>
-    <th align=left>
-      <code>headers</code>
-    </th>
-    <td>
-      Object
-    </td>
-    <td>
-      Custom headers. Passed headers are merged with defaults:<br>
-      <em><code>headers['user-agent']</code> defaults to <code>octokit-endpoint.js/1.2.3</code> (where <code>1.2.3</code> is the released version)</em>.<br>
-      <em><code>headers['accept']</code> defaults to <code>application/vnd.github.v3+json</code>.<br>
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>method</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <strong>Required.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>, case insensitive. <em>Defaults to <code>Get</code></em>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>url</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <strong>Required.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
-      e.g. <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>data</code>
-    </th>
-    <td>
-      Any
-    </td>
-    <td>
-      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The <code>data</code> parameter"</a> below.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>request</code>
-    </th>
-    <td>
-      Object
-    </td>
-    <td>
-      Pass request-related options here, such as [node-fetch extensions options](https://github.com/bitinn/node-fetch#options).
-      The <code>request</code> object will be returned as is.
-    </td>
-  </tr>
-</table>
-
-All other options will passed depending on the `method` and `url` options.
-
-1. If the option key is a placeholder in the `url`, it will be used as replacement. For example, if the passed options are `{url: '/orgs/:org/repos', org: 'foo'}` the returned `options.url` is `https://api.github.com/orgs/foo/repos`
-2. If the `method` is `GET` or `HEAD`, the option is passed as query parameter
-3. Otherwise the parameter is passed in the request body as JSON key.
-
-## endpoint.defaults()
+### endpoint.defaults()
 
 Override or set default options. Example:
 
@@ -246,7 +268,7 @@ const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
 `org` and `headers['authorization']` on top of `headers['accept']` that is set
 by the global default.
 
-## endpoint.DEFAULTS
+### endpoint.DEFAULTS
 
 The current default options.
 
@@ -258,7 +280,7 @@ const myEndpoint = endpoint.defaults({
 myEndpoint.DEFAULTS.baseUrl // https://github-enterprise.acme-inc.com/api/v3
 ```
 
-## endpoint.merge()
+### endpoint.merge()
 
 Get the defaulted endpoint options, but without parsing them into request options
 
@@ -291,7 +313,7 @@ myProjectEndpoint.merge('GET /orgs/:org/repos', {
 // }
 ```
 
-## endpoint.parse()
+### endpoint.parse()
 
 Stateless method to turn endpoint options into request options. Calling
 `endpoint(options)` is the same as calling `endpoint.parse(endpoint.merge(options))`
