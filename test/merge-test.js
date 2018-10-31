@@ -9,9 +9,9 @@ const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`
 const expect = chai.expect
 chai.use(sinonChai)
 
-describe('endpoint.options()', () => {
+describe('endpoint.merge()', () => {
   it('is a function', () => {
-    expect(endpoint.options).to.be.a('function')
+    expect(endpoint.merge).to.be.a('function')
   })
 
   it('README example', () => {
@@ -22,7 +22,7 @@ describe('endpoint.options()', () => {
       },
       org: 'my-project'
     })
-    const options = myProjectEndpoint.options('GET /orgs/:org/repos', {
+    const options = myProjectEndpoint.merge('GET /orgs/:org/repos', {
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`
       },
@@ -57,7 +57,7 @@ describe('endpoint.options()', () => {
       }
     })
 
-    const options = myProjectEndpointWithAuth.options(`GET /orgs/:org/repos`)
+    const options = myProjectEndpointWithAuth.merge(`GET /orgs/:org/repos`)
 
     expect(options).to.deep.equal({
       baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
@@ -73,7 +73,7 @@ describe('endpoint.options()', () => {
   })
 
   it('no arguments', () => {
-    const options = endpoint.options()
+    const options = endpoint.merge()
     expect(options).to.deep.equal({
       baseUrl: 'https://api.github.com',
       method: 'GET',

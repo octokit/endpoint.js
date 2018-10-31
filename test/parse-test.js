@@ -18,9 +18,7 @@ describe('endpoint.parse()', () => {
       org: 'octokit',
       type: 'private'
     }
-    const options1 = endpoint(input)
-    const options2 = endpoint.parse(endpoint.options(input))
 
-    expect(options1).to.deep.equal(options2)
+    expect(endpoint(input)).to.deep.equal(endpoint.parse(endpoint.merge(input)))
   })
 })

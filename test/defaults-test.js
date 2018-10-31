@@ -69,4 +69,19 @@ describe('endpoint.defaults()', () => {
     })
     expect(myEndpoint.DEFAULTS.baseUrl).to.equal('https://github-enterprise.acme-inc.com/api/v3')
   })
+
+  it('.defaults() merges options but does not yet parse ', () => {
+    const myEndpoint = endpoint.defaults({
+      url: '/orgs/:org',
+      org: 'test1'
+    })
+    expect(myEndpoint.DEFAULTS.url).to.equal('/orgs/:org')
+    expect(myEndpoint.DEFAULTS.org).to.equal('test1')
+    const myEndpoint2 = myEndpoint.defaults({
+      url: '/orgs/:org',
+      org: 'test2'
+    })
+    expect(myEndpoint2.DEFAULTS.url).to.equal('/orgs/:org')
+    expect(myEndpoint2.DEFAULTS.org).to.equal('test2')
+  })
 })
