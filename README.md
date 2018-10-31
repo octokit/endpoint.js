@@ -258,7 +258,7 @@ const myEndpoint = endpoint.defaults({
 myEndpoint.DEFAULTS.baseUrl // https://github-enterprise.acme-inc.com/api/v3
 ```
 
-## endpoint.options()
+## endpoint.merge()
 
 Get the defaulted endpoint options, but without parsing them into request options
 
@@ -270,10 +270,11 @@ const myProjectEndpoint = endpoint.defaults({
   },
   org: 'my-project'
 })
-myProjectEndpoint.options('GET /orgs/:org/repos', {
+myProjectEndpoint.merge('GET /orgs/:org/repos', {
   headers: {
     authorization: `token 0000000000000000000000000000000000000001`
   },
+  org: 'my-secret-project',
   type: 'private'
 })
 // {
@@ -285,7 +286,7 @@ myProjectEndpoint.options('GET /orgs/:org/repos', {
 //     authorization: `token 0000000000000000000000000000000000000001`,
 //     'user-agent': 'myApp/1.2.3'
 //   },
-//   org: 'my-project',
+//   org: 'my-secret-project',
 //   type: 'private'
 // }
 ```
@@ -293,7 +294,7 @@ myProjectEndpoint.options('GET /orgs/:org/repos', {
 ## endpoint.parse()
 
 Stateless method to turn endpoint options into request options. Calling
-`endpoint(options)` is the same as calling `endpoint.parse(endpoint.options(options))`
+`endpoint(options)` is the same as calling `endpoint.parse(endpoint.merge(options))`
 
 ## Special cases
 
