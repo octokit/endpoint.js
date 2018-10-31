@@ -1,20 +1,15 @@
 module.exports = withDefaults
 
-const merge = require('deepmerge')
-const isPlainObject = require('is-plain-object')
-
 const endpointWithDefaults = require('./lib/endpoint-with-defaults')
-const lowercaseKeys = require('./lib/lowercase-keys')
-const optionsWithDefaults = require('./lib/default-options')
-const toRequestOptions = require('./lib/to-request-options')
+const merge = require('./lib/merge')
+const parse = require('./lib/parse')
 
 function withDefaults (oldDefaults, newDefaults) {
-  newDefaults.headers = lowercaseKeys(newDefaults.headers)
-  const DEFAULTS = merge.all([oldDefaults, newDefaults].filter(Boolean), { isMergeableObject: isPlainObject })
-  const endpoint = endpointWithDefaults.bind(null, DEFAULTS)
-  endpoint.DEFAULTS = DEFAULTS
-  endpoint.defaults = withDefaults.bind(null, DEFAULTS)
-  endpoint.options = optionsWithDefaults.bind(null, DEFAULTS)
-  endpoint.parse = toRequestOptions
-  return endpoint
+  const DEFAULTS = merge(oldDefaults, newDefaults)
+  return Object.assign(endpointWithDefaults.bind(null, DEFAULTS), {
+    DEFAULTS,
+    defaults: withDefaults.bind(null, DEFAULTS),
+    merge: merge.bind(null, DEFAULTS),
+    parse
+  })
 }
