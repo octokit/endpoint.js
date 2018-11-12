@@ -90,5 +90,9 @@
       "it",
       "expect"
     ]
-  }
+  },
+  "files": [
+    "lib",
+    "with-defaults.js"
+  ]
 }
