@@ -108,7 +108,7 @@ axios(options)
       String
     </td>
     <td>
-      If <code>route</code> is set it has to be a string consisting of the request method and URL, e.g. <code>GET /orgs/:org</code>
+      If <code>route</code> is set it has to be a string consisting of URL and the request method, e.g. <code>GET /orgs/:org</code>. If it’s set to a URL only the method defaults to <code>GET</code>.
     </td>
   </tr>
   <tr>
