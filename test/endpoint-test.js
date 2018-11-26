@@ -262,4 +262,10 @@ describe('endpoint()', () => {
 
     expect(options.request.agent).to.be.an.instanceof(Agent)
   })
+
+  it('Just URL', () => {
+    expect(endpoint('/').url).to.equal('https://api.github.com/')
+    expect(endpoint('/').method).to.equal('GET')
+    expect(endpoint('https://github.acme-inc/api/v3/').url).to.equal('https://github.acme-inc/api/v3/')
+  })
 })
