@@ -11,7 +11,7 @@
 with your options and turns them into generic request options which you can
 then pass into your request library of choice.
 
-`@octokit/endopint` is meant to run in all JavaScript environments. Browser
+`@octokit/endpoint` is meant to run in all JavaScript environments. Browser
 builds can be downloaded from each [Release](https://github.com/octokit/endpoint.js/releases).
 Minified and gzipped, the build is less than 3kb.
 
