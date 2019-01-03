@@ -119,7 +119,7 @@ axios(options)
       String
     </td>
     <td>
-      <strong>Required.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>, case insensitive. <em>Defaults to <code>https://api.github.com</code></em>.
+      <em>Defaults to <code>https://api.github.com</code></em>.
     </td>
   </tr>
   <tr>
