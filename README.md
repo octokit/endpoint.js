@@ -58,13 +58,13 @@ const options = endpoint('GET /orgs/:org/repos', {
 // }
 ```
 
-Alternatively, pass in all options in a single object
+Alternatively, pass in all options in a single object:
 
 ```js
 const options = endpoint({ method, url, headers, org, type })
 ```
 
-Using `@octokit/endpoint` with common request libraries
+Using `@octokit/endpoint` with common request libraries:
 
 ```js
 // using with fetch (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
@@ -108,7 +108,7 @@ axios(options)
       String
     </td>
     <td>
-      If <code>route</code> is set it has to be a string consisting of URL and the request method, e.g. <code>GET /orgs/:org</code>. If it’s set to a URL only the method defaults to <code>GET</code>.
+      If set, it has to be a string consisting of URL and the request method, e.g., <code>GET /orgs/:org</code>. If it’s set to a URL, only the method defaults to <code>GET</code>.
     </td>
   </tr>
   <tr>
@@ -155,7 +155,7 @@ axios(options)
     </td>
     <td>
       <strong>Required.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
-      e.g. <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
+      e.g., <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
     </td>
   </tr>
   <tr>
@@ -182,15 +182,15 @@ axios(options)
   </tr>
 </table>
 
-All other options will passed depending on the `method` and `url` options.
+All other options will be passed depending on the `method` and `url` options.
 
-1. If the option key is a placeholder in the `url`, it will be used as replacement. For example, if the passed options are `{url: '/orgs/:org/repos', org: 'foo'}` the returned `options.url` is `https://api.github.com/orgs/foo/repos`
-2. If the `method` is `GET` or `HEAD`, the option is passed as query parameter
-3. Otherwise the parameter is passed in the request body as JSON key.
+1. If the option key has a placeholder in the `url`, it will be used as the replacement. For example, if the passed options are `{url: '/orgs/:org/repos', org: 'foo'}` the returned `options.url` is `https://api.github.com/orgs/foo/repos`.
+2. If the `method` is `GET` or `HEAD`, the option is passed as a query parameter.
+3. Otherwise, the parameter is passed in the request body as a JSON key.
 
 **Result**
 
-`endpoint()` is a synchronous method and returns an object with the following keys
+`endpoint()` is a synchronous method and returns an object with the following keys:
 
 <table>
   <thead>
@@ -209,22 +209,22 @@ All other options will passed depending on the `method` and `url` options.
   <tr>
     <th align=left><code>method</code></th>
     <td>String</td>
-    <td>The http method. Always lowercase</td>
+    <td>The http method. Always lowercase.</td>
   </tr>
   <tr>
     <th align=left><code>url</code></th>
     <td>String</td>
-    <td>The url with placeholders replaced with passed parameters</td>
+    <td>The url with placeholders replaced with passed parameters.</td>
   </tr>
   <tr>
     <th align=left><code>headers</code></th>
     <td>Object</td>
-    <td>All header names are lowercased</td>
+    <td>All header names are lowercased.</td>
   </tr>
   <tr>
     <th align=left><code>body</code></th>
     <td>Any</td>
-    <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests</td>
+    <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests.</td>
   </tr>
 </table>
 
@@ -282,7 +282,7 @@ myEndpoint.DEFAULTS.baseUrl // https://github-enterprise.acme-inc.com/api/v3
 
 ### endpoint.merge()
 
-Get the defaulted endpoint options, but without parsing them into request options
+Get the defaulted endpoint options, but without parsing them into request options:
 
 ```js
 const myProjectEndpoint = endpoint.defaults({
@@ -316,14 +316,14 @@ myProjectEndpoint.merge('GET /orgs/:org/repos', {
 ### endpoint.parse()
 
 Stateless method to turn endpoint options into request options. Calling
-`endpoint(options)` is the same as calling `endpoint.parse(endpoint.merge(options))`
+`endpoint(options)` is the same as calling `endpoint.parse(endpoint.merge(options))`.
 
 ## Special cases
 
 <a name="data-parameter"></a>
 ### The `data` parameter – set request body directly
 
-Some endpoints such as [Render a Markdown document in raw mode](https://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) don’t have parameters that are sent as request body keys, instead the request body needs to be set directly. In these cases, set the `data` parameter.
+Some endpoints such as [Render a Markdown document in raw mode](https://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) don’t have parameters that are sent as request body keys, instead, the request body needs to be set directly. In these cases, set the `data` parameter.
 
 ```js
 const options = endpoint('POST /markdown/raw', {
@@ -349,7 +349,7 @@ const options = endpoint('POST /markdown/raw', {
 
 ### Set parameters for both the URL/query and the request body
 
-There are API endpoints that accept both query parameters as well as a body. In that case you need to add the query parameters as templates to `options.url`, as defined in the [RFC 6570 URI Template specification](https://tools.ietf.org/html/rfc6570).
+There are API endpoints that accept both query parameters as well as a body. In that case, you need to add the query parameters as templates to `options.url`, as defined in the [RFC 6570 URI Template specification](https://tools.ietf.org/html/rfc6570).
 
 Example
 
