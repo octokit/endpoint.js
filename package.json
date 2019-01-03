@@ -13,8 +13,8 @@
   "scripts": {
     "prebuild": "mkdirp dist/",
     "build": "npm-run-all build:*",
-    "build:development": "webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-endpoint.js --profile --json > dist/bundle-stats.json",
-    "build:production": "webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-endpoint.min.js --devtool source-map",
+    "build:development": "webpack --mode development --entry . --output-library=octokitEndpoint --output=./dist/octokit-endpoint.js --profile --json > dist/bundle-stats.json",
+    "build:production": "webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=octokitEndpoint --output-path=./dist --output-filename=octokit-endpoint.min.js --devtool source-map",
     "bundle-report": "webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html",
     "coverage": "nyc report --reporter=html && open coverage/index.html",
     "coverage:upload": "nyc report --reporter=text-lcov | coveralls",
