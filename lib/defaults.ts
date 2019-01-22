@@ -1,9 +1,10 @@
-const getUserAgent = require('universal-user-agent')
+import getUserAgent = require('universal-user-agent')
 
-const version = require('../package.json').version
+import packageJson = require('../package.json')
+const version = packageJson.version
 const userAgent = `octokit-endpoint.js/${version} ${getUserAgent()}`
 
-module.exports = {
+export = {
   method: 'GET',
   baseUrl: 'https://api.github.com',
   headers: {

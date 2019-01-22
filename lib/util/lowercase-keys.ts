@@ -1,6 +1,4 @@
-module.exports = lowercaseKeys
-
-function lowercaseKeys (object) {
+export = function lowercaseKeys (object?: any) {
   if (!object) {
     return {}
   }

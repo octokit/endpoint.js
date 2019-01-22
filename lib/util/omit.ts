@@ -1,6 +1,4 @@
-module.exports = omit
-
-function omit (object, keysToOmit) {
+export = function omit (object: {}, keysToOmit: string[]) {
   return Object.keys(object)
     .filter((option) => !keysToOmit.includes(option))
     .reduce((obj, key) => {

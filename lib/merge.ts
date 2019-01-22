@@ -1,11 +1,9 @@
-module.exports = defaultOptions
+import merge = require('deepmerge')
+import isPlainObject = require('is-plain-object')
 
-const merge = require('deepmerge')
-const isPlainObject = require('is-plain-object')
+import lowercaseKeys = require('./util/lowercase-keys')
 
-const lowercaseKeys = require('./util/lowercase-keys')
-
-function defaultOptions (defaults, route, options) {
+export = function defaultOptions (defaults, route, options?: any) {
   if (typeof route === 'string') {
     let [method, url] = route.split(' ')
     options = Object.assign(url ? { method, url } : { url: method }, options)

@@ -1,6 +1,6 @@
-const endpointWithDefaults = require('./lib/endpoint-with-defaults')
-const merge = require('./lib/merge')
-const parse = require('./lib/parse')
+import endpointWithDefaults = require('./lib/endpoint-with-defaults')
+import merge = require('./lib/merge')
+import parse = require('./lib/parse')
 
 export = function withDefaults (oldDefaults, newDefaults) {
   const DEFAULTS = merge(oldDefaults, newDefaults)

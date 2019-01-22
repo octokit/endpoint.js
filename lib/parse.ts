@@ -1,18 +1,16 @@
-module.exports = toRequestOptions
+import urlTemplate = require('url-template')
+import addQueryParameters = require('./util/add-query-parameters')
+import extractUrlVariableNames = require('./util/extract-url-variable-names')
+import omit = require('./util/omit')
 
-const urlTemplate = require('url-template')
-const addQueryParameters = require('./util/add-query-parameters')
-const extractUrlVariableNames = require('./util/extract-url-variable-names')
-const omit = require('./util/omit')
-
-function toRequestOptions (options) {
+export = function toRequestOptions (options: { method?: string; url?: string; headers?: { accept?: string; [header: string]: string | number }; baseUrl?: string; request?: any; mediaType?: { format?: string; previews?: string[]}}) {
   // https://fetch.spec.whatwg.org/#methods
   let method = options.method.toUpperCase()
 
   // replace :varname with {varname} to make it RFC 6570 compatible
   let url = options.url.replace(/:([a-z]\w+)/g, '{+$1}')
   let headers = Object.assign({}, options.headers)
-  let body
+  let body: string | {}
   let parameters = omit(options, ['method', 'baseUrl', 'url', 'headers', 'request', 'mediaType'])
 
   // extract variable names from URL to calculate remaining variables later
@@ -52,7 +50,7 @@ function toRequestOptions (options) {
     url = addQueryParameters(url, remainingParameters)
   } else {
     if ('data' in remainingParameters) {
-      body = remainingParameters.data
+      body = (remainingParameters as any).data
     } else {
       if (Object.keys(remainingParameters).length) {
         body = remainingParameters

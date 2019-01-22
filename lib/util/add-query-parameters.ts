@@ -1,6 +1,4 @@
-module.exports = addQueryParameters
-
-function addQueryParameters (url, parameters) {
+export = function addQueryParameters (url: string, parameters: { [x: string]: string; q?: any; }) {
   const separator = /\?/.test(url) ? '&' : '?'
   const names = Object.keys(parameters)
 
