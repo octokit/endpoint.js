@@ -40,6 +40,10 @@
   },
   "homepage": "https://github.com/octokit/endpoint.js#readme",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/sinon-chai": "^3.2.2",
+    "@types/url-template": "^2.0.28",
     "chai": "^4.2.0",
     "compression-webpack-plugin": "^2.0.0",
     "coveralls": "^3.0.2",
