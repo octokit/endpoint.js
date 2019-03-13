@@ -307,7 +307,7 @@ describe('endpoint()', () => {
       method: 'GET',
       url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
       headers: {
-        accept: 'application/vnd.symmetra-preview+json',
+        accept: 'application/vnd.github.symmetra-preview+json',
         'user-agent': userAgent
       }
     })
@@ -329,7 +329,7 @@ describe('endpoint()', () => {
       method: 'GET',
       url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
       headers: {
-        accept: 'application/vnd.jean-grey-preview+json,application/vnd.symmetra-preview+json',
+        accept: 'application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json',
         'user-agent': userAgent
       }
     })
@@ -352,7 +352,7 @@ describe('endpoint()', () => {
       method: 'GET',
       url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
       headers: {
-        accept: 'application/vnd.symmetra-preview.raw',
+        accept: 'application/vnd.github.symmetra-preview.raw',
         'user-agent': userAgent
       }
     })
@@ -378,7 +378,7 @@ describe('endpoint()', () => {
       method: 'GET',
       url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
       headers: {
-        accept: 'application/vnd.foo-preview.raw,application/vnd.bar-preview.raw,application/vnd.symmetra-preview.raw',
+        accept: 'application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.symmetra-preview.raw',
         'user-agent': userAgent
       }
     })
