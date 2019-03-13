@@ -118,4 +118,26 @@ describe('endpoint.defaults()', () => {
       previews: ['foo', 'bar']
     })
   })
+
+  it('.defaults() merges mediatType.previews with "-preview" suffix', () => {
+    const myEndpoint = endpoint.defaults({
+      mediaType: {
+        previews: ['foo-preview']
+      }
+    })
+    const myEndpoint2 = myEndpoint.defaults({
+      mediaType: {
+        previews: ['bar-preview']
+      }
+    })
+
+    expect(myEndpoint.DEFAULTS.mediaType).to.deep.equal({
+      format: '',
+      previews: ['foo']
+    })
+    expect(myEndpoint2.DEFAULTS.mediaType).to.deep.equal({
+      format: '',
+      previews: ['foo', 'bar']
+    })
+  })
 })
