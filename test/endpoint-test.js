@@ -313,6 +313,28 @@ describe('endpoint()', () => {
     })
   })
 
+  it('options.mediaType.previews with -preview suffix', () => {
+    const options = endpoint({
+      method: 'get',
+      url: '/repos/:owner/:repo/issues/:number',
+      mediaType: {
+        previews: ['jean-grey-preview', 'symmetra-preview']
+      },
+      owner: 'octokit',
+      repo: 'endpoint.js',
+      number: 123
+    })
+
+    expect(options).to.deep.equal({
+      method: 'GET',
+      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      headers: {
+        accept: 'application/vnd.jean-grey-preview+json,application/vnd.symmetra-preview+json',
+        'user-agent': userAgent
+      }
+    })
+  })
+
   it('options.mediaType.format + options.mediaType.previews', () => {
     const options = endpoint({
       method: 'get',
