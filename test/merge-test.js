@@ -31,6 +31,10 @@ describe('endpoint.merge()', () => {
 
     expect(options).to.deep.equal({
       baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
+      mediaType: {
+        format: '',
+        previews: []
+      },
       method: 'GET',
       url: '/orgs/:org/repos',
       headers: {
@@ -61,6 +65,10 @@ describe('endpoint.merge()', () => {
 
     expect(options).to.deep.equal({
       baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
+      mediaType: {
+        format: '',
+        previews: []
+      },
       method: 'GET',
       url: '/orgs/:org/repos',
       headers: {
@@ -76,6 +84,10 @@ describe('endpoint.merge()', () => {
     const options = endpoint.merge()
     expect(options).to.deep.equal({
       baseUrl: 'https://api.github.com',
+      mediaType: {
+        format: '',
+        previews: []
+      },
       method: 'GET',
       headers: {
         accept: 'application/vnd.github.v3+json',
