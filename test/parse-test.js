@@ -21,4 +21,21 @@ describe('endpoint.parse()', () => {
 
     expect(endpoint(input)).to.deep.equal(endpoint.parse(endpoint.merge(input)))
   })
+
+  it('does not alter input options', () => {
+    const input = {
+      method: 'get',
+      url: '/',
+      headers: {
+        accept: 'application/vnd.github.v3+json'
+      },
+      mediaType: {
+        previews: ['foo', 'bar']
+      }
+    }
+
+    endpoint.parse(input)
+
+    expect(input.headers.accept).to.equal('application/vnd.github.v3+json')
+  })
 })
