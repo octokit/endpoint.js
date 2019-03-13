@@ -357,4 +357,30 @@ describe('endpoint()', () => {
       }
     })
   })
+
+  it('options.mediaType.format + options.mediaType.previews + accept header', () => {
+    const options = endpoint({
+      method: 'get',
+      url: '/repos/:owner/:repo/issues/:number',
+      headers: {
+        accept: 'application/vnd.foo-preview,application/vnd.bar-preview'
+      },
+      mediaType: {
+        format: 'raw',
+        previews: ['symmetra']
+      },
+      owner: 'octokit',
+      repo: 'endpoint.js',
+      number: 123
+    })
+
+    expect(options).to.deep.equal({
+      method: 'GET',
+      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      headers: {
+        accept: 'application/vnd.foo-preview.raw,application/vnd.bar-preview.raw,application/vnd.symmetra-preview.raw',
+        'user-agent': userAgent
+      }
+    })
+  })
 })
