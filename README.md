@@ -137,6 +137,28 @@ axios(options)
   </tr>
   <tr>
     <th align=left>
+      <code>options.mediaType.format</code>
+    </th>
+    <td>
+      String
+    </td>
+    <td>
+      Media type param, such as <code>raw</code>, <code>diff</code>, or <code>text+json</code>. See <a href="https://developer.github.com/v3/media/">Media Types</a>. Setting <code>options.mediaType.format</code> will amend the <code>headers.accept</code> value.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.mediaType.previews</code>
+    </th>
+    <td>
+      Array of Strings
+    </td>
+    <td>
+      Name of previews, such as <code>mercy</code>, <code>symmetra</code>, or <code>scarlet-witch</code>. See <a href="https://developer.github.com/v3/previews/">API Previews</a>. If <code>options.mediaType.previews</code> was set as default, the new previews will be merged into the default ones. Setting <code>options.mediaType.previews</code> will amend the <code>headers.accept</code> value. <code>options.mediaType.previews</code> will be merged with an existing array set using <code>.defaults()</code>.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
       <code>options.method</code>
     </th>
     <td>
