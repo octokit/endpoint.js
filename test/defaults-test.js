@@ -70,7 +70,7 @@ describe('endpoint.defaults()', () => {
     expect(myEndpoint.DEFAULTS.baseUrl).to.equal('https://github-enterprise.acme-inc.com/api/v3')
   })
 
-  it('.defaults() merges options but does not yet parse ', () => {
+  it('.defaults() merges options but does not yet parse', () => {
     const myEndpoint = endpoint.defaults({
       url: '/orgs/:org',
       org: 'test1'
@@ -83,5 +83,39 @@ describe('endpoint.defaults()', () => {
     })
     expect(myEndpoint2.DEFAULTS.url).to.equal('/orgs/:org')
     expect(myEndpoint2.DEFAULTS.org).to.equal('test2')
+  })
+
+  it('.defaults() sets mediatType.format', () => {
+    const myEndpoint = endpoint.defaults({
+      mediaType: {
+        format: 'raw'
+      }
+    })
+    expect(myEndpoint.DEFAULTS.mediaType).to.deep.equal({
+      format: 'raw',
+      previews: []
+    })
+  })
+
+  it('.defaults() merges mediatType.previews', () => {
+    const myEndpoint = endpoint.defaults({
+      mediaType: {
+        previews: ['foo']
+      }
+    })
+    const myEndpoint2 = myEndpoint.defaults({
+      mediaType: {
+        previews: ['bar']
+      }
+    })
+
+    expect(myEndpoint.DEFAULTS.mediaType).to.deep.equal({
+      format: '',
+      previews: ['foo']
+    })
+    expect(myEndpoint2.DEFAULTS.mediaType).to.deep.equal({
+      format: '',
+      previews: ['foo', 'bar']
+    })
   })
 })

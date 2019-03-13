@@ -268,4 +268,71 @@ describe('endpoint()', () => {
     expect(endpoint('/').method).to.equal('GET')
     expect(endpoint('https://github.acme-inc/api/v3/').url).to.equal('https://github.acme-inc/api/v3/')
   })
+
+  it('options.mediaType.format', () => {
+    const options = endpoint({
+      method: 'get',
+      url: '/repos/:owner/:repo/issues/:number',
+      mediaType: {
+        format: 'raw'
+      },
+      owner: 'octokit',
+      repo: 'endpoint.js',
+      number: 123
+    })
+
+    expect(options).to.deep.equal({
+      method: 'GET',
+      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      headers: {
+        accept: 'application/vnd.github.v3.raw',
+        'user-agent': userAgent
+      }
+    })
+  })
+
+  it('options.mediaType.previews', () => {
+    const options = endpoint({
+      method: 'get',
+      url: '/repos/:owner/:repo/issues/:number',
+      mediaType: {
+        previews: ['symmetra']
+      },
+      owner: 'octokit',
+      repo: 'endpoint.js',
+      number: 123
+    })
+
+    expect(options).to.deep.equal({
+      method: 'GET',
+      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      headers: {
+        accept: 'application/vnd.symmetra-preview+json',
+        'user-agent': userAgent
+      }
+    })
+  })
+
+  it('options.mediaType.format + options.mediaType.previews', () => {
+    const options = endpoint({
+      method: 'get',
+      url: '/repos/:owner/:repo/issues/:number',
+      mediaType: {
+        format: 'raw',
+        previews: ['symmetra']
+      },
+      owner: 'octokit',
+      repo: 'endpoint.js',
+      number: 123
+    })
+
+    expect(options).to.deep.equal({
+      method: 'GET',
+      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      headers: {
+        accept: 'application/vnd.symmetra-preview.raw',
+        'user-agent': userAgent
+      }
+    })
+  })
 })
