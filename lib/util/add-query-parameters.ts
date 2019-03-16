@@ -1,4 +1,4 @@
-export = function addQueryParameters (url: string, parameters: { [x: string]: string; q?: any; }) {
+export = function addQueryParameters (url: string, parameters: { [x: string]: string | undefined; q?: string; }) {
   const separator = /\?/.test(url) ? '&' : '?'
   const names = Object.keys(parameters)
 
@@ -9,12 +9,12 @@ export = function addQueryParameters (url: string, parameters: { [x: string]: st
   return url + separator + names
     .map(name => {
       if (name === 'q') {
-        return 'q=' + parameters.q.split('+')
+        return 'q=' + parameters.q!.split('+')
           .map(encodeURIComponent)
           .join('+')
       }
 
-      return `${name}=${encodeURIComponent(parameters[name])}`
+      return `${name}=${encodeURIComponent(parameters[name]!)}`
     })
     .join('&')
 }
