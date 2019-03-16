@@ -1,6 +1,6 @@
-const merge = require('./merge')
-const parse = require('./parse')
+import merge = require('./merge')
+import parse = require('./parse')
 
-export = function endpointWithDefaults (defaults, route, options) {
+export = function endpointWithDefaults (defaults: any, route: any, options: any) {
   return parse(merge(defaults, route, options))
 }

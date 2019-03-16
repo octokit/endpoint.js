@@ -3,7 +3,7 @@ import isPlainObject = require('is-plain-object')
 
 import lowercaseKeys = require('./util/lowercase-keys')
 
-export = function defaultOptions (defaults, route, options?: any) {
+export = function defaultOptions (defaults: typeof import('./defaults'), route: any, options?: any) {
   if (typeof route === 'string') {
     let [method, url] = route.split(' ')
     options = Object.assign(url ? { method, url } : { url: method }, options)
@@ -18,11 +18,11 @@ export = function defaultOptions (defaults, route, options?: any) {
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {
-    options.mediaType.previews = defaults.mediaType.previews.filter(preview => !options.mediaType.previews.includes(preview))
+    options.mediaType.previews = defaults.mediaType.previews .filter(preview => !options.mediaType.previews.includes(preview))
       .concat(options.mediaType.previews)
   }
 
-  options.mediaType.previews = options.mediaType.previews.map(preview => preview.replace(/-preview/, ''))
+  options.mediaType.previews = options.mediaType.previews.map((preview: string) => preview.replace(/-preview/, ''))
 
   return options
 }

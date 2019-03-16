@@ -13,6 +13,6 @@ export = {
   },
   mediaType: {
     format: '',
-    previews: []
+    previews: [] as string[]
   }
 }
