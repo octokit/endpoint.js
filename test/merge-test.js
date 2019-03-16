@@ -2,7 +2,7 @@ const chai = require('chai')
 const getUserAgent = require('universal-user-agent')
 const sinonChai = require('sinon-chai')
 
-const endpoint = require('..')
+const endpoint = require('../dist')
 const pkg = require('../package.json')
 const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`
 
