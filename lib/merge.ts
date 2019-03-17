@@ -18,7 +18,7 @@ export = function defaultOptions (defaults: typeof import('./defaults') | null, 
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {
-    options.mediaType.previews = defaults.mediaType.previews .filter(preview => !options.mediaType.previews.includes(preview))
+    options.mediaType.previews = defaults.mediaType.previews.filter(preview => !options.mediaType.previews.includes(preview))
       .concat(options.mediaType.previews)
   }
 

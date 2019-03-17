@@ -1,4 +1,6 @@
-export = function lowercaseKeys (object?: { [key: string]: any}) {
+export = lowercaseKeys
+
+function lowercaseKeys (object?: { [key: string]: any}) {
   if (!object) {
     return {}
   }
