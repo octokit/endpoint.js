@@ -1,3 +1,5 @@
+export = withDefaults
+
 import endpointWithDefaults = require('./lib/endpoint-with-defaults')
 import merge = require('./lib/merge')
 import parse = require('./lib/parse')
@@ -29,5 +31,3 @@ function withDefaults(oldDefaults: typeof import('./lib/defaults') | null, newDe
     parse
   })
 }
-
-export = withDefaults

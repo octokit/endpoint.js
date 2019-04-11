@@ -1,3 +1,5 @@
+export = toRequestOptions
+
 import urlTemplate = require('url-template')
 import addQueryParameters = require('./util/add-query-parameters')
 import extractUrlVariableNames = require('./util/extract-url-variable-names')
@@ -17,7 +19,7 @@ interface toRequestOptions {
     previews: string[];
   }
 }
-export = function toRequestOptions(options: toRequestOptions) {
+function toRequestOptions(options: toRequestOptions) {
   // https://fetch.spec.whatwg.org/#methods
   let method = options.method.toUpperCase()
 
