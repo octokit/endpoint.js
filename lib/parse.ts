@@ -66,7 +66,7 @@ function toRequestOptions(options: toRequestOptions) {
     url = addQueryParameters(url, remainingParameters)
   } else {
     if ('data' in remainingParameters) {
-      body = (remainingParameters as any).data
+      body = remainingParameters.data
     } else {
       if (Object.keys(remainingParameters).length) {
         body = remainingParameters
