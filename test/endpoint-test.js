@@ -6,7 +6,7 @@ const sinonChai = require('sinon-chai')
 chai.use(sinonChai)
 const expect = chai.expect
 
-const endpoint = require('../dist')
+const endpoint = require('../ts-dist')
 
 const pkg = require('../package.json')
 const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`
