@@ -4,7 +4,7 @@ import endpointWithDefaults = require('./lib/endpoint-with-defaults')
 import merge = require('./lib/merge')
 import parse = require('./lib/parse')
 
-interface withDefaultsReturn {
+interface withDefaults {
   (route: any, options: any): any
   DEFAULTS: (typeof import('./lib/defaults') | null) & any
   defaults: (newDefaults: {
@@ -18,11 +18,11 @@ interface withDefaultsReturn {
       format: string;
       previews: string[];
     };
-  }) => withDefaultsReturn;
+  }) => withDefaults;
   merge: (route: any, options?: any) => typeof import('./lib/defaults')
 }
 
-function withDefaults(oldDefaults: typeof import('./lib/defaults') | null, newDefaults: typeof import('./lib/defaults')): withDefaultsReturn {
+function withDefaults(oldDefaults: typeof import('./lib/defaults') | null, newDefaults: typeof import('./lib/defaults')): withDefaults {
   const DEFAULTS: typeof oldDefaults & typeof newDefaults = merge(oldDefaults, newDefaults)
   return Object.assign(endpointWithDefaults.bind(null, DEFAULTS), {
     DEFAULTS,
