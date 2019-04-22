@@ -1,12 +1,12 @@
 export = withDefaults
 
-import endpointWithDefaults = require('./lib/endpoint-with-defaults')
-import merge = require('./lib/merge')
-import parse = require('./lib/parse')
+import endpointWithDefaults = require('./endpoint-with-defaults')
+import merge = require('./merge')
+import parse = require('./parse')
 
 interface withDefaults {
   (route: any, options: any): any
-  DEFAULTS: (typeof import('./lib/defaults') | null) & any
+  DEFAULTS: (typeof import('./defaults') | null) & any
   defaults: (newDefaults: {
     method: string;
     baseUrl: string;
@@ -19,10 +19,10 @@ interface withDefaults {
       previews: string[];
     };
   }) => withDefaults;
-  merge: (route: any, options?: any) => typeof import('./lib/defaults')
+  merge: (route: any, options?: any) => typeof import('./defaults')
 }
 
-function withDefaults(oldDefaults: typeof import('./lib/defaults') | null, newDefaults: typeof import('./lib/defaults')): withDefaults {
+function withDefaults(oldDefaults: typeof import('./defaults') | null, newDefaults: typeof import('./defaults')): withDefaults {
   const DEFAULTS: typeof oldDefaults & typeof newDefaults = merge(oldDefaults, newDefaults)
   return Object.assign(endpointWithDefaults.bind(null, DEFAULTS), {
     DEFAULTS,
