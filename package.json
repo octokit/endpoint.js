@@ -6,7 +6,7 @@
     "tag": "latest"
   },
   "description": "Turns REST API endpoints into generic request options",
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
@@ -14,8 +14,8 @@
     "prebuild": "mkdirp dist/",
     "build": "npm-run-all build:*",
     "build:ts": "tsc -p tsconfig.json",
-    "build:development": "webpack --mode development --entry ./ts-dist --output-library=octokitEndpoint --output=./dist/octokit-endpoint.js --profile --json > dist/bundle-stats.json",
-    "build:production": "webpack --mode production --entry ./ts-dist --plugin=compression-webpack-plugin --output-library=octokitEndpoint --output-path=./dist --output-filename=octokit-endpoint.min.js --devtool source-map",
+    "build:development": "webpack --mode development --entry ./lib --output-library=octokitEndpoint --output=./dist/octokit-endpoint.js --profile --json > dist/bundle-stats.json",
+    "build:production": "webpack --mode production --entry ./lib --plugin=compression-webpack-plugin --output-library=octokitEndpoint --output-path=./dist --output-filename=octokit-endpoint.min.js --devtool source-map",
     "bundle-report": "webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html",
     "coverage": "nyc report --reporter=html && open coverage/index.html",
     "coverage:upload": "nyc report --reporter=text-lcov | coveralls",
@@ -98,7 +98,6 @@
     ]
   },
   "files": [
-    "lib",
-    "with-defaults.js"
+    "lib"
   ]
 }
