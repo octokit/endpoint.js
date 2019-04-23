@@ -1,7 +1,7 @@
 const chai = require('chai')
 const sinonChai = require('sinon-chai')
 
-const endpoint = require('../ts-dist')
+const endpoint = require('../lib')
 
 const expect = chai.expect
 chai.use(sinonChai)
