@@ -75,15 +75,14 @@
     }
   ],
   "release": {
-    "publish": [
-      "@semantic-release/npm",
-      {
-        "path": "@semantic-release/github",
+    "plugins": [
+      ["@semantic-release/github", {
         "assets": [
           "dist/*",
           "!dist/*.map.gz"
         ]
-      }
+      }],
+      "./scripts/semantic-release-create-version.js"
     ]
   },
   "standard": {

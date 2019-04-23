@@ -1,7 +1,6 @@
 import getUserAgent = require('universal-user-agent')
 
-import packageJson = require('../package.json')
-const version = packageJson.version
+const version = require('./version')
 const userAgent = `octokit-endpoint.js/${version} ${getUserAgent()}`
 
 export = {
