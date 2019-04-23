@@ -1,7 +1,11 @@
-module.exports = extractUrlVariableName
+export = extractUrlVariableName
 
 const urlVariableRegex = /\{[^}]+\}/g
-function extractUrlVariableName (url) {
+
+function removeNonChars (variableName: string) {
+  return variableName.replace(/^\W+|\W+$/g, '').split(/,/)
+}
+function extractUrlVariableName (url: string) {
   const matches = url.match(urlVariableRegex)
 
   if (!matches) {
@@ -9,8 +13,4 @@ function extractUrlVariableName (url) {
   }
 
   return matches.map(removeNonChars).reduce((a, b) => a.concat(b), [])
-}
-
-function removeNonChars (variableName) {
-  return variableName.replace(/^\W+|\W+$/g, '').split(/,/)
 }

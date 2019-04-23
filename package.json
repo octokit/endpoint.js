@@ -6,19 +6,20 @@
     "tag": "latest"
   },
   "description": "Turns REST API endpoints into generic request options",
-  "main": "index.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "prebuild": "mkdirp dist/",
     "build": "npm-run-all build:*",
-    "build:development": "webpack --mode development --entry . --output-library=octokitEndpoint --output=./dist/octokit-endpoint.js --profile --json > dist/bundle-stats.json",
-    "build:production": "webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=octokitEndpoint --output-path=./dist --output-filename=octokit-endpoint.min.js --devtool source-map",
+    "build:ts": "tsc -p tsconfig.json",
+    "build:development": "webpack --mode development --entry ./lib --output-library=octokitEndpoint --output=./dist/octokit-endpoint.js --profile --json > dist/bundle-stats.json",
+    "build:production": "webpack --mode production --entry ./lib --plugin=compression-webpack-plugin --output-library=octokitEndpoint --output-path=./dist --output-filename=octokit-endpoint.min.js --devtool source-map",
     "bundle-report": "webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html",
     "coverage": "nyc report --reporter=html && open coverage/index.html",
     "coverage:upload": "nyc report --reporter=text-lcov | coveralls",
-    "pretest": "standard && standard-markdown *.md",
+    "pretest": "standard && standard-markdown *.md && npm run build:ts",
     "test": "nyc mocha test/*-test.js",
     "test:browser": "cypress run --browser chrome",
     "semantic-release": "semantic-release"
@@ -40,6 +41,10 @@
   },
   "homepage": "https://github.com/octokit/endpoint.js#readme",
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "@types/sinon-chai": "^3.2.2",
+    "@types/url-template": "^2.0.28",
     "chai": "^4.2.0",
     "compression-webpack-plugin": "^2.0.0",
     "coveralls": "^3.0.2",
@@ -52,6 +57,7 @@
     "sinon-chai": "^3.2.0",
     "standard": "^12.0.1",
     "standard-markdown": "^5.0.1",
+    "typescript": "^3.3.3333",
     "webpack": "^4.21.0",
     "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2"
@@ -69,15 +75,14 @@
     }
   ],
   "release": {
-    "publish": [
-      "@semantic-release/npm",
-      {
-        "path": "@semantic-release/github",
+    "plugins": [
+      ["@semantic-release/github", {
         "assets": [
           "dist/*",
           "!dist/*.map.gz"
         ]
-      }
+      }],
+      "./scripts/semantic-release-create-version.js"
     ]
   },
   "standard": {
@@ -92,7 +97,6 @@
     ]
   },
   "files": [
-    "lib",
-    "with-defaults.js"
+    "lib"
   ]
 }
