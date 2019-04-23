@@ -7,6 +7,7 @@
   },
   "description": "Turns REST API endpoints into generic request options",
   "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "directories": {
     "test": "test"
   },
@@ -76,13 +77,16 @@
   ],
   "release": {
     "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
       ["@semantic-release/github", {
         "assets": [
           "dist/*",
           "!dist/*.map.gz"
         ]
       }],
-      "./scripts/semantic-release-create-version.js"
+      "./scripts/semantic-release-create-version.js",
+      "@semantic-release/npm"
     ]
   },
   "standard": {
