@@ -5,7 +5,11 @@ import isPlainObject = require('is-plain-object')
 
 import lowercaseKeys = require('./util/lowercase-keys')
 
-function defaultOptions (defaults: typeof import('./defaults') | null, route: string | {}, options?: any) {
+import { EndpointDefaultOptions, Route, RouteOptions } from './types'
+
+type Defaults = EndpointDefaultOptions | null
+
+function defaultOptions (defaults: Defaults, route: Route | RouteOptions, options?: RouteOptions) {
   if (typeof route === 'string') {
     let [method, url] = route.split(' ')
     options = Object.assign(url ? { method, url } : { url: method }, options)
@@ -16,15 +20,15 @@ function defaultOptions (defaults: typeof import('./defaults') | null, route: st
   // lowercase header names before merging with defaults to avoid duplicates
   options.headers = lowercaseKeys(options.headers)
 
-  options = merge.all([defaults, options].filter(Boolean), { isMergeableObject: isPlainObject })
+  const mergedOptions = merge.all([defaults!, options].filter(Boolean), { isMergeableObject: isPlainObject }) as EndpointDefaultOptions
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {
-    options.mediaType.previews = defaults.mediaType.previews.filter(preview => !options.mediaType.previews.includes(preview))
-      .concat(options.mediaType.previews)
+    mergedOptions.mediaType.previews = defaults.mediaType.previews.filter(preview => !mergedOptions.mediaType.previews.includes(preview))
+      .concat(mergedOptions.mediaType.previews)
   }
 
-  options.mediaType.previews = options.mediaType.previews.map((preview: string) => preview.replace(/-preview/, ''))
+  mergedOptions.mediaType.previews = mergedOptions.mediaType.previews.map((preview: string) => preview.replace(/-preview/, ''))
 
-  return options
+  return mergedOptions
 }

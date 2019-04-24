@@ -5,28 +5,16 @@ import addQueryParameters = require('./util/add-query-parameters')
 import extractUrlVariableNames = require('./util/extract-url-variable-names')
 import omit = require('./util/omit')
 
-interface toRequestOptions {
-  method: string;
-  url: string;
-  headers?: {
-    accept: string;
-    [header: string]: string | number | undefined
-  };
-  baseUrl?: string;
-  request?: any;
-  mediaType: {
-    format?: string;
-    previews: string[];
-  }
-}
-function toRequestOptions (options: toRequestOptions) {
+import { EndpointDefaultOptions, Method, RequestOptions } from './types'
+
+function toRequestOptions(options: EndpointDefaultOptions): RequestOptions {
   // https://fetch.spec.whatwg.org/#methods
-  let method = options.method.toUpperCase()
+  let method = options.method.toUpperCase() as Method
 
   // replace :varname with {varname} to make it RFC 6570 compatible
   let url = options.url.replace(/:([a-z]\w+)/g, '{+$1}')
   let headers = Object.assign({}, options.headers)
-  let body: string | {} | undefined
+  let body: string | object | undefined
   let parameters = omit(options, ['method', 'baseUrl', 'url', 'headers', 'request', 'mediaType'])
 
   // extract variable names from URL to calculate remaining variables later
@@ -89,7 +77,7 @@ function toRequestOptions (options: toRequestOptions) {
 
   // Only return body/request keys if present
   return Object.assign(
-    { method: method, url, headers },
+    { method, url, headers },
     typeof body !== 'undefined' ? { body } : null,
     options.request ? { request: options.request } : null
   )
