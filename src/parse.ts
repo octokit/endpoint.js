@@ -19,7 +19,7 @@ interface toRequestOptions {
     previews: string[];
   }
 }
-function toRequestOptions(options: toRequestOptions) {
+function toRequestOptions (options: toRequestOptions) {
   // https://fetch.spec.whatwg.org/#methods
   let method = options.method.toUpperCase()
 
@@ -81,7 +81,7 @@ function toRequestOptions(options: toRequestOptions) {
     headers['content-type'] = 'application/json; charset=utf-8'
   }
 
-  // GitHub expects "content-length: 0" header for PUT/PATCH requests without body.
+  // GitHub expects 'content-length: 0' header for PUT/PATCH requests without body.
   // fetch does not allow to set `content-length` header, but we can set body to an empty string
   if (['PATCH', 'PUT'].includes(method) && typeof body === 'undefined') {
     body = ''

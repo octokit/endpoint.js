@@ -22,7 +22,7 @@ interface withDefaults {
   merge: (route: any, options?: any) => typeof import('./defaults')
 }
 
-function withDefaults(oldDefaults: typeof import('./defaults') | null, newDefaults: typeof import('./defaults')): withDefaults {
+function withDefaults (oldDefaults: typeof import('./defaults') | null, newDefaults: typeof import('./defaults')): withDefaults {
   const DEFAULTS: typeof oldDefaults & typeof newDefaults = merge(oldDefaults, newDefaults)
   return Object.assign(endpointWithDefaults.bind(null, DEFAULTS), {
     DEFAULTS,
