@@ -1,386 +1,391 @@
-const Agent = require('http').Agent
+const Agent = require("http").Agent;
 
-const chai = require('chai')
-const getUserAgent = require('universal-user-agent')
-const sinonChai = require('sinon-chai')
-chai.use(sinonChai)
-const expect = chai.expect
+const chai = require("chai");
+const getUserAgent = require("universal-user-agent");
+const sinonChai = require("sinon-chai");
+chai.use(sinonChai);
+const expect = chai.expect;
 
-const endpoint = require('../lib')
+const endpoint = require("../lib");
 
-const pkg = require('../package.json')
-const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`
+const pkg = require("../package.json");
+const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`;
 
-describe('endpoint()', () => {
-  it('is a function', () => {
-    expect(endpoint).to.be.a('function')
-  })
+describe("endpoint()", () => {
+  it("is a function", () => {
+    expect(endpoint).to.be.a("function");
+  });
 
-  it('README example', () => {
+  it("README example", () => {
     const options = endpoint({
-      method: 'get',
-      url: '/orgs/:org/repos',
-      org: 'octokit',
-      type: 'private'
-    })
+      method: "get",
+      url: "/orgs/:org/repos",
+      org: "octokit",
+      type: "private"
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/orgs/octokit/repos?type=private',
+      method: "GET",
+      url: "https://api.github.com/orgs/octokit/repos?type=private",
       headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('Pass route string as first argument', () => {
-    const options = endpoint('GET /orgs/:org/repos', {
-      org: 'octokit',
-      type: 'private'
-    })
+  it("Pass route string as first argument", () => {
+    const options = endpoint("GET /orgs/:org/repos", {
+      org: "octokit",
+      type: "private"
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/orgs/octokit/repos?type=private',
+      method: "GET",
+      url: "https://api.github.com/orgs/octokit/repos?type=private",
       headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('Pass route string as first argument without options', () => {
-    const options = endpoint('GET /')
+  it("Pass route string as first argument without options", () => {
+    const options = endpoint("GET /");
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/',
+      method: "GET",
+      url: "https://api.github.com/",
       headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('Custom user-agent header', () => {
-    const options = endpoint('GET /', {
+  it("Custom user-agent header", () => {
+    const options = endpoint("GET /", {
       headers: {
         // also test that header keys get lowercased
-        'User-Agent': 'my-app/1.2.3'
+        "User-Agent": "my-app/1.2.3"
       }
-    })
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/',
+      method: "GET",
+      url: "https://api.github.com/",
       headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': 'my-app/1.2.3'
+        accept: "application/vnd.github.v3+json",
+        "user-agent": "my-app/1.2.3"
       }
-    })
-  })
+    });
+  });
 
-  it('Full URL', () => {
-    const options = endpoint('GET https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master')
+  it("Full URL", () => {
+    const options = endpoint(
+      "GET https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master"
+    );
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master',
+      method: "GET",
+      url:
+        "https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master",
       headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('Request body', () => {
-    const options = endpoint('POST /repos/:owner/:repo/issues', {
-      owner: 'octocat',
-      repo: 'hello-world',
+  it("Request body", () => {
+    const options = endpoint("POST /repos/:owner/:repo/issues", {
+      owner: "octocat",
+      repo: "hello-world",
       headers: {
-        accept: 'text/html;charset=utf-8'
+        accept: "text/html;charset=utf-8"
       },
-      title: 'Found a bug',
+      title: "Found a bug",
       body: "I'm having a problem with this.",
-      assignees: [
-        'octocat'
-      ],
+      assignees: ["octocat"],
       milestone: 1,
-      labels: [
-        'bug'
-      ]
-    })
+      labels: ["bug"]
+    });
 
     expect(options).to.deep.equal({
-      method: 'POST',
-      url: 'https://api.github.com/repos/octocat/hello-world/issues',
+      method: "POST",
+      url: "https://api.github.com/repos/octocat/hello-world/issues",
       headers: {
-        accept: 'text/html;charset=utf-8',
-        'content-type': 'application/json; charset=utf-8',
-        'user-agent': userAgent
+        accept: "text/html;charset=utf-8",
+        "content-type": "application/json; charset=utf-8",
+        "user-agent": userAgent
       },
       body: {
-        assignees: [
-          'octocat'
-        ],
-        body: 'I\'m having a problem with this.',
-        labels: [
-          'bug'
-        ],
+        assignees: ["octocat"],
+        body: "I'm having a problem with this.",
+        labels: ["bug"],
         milestone: 1,
-        title: 'Found a bug'
+        title: "Found a bug"
       }
-    })
-  })
+    });
+  });
 
-  it('Put without request body', () => {
-    const options = endpoint('PUT /user/starred/:owner/:repo', {
+  it("Put without request body", () => {
+    const options = endpoint("PUT /user/starred/:owner/:repo", {
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`
       },
-      owner: 'octocat',
-      repo: 'hello-world'
-    })
+      owner: "octocat",
+      repo: "hello-world"
+    });
 
     expect(options).to.deep.equal({
-      method: 'PUT',
-      url: 'https://api.github.com/user/starred/octocat/hello-world',
+      method: "PUT",
+      url: "https://api.github.com/user/starred/octocat/hello-world",
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`,
-        accept: 'application/vnd.github.v3+json',
-        'content-length': 0,
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "content-length": 0,
+        "user-agent": userAgent
       },
-      body: ''
-    })
-  })
+      body: ""
+    });
+  });
 
-  it('Query parameter template', () => {
-    const options = endpoint('POST https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets{?name,label}', {
-      name: 'example.zip',
-      label: 'short description',
-      headers: {
-        'content-type': 'text/plain',
-        'content-length': 14,
-        authorization: `token 0000000000000000000000000000000000000001`
-      },
-      data: 'Hello, world!'
-    })
+  it("Query parameter template", () => {
+    const options = endpoint(
+      "POST https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets{?name,label}",
+      {
+        name: "example.zip",
+        label: "short description",
+        headers: {
+          "content-type": "text/plain",
+          "content-length": 14,
+          authorization: `token 0000000000000000000000000000000000000001`
+        },
+        data: "Hello, world!"
+      }
+    );
 
     expect(options).to.deep.equal({
-      method: 'POST',
-      url: 'https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets?name=example.zip&label=short%20description',
+      method: "POST",
+      url:
+        "https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets?name=example.zip&label=short%20description",
       headers: {
-        accept: 'application/vnd.github.v3+json',
+        accept: "application/vnd.github.v3+json",
         authorization: `token 0000000000000000000000000000000000000001`,
-        'content-type': 'text/plain',
-        'content-length': 14,
-        'user-agent': userAgent
+        "content-type": "text/plain",
+        "content-length": 14,
+        "user-agent": userAgent
       },
-      body: 'Hello, world!'
-    })
-  })
+      body: "Hello, world!"
+    });
+  });
 
-  it('URL with query parameter and aditional options', () => {
-    const options = endpoint('GET /orgs/octokit/repos?access_token=abc4567', {
-      type: 'private'
-    })
-
-    expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/orgs/octokit/repos?access_token=abc4567&type=private',
-      headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': userAgent
-      }
-    })
-  })
-
-  it('Set request body directly', () => {
-    const options = endpoint('POST /markdown/raw', {
-      data: 'Hello world github/linguist#1 **cool**, and #1!',
-      headers: {
-        accept: 'text/html;charset=utf-8',
-        'content-type': 'text/plain'
-      }
-    })
+  it("URL with query parameter and aditional options", () => {
+    const options = endpoint("GET /orgs/octokit/repos?access_token=abc4567", {
+      type: "private"
+    });
 
     expect(options).to.deep.equal({
-      method: 'POST',
-      url: 'https://api.github.com/markdown/raw',
+      method: "GET",
+      url:
+        "https://api.github.com/orgs/octokit/repos?access_token=abc4567&type=private",
       headers: {
-        accept: 'text/html;charset=utf-8',
-        'content-type': 'text/plain',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent
+      }
+    });
+  });
+
+  it("Set request body directly", () => {
+    const options = endpoint("POST /markdown/raw", {
+      data: "Hello world github/linguist#1 **cool**, and #1!",
+      headers: {
+        accept: "text/html;charset=utf-8",
+        "content-type": "text/plain"
+      }
+    });
+
+    expect(options).to.deep.equal({
+      method: "POST",
+      url: "https://api.github.com/markdown/raw",
+      headers: {
+        accept: "text/html;charset=utf-8",
+        "content-type": "text/plain",
+        "user-agent": userAgent
       },
-      body: 'Hello world github/linguist#1 **cool**, and #1!'
-    })
-  })
+      body: "Hello world github/linguist#1 **cool**, and #1!"
+    });
+  });
 
-  it('Encode q parameter', () => {
-    const options = endpoint('GET /search/issues', {
-      q: 'location:Jyväskylä'
-    })
+  it("Encode q parameter", () => {
+    const options = endpoint("GET /search/issues", {
+      q: "location:Jyväskylä"
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/search/issues?q=location%3AJyv%C3%A4skyl%C3%A4',
+      method: "GET",
+      url:
+        "https://api.github.com/search/issues?q=location%3AJyv%C3%A4skyl%C3%A4",
       headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('request parameter', () => {
-    const options = endpoint('GET /', {
+  it("request parameter", () => {
+    const options = endpoint("GET /", {
       request: {
         timeout: 100
       }
-    })
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/',
+      method: "GET",
+      url: "https://api.github.com/",
       headers: {
-        accept: 'application/vnd.github.v3+json',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent
       },
       request: {
         timeout: 100
       }
-    })
-  })
+    });
+  });
 
-  it('request.agent', () => {
-    const options = endpoint('GET /', {
+  it("request.agent", () => {
+    const options = endpoint("GET /", {
       request: {
         agent: new Agent()
       }
-    })
+    });
 
-    expect(options.request.agent).to.be.an.instanceof(Agent)
-  })
+    expect(options.request.agent).to.be.an.instanceof(Agent);
+  });
 
-  it('Just URL', () => {
-    expect(endpoint('/').url).to.equal('https://api.github.com/')
-    expect(endpoint('/').method).to.equal('GET')
-    expect(endpoint('https://github.acme-inc/api/v3/').url).to.equal('https://github.acme-inc/api/v3/')
-  })
+  it("Just URL", () => {
+    expect(endpoint("/").url).to.equal("https://api.github.com/");
+    expect(endpoint("/").method).to.equal("GET");
+    expect(endpoint("https://github.acme-inc/api/v3/").url).to.equal(
+      "https://github.acme-inc/api/v3/"
+    );
+  });
 
-  it('options.mediaType.format', () => {
+  it("options.mediaType.format", () => {
     const options = endpoint({
-      method: 'get',
-      url: '/repos/:owner/:repo/issues/:number',
+      method: "get",
+      url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
-        format: 'raw'
+        format: "raw"
       },
-      owner: 'octokit',
-      repo: 'endpoint.js',
+      owner: "octokit",
+      repo: "endpoint.js",
       number: 123
-    })
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      method: "GET",
+      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
-        accept: 'application/vnd.github.v3.raw',
-        'user-agent': userAgent
+        accept: "application/vnd.github.v3.raw",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('options.mediaType.previews', () => {
+  it("options.mediaType.previews", () => {
     const options = endpoint({
-      method: 'get',
-      url: '/repos/:owner/:repo/issues/:number',
+      method: "get",
+      url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
-        previews: ['symmetra']
+        previews: ["symmetra"]
       },
-      owner: 'octokit',
-      repo: 'endpoint.js',
+      owner: "octokit",
+      repo: "endpoint.js",
       number: 123
-    })
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      method: "GET",
+      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
-        accept: 'application/vnd.github.symmetra-preview+json',
-        'user-agent': userAgent
+        accept: "application/vnd.github.symmetra-preview+json",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('options.mediaType.previews with -preview suffix', () => {
+  it("options.mediaType.previews with -preview suffix", () => {
     const options = endpoint({
-      method: 'get',
-      url: '/repos/:owner/:repo/issues/:number',
+      method: "get",
+      url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
-        previews: ['jean-grey-preview', 'symmetra-preview']
+        previews: ["jean-grey-preview", "symmetra-preview"]
       },
-      owner: 'octokit',
-      repo: 'endpoint.js',
+      owner: "octokit",
+      repo: "endpoint.js",
       number: 123
-    })
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      method: "GET",
+      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
-        accept: 'application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json',
-        'user-agent': userAgent
+        accept:
+          "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('options.mediaType.format + options.mediaType.previews', () => {
+  it("options.mediaType.format + options.mediaType.previews", () => {
     const options = endpoint({
-      method: 'get',
-      url: '/repos/:owner/:repo/issues/:number',
+      method: "get",
+      url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
-        format: 'raw',
-        previews: ['symmetra']
+        format: "raw",
+        previews: ["symmetra"]
       },
-      owner: 'octokit',
-      repo: 'endpoint.js',
+      owner: "octokit",
+      repo: "endpoint.js",
       number: 123
-    })
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      method: "GET",
+      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
-        accept: 'application/vnd.github.symmetra-preview.raw',
-        'user-agent': userAgent
+        accept: "application/vnd.github.symmetra-preview.raw",
+        "user-agent": userAgent
       }
-    })
-  })
+    });
+  });
 
-  it('options.mediaType.format + options.mediaType.previews + accept header', () => {
+  it("options.mediaType.format + options.mediaType.previews + accept header", () => {
     const options = endpoint({
-      method: 'get',
-      url: '/repos/:owner/:repo/issues/:number',
+      method: "get",
+      url: "/repos/:owner/:repo/issues/:number",
       headers: {
-        accept: 'application/vnd.foo-preview,application/vnd.bar-preview'
+        accept: "application/vnd.foo-preview,application/vnd.bar-preview"
       },
       mediaType: {
-        format: 'raw',
-        previews: ['symmetra']
+        format: "raw",
+        previews: ["symmetra"]
       },
-      owner: 'octokit',
-      repo: 'endpoint.js',
+      owner: "octokit",
+      repo: "endpoint.js",
       number: 123
-    })
+    });
 
     expect(options).to.deep.equal({
-      method: 'GET',
-      url: 'https://api.github.com/repos/octokit/endpoint.js/issues/123',
+      method: "GET",
+      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
-        accept: 'application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.symmetra-preview.raw',
-        'user-agent': userAgent
+        accept:
+          "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.symmetra-preview.raw",
+        "user-agent": userAgent
       }
-    })
-  })
-})
+    });
+  });
+});

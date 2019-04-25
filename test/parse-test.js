@@ -1,41 +1,43 @@
-const chai = require('chai')
-const sinonChai = require('sinon-chai')
+const chai = require("chai");
+const sinonChai = require("sinon-chai");
 
-const endpoint = require('../lib')
+const endpoint = require("../lib");
 
-const expect = chai.expect
-chai.use(sinonChai)
+const expect = chai.expect;
+chai.use(sinonChai);
 
-describe('endpoint.parse()', () => {
-  it('is a function', () => {
-    expect(endpoint.parse).to.be.a('function')
-  })
+describe("endpoint.parse()", () => {
+  it("is a function", () => {
+    expect(endpoint.parse).to.be.a("function");
+  });
 
-  it('README example', () => {
+  it("README example", () => {
     const input = {
-      method: 'get',
-      url: '/orgs/:org/repos',
-      org: 'octokit',
-      type: 'private'
-    }
+      method: "get",
+      url: "/orgs/:org/repos",
+      org: "octokit",
+      type: "private"
+    };
 
-    expect(endpoint(input)).to.deep.equal(endpoint.parse(endpoint.merge(input)))
-  })
+    expect(endpoint(input)).to.deep.equal(
+      endpoint.parse(endpoint.merge(input))
+    );
+  });
 
-  it('does not alter input options', () => {
+  it("does not alter input options", () => {
     const input = {
-      method: 'get',
-      url: '/',
+      method: "get",
+      url: "/",
       headers: {
-        accept: 'application/vnd.github.v3+json'
+        accept: "application/vnd.github.v3+json"
       },
       mediaType: {
-        previews: ['foo', 'bar']
+        previews: ["foo", "bar"]
       }
-    }
+    };
 
-    endpoint.parse(input)
+    endpoint.parse(input);
 
-    expect(input.headers.accept).to.equal('application/vnd.github.v3+json')
-  })
-})
+    expect(input.headers.accept).to.equal("application/vnd.github.v3+json");
+  });
+});
