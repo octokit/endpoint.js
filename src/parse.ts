@@ -3,9 +3,9 @@ import urlTemplate from "url-template";
 import { addQueryParameters } from "./util/add-query-parameters";
 import { extractUrlVariableNames } from "./util/extract-url-variable-names";
 import { omit } from "./util/omit";
-import { EndpointDefaultOptions, Method, RequestOptions } from "./types";
+import { Defaults, Method, RequestOptions } from "./types";
 
-export function parse(options: EndpointDefaultOptions): RequestOptions {
+export function parse(options: Defaults): RequestOptions {
   // https://fetch.spec.whatwg.org/#methods
   let method = options.method.toUpperCase() as Method;
 

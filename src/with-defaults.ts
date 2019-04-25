@@ -1,19 +1,13 @@
 import { endpointWithDefaults } from "./endpoint-with-defaults";
 import { merge } from "./merge";
 import { parse } from "./parse";
-import {
-  EndpointOptions,
-  EndpointDefaultOptions,
-  endpoint,
-  Route,
-  RouteOptions
-} from "./types";
+import { Endpoint, Defaults, endpoint, Route, Parameters } from "./types";
 
 export function withDefaults(
-  oldDefaults: EndpointDefaultOptions | null,
-  newDefaults: RouteOptions
+  oldDefaults: Defaults | null,
+  newDefaults: Parameters
 ): endpoint {
-  const DEFAULTS = defaultOptions(oldDefaults, newDefaults);
+  const DEFAULTS = merge(oldDefaults, newDefaults);
   const endpoint = endpointWithDefaults.bind(null, DEFAULTS);
 
   return Object.assign(endpoint, {

@@ -1,11 +1,11 @@
 import getUserAgent from "universal-user-agent";
 
-import { EndpointDefaultOptions } from "./types";
+import { Defaults } from "./types";
 import { VERSION } from "./version";
 
 const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
-export const DEFAULTS: EndpointDefaultOptions = {
+export const DEFAULTS: Defaults = {
   method: "GET",
   baseUrl: "https://api.github.com",
   headers: {
