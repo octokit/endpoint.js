@@ -1,11 +1,10 @@
-export = extractUrlVariableName
-
 const urlVariableRegex = /\{[^}]+\}/g
 
 function removeNonChars (variableName: string) {
   return variableName.replace(/^\W+|\W+$/g, '').split(/,/)
 }
-function extractUrlVariableName (url: string) {
+
+export function extractUrlVariableNames (url: string) {
   const matches = url.match(urlVariableRegex)
 
   if (!matches) {

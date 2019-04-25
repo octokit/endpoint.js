@@ -1,13 +1,11 @@
-export = toRequestOptions
+import urlTemplate from 'url-template'
 
-import urlTemplate = require('url-template')
-import addQueryParameters = require('./util/add-query-parameters')
-import extractUrlVariableNames = require('./util/extract-url-variable-names')
-import omit = require('./util/omit')
-
+import { addQueryParameters } from './util/add-query-parameters'
+import { extractUrlVariableNames } from './util/extract-url-variable-names'
+import { omit } from './util/omit'
 import { EndpointDefaultOptions, Method, RequestOptions } from './types'
 
-function toRequestOptions(options: EndpointDefaultOptions): RequestOptions {
+export function parse (options: EndpointDefaultOptions): RequestOptions {
   // https://fetch.spec.whatwg.org/#methods
   let method = options.method.toUpperCase() as Method
 
