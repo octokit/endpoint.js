@@ -1,15 +1,13 @@
 import deepmerge from "deepmerge";
 import isPlainObject from "is-plain-object";
 
-import { EndpointDefaultOptions, Route, RouteOptions } from "./types";
+import { Defaults, Route, Parameters } from "./types";
 import { lowercaseKeys } from "./util/lowercase-keys";
 
-type Defaults = EndpointDefaultOptions | null;
-
 export function merge(
-  defaults: Defaults,
-  route: Route | RouteOptions,
-  options?: RouteOptions
+  defaults: Defaults | null,
+  route: Route | Parameters,
+  options?: Parameters
 ) {
   if (typeof route === "string") {
     let [method, url] = route.split(" ");
@@ -23,7 +21,7 @@ export function merge(
 
   const mergedOptions = deepmerge.all([defaults!, options].filter(Boolean), {
     isMergeableObject: isPlainObject
-  }) as EndpointDefaultOptions;
+  }) as Defaults;
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {
