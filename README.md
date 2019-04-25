@@ -20,14 +20,14 @@ Minified and gzipped, the build is less than 3kb.
 
 - [Usage](#usage)
 - [API](#api)
-  * [endpoint()](#endpoint)
-  * [endpoint.defaults()](#endpointdefaults)
-  * [endpoint.DEFAULTS](#endpointdefaults)
-  * [endpoint.merge()](#endpointmerge)
-  * [endpoint.parse()](#endpointparse)
+  - [endpoint()](#endpoint)
+  - [endpoint.defaults()](#endpointdefaults)
+  - [endpoint.DEFAULTS](#endpointdefaults)
+  - [endpoint.merge()](#endpointmerge)
+  - [endpoint.parse()](#endpointparse)
 - [Special cases](#special-cases)
-  * [The `data` parameter – set request body directly](#the-data-parameter-%E2%80%93-set-request-body-directly)
-  * [Set parameters for both the URL/query and the request body](#set-parameters-for-both-the-urlquery-and-the-request-body)
+  - [The `data` parameter – set request body directly](#the-data-parameter-%E2%80%93-set-request-body-directly)
+  - [Set parameters for both the URL/query and the request body](#set-parameters-for-both-the-urlquery-and-the-request-body)
 - [LICENSE](#license)
 
 <!-- tocstop -->
@@ -35,17 +35,17 @@ Minified and gzipped, the build is less than 3kb.
 ## Usage
 
 ```js
-const endpoint = require('@octokit/endpoint')
+const endpoint = require("@octokit/endpoint");
 
 // Following GitHub docs formatting:
 // https://developer.github.com/v3/repos/#list-organization-repositories
-const options = endpoint('GET /orgs/:org/repos', {
+const options = endpoint("GET /orgs/:org/repos", {
   headers: {
-    authorization: 'token 0000000000000000000000000000000000000001'
+    authorization: "token 0000000000000000000000000000000000000001"
   },
-  org: 'octokit',
-  type: 'private'
-})
+  org: "octokit",
+  type: "private"
+});
 
 // {
 //   method: 'GET',
@@ -61,22 +61,21 @@ const options = endpoint('GET /orgs/:org/repos', {
 Alternatively, pass in all options in a single object:
 
 ```js
-const options = endpoint({ method, url, headers, org, type })
+const options = endpoint({ method, url, headers, org, type });
 ```
 
 Using `@octokit/endpoint` with common request libraries:
 
 ```js
 // using with fetch (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-fetch(options.url, ...options)
+fetch(options.url, ...options);
 // using with request (https://github.com/request/request)
-request(options)
+request(options);
 // using with got (https://github.com/sindresorhus/got)
-got[options.method](options.url, options)
+got[options.method](options.url, options);
 // using with axios
-axios(options)
+axios(options);
 ```
-
 
 ## API
 
@@ -255,35 +254,35 @@ All other options will be passed depending on the `method` and `url` options.
 Override or set default options. Example:
 
 ```js
-const request = require('request')
-const myEndpoint = require('@octokit/endpoint').defaults({
-  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
+const request = require("request");
+const myEndpoint = require("@octokit/endpoint").defaults({
+  baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
   headers: {
-    'user-agent': 'myApp/1.2.3',
+    "user-agent": "myApp/1.2.3",
     authorization: `token 0000000000000000000000000000000000000001`
   },
-  org: 'my-project',
+  org: "my-project",
   per_page: 100
-})
+});
 
-request(myEndpoint(`GET /orgs/:org/repos`))
+request(myEndpoint(`GET /orgs/:org/repos`));
 ```
 
 You can call `.defaults()` again on the returned method, the defaults will cascade.
 
 ```js
 const myProjectEndpoint = endpoint.defaults({
-  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
+  baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
   headers: {
-    'user-agent': 'myApp/1.2.3'
+    "user-agent": "myApp/1.2.3"
   },
-  org: 'my-project'
-})
+  org: "my-project"
+});
 const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
   headers: {
     authorization: `token 0000000000000000000000000000000000000001`
   }
-})
+});
 ```
 
 `myProjectEndpointWithAuth` now defaults the `baseUrl`, `headers['user-agent']`,
@@ -295,11 +294,11 @@ by the global default.
 The current default options.
 
 ```js
-endpoint.DEFAULTS.baseUrl // https://api.github.com
+endpoint.DEFAULTS.baseUrl; // https://api.github.com
 const myEndpoint = endpoint.defaults({
-  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3'
-})
-myEndpoint.DEFAULTS.baseUrl // https://github-enterprise.acme-inc.com/api/v3
+  baseUrl: "https://github-enterprise.acme-inc.com/api/v3"
+});
+myEndpoint.DEFAULTS.baseUrl; // https://github-enterprise.acme-inc.com/api/v3
 ```
 
 ### endpoint.merge()
@@ -308,19 +307,19 @@ Get the defaulted endpoint options, but without parsing them into request option
 
 ```js
 const myProjectEndpoint = endpoint.defaults({
-  baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
+  baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
   headers: {
-    'user-agent': 'myApp/1.2.3'
+    "user-agent": "myApp/1.2.3"
   },
-  org: 'my-project'
-})
-myProjectEndpoint.merge('GET /orgs/:org/repos', {
+  org: "my-project"
+});
+myProjectEndpoint.merge("GET /orgs/:org/repos", {
   headers: {
     authorization: `token 0000000000000000000000000000000000000001`
   },
-  org: 'my-secret-project',
-  type: 'private'
-})
+  org: "my-secret-project",
+  type: "private"
+});
 // {
 //   baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
 //   method: 'GET',
@@ -343,18 +342,19 @@ Stateless method to turn endpoint options into request options. Calling
 ## Special cases
 
 <a name="data-parameter"></a>
+
 ### The `data` parameter – set request body directly
 
 Some endpoints such as [Render a Markdown document in raw mode](https://developer.github.com/v3/markdown/#render-a-markdown-document-in-raw-mode) don’t have parameters that are sent as request body keys, instead, the request body needs to be set directly. In these cases, set the `data` parameter.
 
 ```js
-const options = endpoint('POST /markdown/raw', {
-  data: 'Hello world github/linguist#1 **cool**, and #1!',
+const options = endpoint("POST /markdown/raw", {
+  data: "Hello world github/linguist#1 **cool**, and #1!",
   headers: {
-    accept: 'text/html;charset=utf-8',
-    'content-type': 'text/plain'
+    accept: "text/html;charset=utf-8",
+    "content-type": "text/plain"
   }
-})
+});
 
 // options is
 // {
@@ -376,16 +376,19 @@ There are API endpoints that accept both query parameters as well as a body. In 
 Example
 
 ```js
-endpoint('POST https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets{?name,label}', {
-  name: 'example.zip',
-  label: 'short description',
-  headers: {
-    'content-type': 'text/plain',
-    'content-length': 14,
-    authorization: `token 0000000000000000000000000000000000000001`
-  },
-  data: 'Hello, world!'
-})
+endpoint(
+  "POST https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets{?name,label}",
+  {
+    name: "example.zip",
+    label: "short description",
+    headers: {
+      "content-type": "text/plain",
+      "content-length": 14,
+      authorization: `token 0000000000000000000000000000000000000001`
+    },
+    data: "Hello, world!"
+  }
+);
 ```
 
 ## LICENSE

@@ -1,19 +1,19 @@
-import getUserAgent from 'universal-user-agent'
+import getUserAgent from "universal-user-agent";
 
-import { EndpointDefaultOptions } from './types'
-import { VERSION } from './version'
+import { EndpointDefaultOptions } from "./types";
+import { VERSION } from "./version";
 
-const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`
+const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
-export const DEFAULTS:EndpointDefaultOptions = {
-  method: 'GET',
-  baseUrl: 'https://api.github.com',
+export const DEFAULTS: EndpointDefaultOptions = {
+  method: "GET",
+  baseUrl: "https://api.github.com",
   headers: {
-    accept: 'application/vnd.github.v3+json',
-    'user-agent': userAgent
+    accept: "application/vnd.github.v3+json",
+    "user-agent": userAgent
   },
   mediaType: {
-    format: '',
+    format: "",
     previews: [] as string[]
   }
-}
+};
