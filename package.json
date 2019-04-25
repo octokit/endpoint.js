@@ -20,7 +20,7 @@
     "bundle-report": "webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html",
     "coverage": "nyc report --reporter=html && open coverage/index.html",
     "coverage:upload": "nyc report --reporter=text-lcov | coveralls",
-    "pretest": "standard && standard-markdown *.md && npm run build:ts",
+    "pretest": "standard src/** test/* && standard-markdown *.md && npm run build:ts",
     "test": "nyc mocha test/*-test.js",
     "test:browser": "cypress run --browser chrome",
     "semantic-release": "semantic-release"
@@ -46,6 +46,8 @@
     "@types/mocha": "^5.2.5",
     "@types/sinon-chai": "^3.2.2",
     "@types/url-template": "^2.0.28",
+    "@typescript-eslint/eslint-plugin": "^1.7.0",
+    "@typescript-eslint/parser": "^1.7.0",
     "chai": "^4.2.0",
     "compression-webpack-plugin": "^2.0.0",
     "coveralls": "^3.0.2",
@@ -90,15 +92,9 @@
     ]
   },
   "standard": {
-    "globals": [
-      "describe",
-      "before",
-      "beforeEach",
-      "afterEach",
-      "after",
-      "it",
-      "expect"
-    ]
+    "parser": "@typescript-eslint/parser",
+    "plugins": [ "@typescript-eslint/eslint-plugin" ],
+    "env": "mocha"
   },
   "files": [
     "lib"
