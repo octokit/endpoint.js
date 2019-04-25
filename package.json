@@ -24,6 +24,7 @@
     "coverage": "nyc report --reporter=html && open coverage/index.html",
     "coverage:upload": "nyc report --reporter=text-lcov | coveralls",
     "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json",
+    "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json",
     "pretest": "npm run -s lint && npm run -s build:ts",
     "test": "nyc mocha test/*-test.js",
     "test:browser": "cypress run --browser chrome",
