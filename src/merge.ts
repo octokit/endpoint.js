@@ -1,15 +1,12 @@
-export = defaultOptions
-
-import merge = require('deepmerge')
-import isPlainObject = require('is-plain-object')
-
-import lowercaseKeys = require('./util/lowercase-keys')
+import deepmerge from 'deepmerge'
+import isPlainObject from 'is-plain-object'
 
 import { EndpointDefaultOptions, Route, RouteOptions } from './types'
+import { lowercaseKeys } from './util/lowercase-keys'
 
 type Defaults = EndpointDefaultOptions | null
 
-function defaultOptions (defaults: Defaults, route: Route | RouteOptions, options?: RouteOptions) {
+export function merge (defaults: Defaults, route: Route | RouteOptions, options?: RouteOptions) {
   if (typeof route === 'string') {
     let [method, url] = route.split(' ')
     options = Object.assign(url ? { method, url } : { url: method }, options)
@@ -20,7 +17,7 @@ function defaultOptions (defaults: Defaults, route: Route | RouteOptions, option
   // lowercase header names before merging with defaults to avoid duplicates
   options.headers = lowercaseKeys(options.headers)
 
-  const mergedOptions = merge.all([defaults!, options].filter(Boolean), { isMergeableObject: isPlainObject }) as EndpointDefaultOptions
+  const mergedOptions = deepmerge.all([defaults!, options].filter(Boolean), { isMergeableObject: isPlainObject }) as EndpointDefaultOptions
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {

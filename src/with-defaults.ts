@@ -1,13 +1,10 @@
-export = withDefaults
-
-import endpointWithDefaults = require('./endpoint-with-defaults')
-import merge = require('./merge')
-import parse = require('./parse')
-
+import { endpointWithDefaults } from './endpoint-with-defaults'
+import { merge } from './merge'
+import { parse } from './parse'
 import { EndpointOptions, EndpointDefaultOptions, endpoint, Route, RouteOptions } from './types'
 
-function withDefaults(oldDefaults: EndpointDefaultOptions | null, newDefaults: RouteOptions): endpoint {
-  const DEFAULTS = merge(oldDefaults, newDefaults)
+export function withDefaults (oldDefaults: EndpointDefaultOptions | null, newDefaults: RouteOptions): endpoint {
+  const DEFAULTS = defaultOptions(oldDefaults, newDefaults)
   const endpoint = endpointWithDefaults.bind(null, DEFAULTS)
 
   return Object.assign(endpoint, {
