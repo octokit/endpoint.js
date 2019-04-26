@@ -257,7 +257,7 @@ describe("endpoint()", () => {
       }
     });
 
-    expect(options.request.agent).toBeInstanceOf(Agent);
+    expect(options.request!.agent).toBeInstanceOf(Agent);
   });
 
   it("Just URL", () => {
