@@ -1,15 +1,9 @@
-const chai = require("chai");
-const sinonChai = require("sinon-chai");
+const endpoint = require('../lib')
 
-const endpoint = require("../lib");
-
-const expect = chai.expect;
-chai.use(sinonChai);
-
-describe("endpoint.defaults()", () => {
-  it("is a function", () => {
-    expect(endpoint.defaults).to.be.a("function");
-  });
+describe('endpoint.defaults()', () => {
+  /*it('is a function', () => {
+    expect(endpoint.defaults).toBe('function')
+  })*/
 
   it("README example", () => {
     const myEndpoint = endpoint.defaults({
@@ -24,7 +18,7 @@ describe("endpoint.defaults()", () => {
 
     const options = myEndpoint(`GET /orgs/:org/repos`);
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url:
         "https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos?per_page=100",
@@ -52,7 +46,7 @@ describe("endpoint.defaults()", () => {
 
     const options = myProjectEndpointWithAuth(`GET /orgs/:org/repos`);
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url:
         "https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos",
@@ -65,11 +59,11 @@ describe("endpoint.defaults()", () => {
   });
 
   it(".DEFAULTS", () => {
-    expect(endpoint.DEFAULTS.baseUrl).to.equal("https://api.github.com");
+    expect(endpoint.DEFAULTS.baseUrl).toEqual("https://api.github.com");
     const myEndpoint = endpoint.defaults({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3"
     });
-    expect(myEndpoint.DEFAULTS.baseUrl).to.equal(
+    expect(myEndpoint.DEFAULTS.baseUrl).toEqual(
       "https://github-enterprise.acme-inc.com/api/v3"
     );
   });
@@ -79,14 +73,14 @@ describe("endpoint.defaults()", () => {
       url: "/orgs/:org",
       org: "test1"
     });
-    expect(myEndpoint.DEFAULTS.url).to.equal("/orgs/:org");
-    expect(myEndpoint.DEFAULTS.org).to.equal("test1");
+    expect(myEndpoint.DEFAULTS.url).toEqual("/orgs/:org");
+    expect(myEndpoint.DEFAULTS.org).toEqual("test1");
     const myEndpoint2 = myEndpoint.defaults({
       url: "/orgs/:org",
       org: "test2"
     });
-    expect(myEndpoint2.DEFAULTS.url).to.equal("/orgs/:org");
-    expect(myEndpoint2.DEFAULTS.org).to.equal("test2");
+    expect(myEndpoint2.DEFAULTS.url).toEqual("/orgs/:org");
+    expect(myEndpoint2.DEFAULTS.org).toEqual("test2");
   });
 
   it(".defaults() sets mediatType.format", () => {
@@ -95,7 +89,7 @@ describe("endpoint.defaults()", () => {
         format: "raw"
       }
     });
-    expect(myEndpoint.DEFAULTS.mediaType).to.deep.equal({
+    expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "raw",
       previews: []
     });
@@ -113,11 +107,11 @@ describe("endpoint.defaults()", () => {
       }
     });
 
-    expect(myEndpoint.DEFAULTS.mediaType).to.deep.equal({
+    expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "",
       previews: ["foo"]
     });
-    expect(myEndpoint2.DEFAULTS.mediaType).to.deep.equal({
+    expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
       format: "",
       previews: ["foo", "bar"]
     });
@@ -135,11 +129,11 @@ describe("endpoint.defaults()", () => {
       }
     });
 
-    expect(myEndpoint.DEFAULTS.mediaType).to.deep.equal({
+    expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "",
       previews: ["foo"]
     });
-    expect(myEndpoint2.DEFAULTS.mediaType).to.deep.equal({
+    expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
       format: "",
       previews: ["foo", "bar"]
     });
