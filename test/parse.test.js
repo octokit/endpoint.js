@@ -1,15 +1,9 @@
-const chai = require("chai");
-const sinonChai = require("sinon-chai");
-
 const endpoint = require("../lib");
 
-const expect = chai.expect;
-chai.use(sinonChai);
-
 describe("endpoint.parse()", () => {
-  it("is a function", () => {
-    expect(endpoint.parse).to.be.a("function");
-  });
+  /*it("is a function", () => {
+    expect(endpoint.parse).toBe("function");
+  });*/
 
   it("README example", () => {
     const input = {
@@ -19,7 +13,7 @@ describe("endpoint.parse()", () => {
       type: "private"
     };
 
-    expect(endpoint(input)).to.deep.equal(
+    expect(endpoint(input)).toEqual(
       endpoint.parse(endpoint.merge(input))
     );
   });
@@ -38,6 +32,6 @@ describe("endpoint.parse()", () => {
 
     endpoint.parse(input);
 
-    expect(input.headers.accept).to.equal("application/vnd.github.v3+json");
+    expect(input.headers.accept).toEqual("application/vnd.github.v3+json");
   });
 });
