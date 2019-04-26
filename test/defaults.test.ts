@@ -1,9 +1,9 @@
-import endpoint from '../src';
+import endpoint from "../src";
 
-describe('endpoint.defaults()', () => {
-  /*it('is a function', () => {
-    expect(endpoint.defaults).toBe('function')
-  })*/
+describe("endpoint.defaults()", () => {
+  it("is a function", () => {
+    expect(endpoint.defaults).toBeInstanceOf(Function);
+  });
 
   it("README example", () => {
     const myEndpoint = endpoint.defaults({

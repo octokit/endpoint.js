@@ -1,13 +1,13 @@
-import getUserAgent = require("universal-user-agent");
+import getUserAgent from "universal-user-agent";
 
-import endpoint = require("../src");
-import pkg = require("../package.json");
-const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`;
+import endpoint from "../src";
+import { VERSION } from "../src/version";
+const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
 describe("endpoint.merge()", () => {
-  /*it("is a function", () => {
-    expect(endpoint.merge).toBe("function");
-  });*/
+  it("is a function", () => {
+    expect(endpoint.merge).toBeInstanceOf(Function);
+  });
 
   it("README example", () => {
     const myProjectEndpoint = endpoint.defaults({
@@ -72,22 +72,6 @@ describe("endpoint.merge()", () => {
         authorization: `token 0000000000000000000000000000000000000001`
       },
       org: "my-project"
-    });
-  });
-
-  it("no arguments", () => {
-    const options = endpoint.merge();
-    expect(options).toEqual({
-      baseUrl: "https://api.github.com",
-      mediaType: {
-        format: "",
-        previews: []
-      },
-      method: "GET",
-      headers: {
-        accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
     });
   });
 });
