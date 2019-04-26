@@ -1,18 +1,13 @@
-const chai = require("chai");
 const getUserAgent = require("universal-user-agent");
-const sinonChai = require("sinon-chai");
 
 const endpoint = require("../lib");
 const pkg = require("../package.json");
 const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`;
 
-const expect = chai.expect;
-chai.use(sinonChai);
-
 describe("endpoint.merge()", () => {
-  it("is a function", () => {
-    expect(endpoint.merge).to.be.a("function");
-  });
+  /*it("is a function", () => {
+    expect(endpoint.merge).toBe("function");
+  });*/
 
   it("README example", () => {
     const myProjectEndpoint = endpoint.defaults({
@@ -29,7 +24,7 @@ describe("endpoint.merge()", () => {
       type: "private"
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       mediaType: {
         format: "",
@@ -63,7 +58,7 @@ describe("endpoint.merge()", () => {
 
     const options = myProjectEndpointWithAuth.merge(`GET /orgs/:org/repos`);
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       mediaType: {
         format: "",
@@ -82,7 +77,7 @@ describe("endpoint.merge()", () => {
 
   it("no arguments", () => {
     const options = endpoint.merge();
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       baseUrl: "https://api.github.com",
       mediaType: {
         format: "",

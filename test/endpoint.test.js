@@ -1,10 +1,6 @@
 const Agent = require("http").Agent;
 
-const chai = require("chai");
 const getUserAgent = require("universal-user-agent");
-const sinonChai = require("sinon-chai");
-chai.use(sinonChai);
-const expect = chai.expect;
 
 const endpoint = require("../lib");
 
@@ -12,9 +8,9 @@ const pkg = require("../package.json");
 const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`;
 
 describe("endpoint()", () => {
-  it("is a function", () => {
-    expect(endpoint).to.be.a("function");
-  });
+  /*it("is a function", () => {
+    expect(endpoint).toBe("function");
+  });*/
 
   it("README example", () => {
     const options = endpoint({
@@ -24,7 +20,7 @@ describe("endpoint()", () => {
       type: "private"
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/orgs/octokit/repos?type=private",
       headers: {
@@ -40,7 +36,7 @@ describe("endpoint()", () => {
       type: "private"
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/orgs/octokit/repos?type=private",
       headers: {
@@ -53,7 +49,7 @@ describe("endpoint()", () => {
   it("Pass route string as first argument without options", () => {
     const options = endpoint("GET /");
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/",
       headers: {
@@ -71,7 +67,7 @@ describe("endpoint()", () => {
       }
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/",
       headers: {
@@ -86,7 +82,7 @@ describe("endpoint()", () => {
       "GET https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master"
     );
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url:
         "https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master",
@@ -111,7 +107,7 @@ describe("endpoint()", () => {
       labels: ["bug"]
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "POST",
       url: "https://api.github.com/repos/octocat/hello-world/issues",
       headers: {
@@ -138,7 +134,7 @@ describe("endpoint()", () => {
       repo: "hello-world"
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "PUT",
       url: "https://api.github.com/user/starred/octocat/hello-world",
       headers: {
@@ -166,7 +162,7 @@ describe("endpoint()", () => {
       }
     );
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "POST",
       url:
         "https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets?name=example.zip&label=short%20description",
@@ -186,7 +182,7 @@ describe("endpoint()", () => {
       type: "private"
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url:
         "https://api.github.com/orgs/octokit/repos?access_token=abc4567&type=private",
@@ -206,7 +202,7 @@ describe("endpoint()", () => {
       }
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "POST",
       url: "https://api.github.com/markdown/raw",
       headers: {
@@ -223,7 +219,7 @@ describe("endpoint()", () => {
       q: "location:Jyväskylä"
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url:
         "https://api.github.com/search/issues?q=location%3AJyv%C3%A4skyl%C3%A4",
@@ -241,7 +237,7 @@ describe("endpoint()", () => {
       }
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/",
       headers: {
@@ -261,13 +257,13 @@ describe("endpoint()", () => {
       }
     });
 
-    expect(options.request.agent).to.be.an.instanceof(Agent);
+    expect(options.request.agent).toBeInstanceof(Agent);
   });
 
   it("Just URL", () => {
-    expect(endpoint("/").url).to.equal("https://api.github.com/");
-    expect(endpoint("/").method).to.equal("GET");
-    expect(endpoint("https://github.acme-inc/api/v3/").url).to.equal(
+    expect(endpoint("/").url).toEqual("https://api.github.com/");
+    expect(endpoint("/").method).toEqual("GET");
+    expect(endpoint("https://github.acme-inc/api/v3/").url).toEqual(
       "https://github.acme-inc/api/v3/"
     );
   });
@@ -284,7 +280,7 @@ describe("endpoint()", () => {
       number: 123
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
@@ -306,7 +302,7 @@ describe("endpoint()", () => {
       number: 123
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
@@ -328,7 +324,7 @@ describe("endpoint()", () => {
       number: 123
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
@@ -352,7 +348,7 @@ describe("endpoint()", () => {
       number: 123
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
@@ -378,7 +374,7 @@ describe("endpoint()", () => {
       number: 123
     });
 
-    expect(options).to.deep.equal({
+    expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
