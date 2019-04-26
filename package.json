@@ -57,6 +57,7 @@
     "nyc": "^14.0.0",
     "prettier": "1.17.0",
     "semantic-release": "^15.13.8",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.4.5",
     "webpack": "^4.21.0",
     "webpack-bundle-analyzer": "^3.0.3",
@@ -90,5 +91,8 @@
       "@semantic-release/npm",
       "./scripts/semantic-release-create-version.js"
     ]
+  },
+  "jest": {
+    "preset": "ts-jest"
   }
 }
