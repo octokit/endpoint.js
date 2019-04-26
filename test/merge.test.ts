@@ -1,7 +1,7 @@
-const getUserAgent = require("universal-user-agent");
+import getUserAgent = require("universal-user-agent");
 
-const endpoint = require("../lib");
-const pkg = require("../package.json");
+import endpoint = require("../src");
+import pkg = require("../package.json");
 const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`;
 
 describe("endpoint.merge()", () => {

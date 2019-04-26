@@ -1,4 +1,4 @@
-const endpoint = require("../lib");
+import endpoint from "../src";
 
 describe("endpoint.parse()", () => {
   /*it("is a function", () => {
@@ -7,7 +7,7 @@ describe("endpoint.parse()", () => {
 
   it("README example", () => {
     const input = {
-      method: "get",
+      method: "GET",
       url: "/orgs/:org/repos",
       org: "octokit",
       type: "private"
@@ -20,7 +20,7 @@ describe("endpoint.parse()", () => {
 
   it("does not alter input options", () => {
     const input = {
-      method: "get",
+      method: "GET",
       url: "/",
       headers: {
         accept: "application/vnd.github.v3+json"

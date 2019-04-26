@@ -1,4 +1,4 @@
-const endpoint = require('../lib')
+import endpoint from '../src';
 
 describe('endpoint.defaults()', () => {
   /*it('is a function', () => {

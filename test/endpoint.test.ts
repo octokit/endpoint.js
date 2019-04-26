@@ -1,10 +1,10 @@
-const Agent = require("http").Agent;
+import { Agent } from "http";
 
-const getUserAgent = require("universal-user-agent");
+import getUserAgent from "universal-user-agent";
 
-const endpoint = require("../lib");
+import endpoint from "../src";
 
-const pkg = require("../package.json");
+import * as pkg from "../package.json";
 const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`;
 
 describe("endpoint()", () => {
@@ -14,7 +14,7 @@ describe("endpoint()", () => {
 
   it("README example", () => {
     const options = endpoint({
-      method: "get",
+      method: "GET",
       url: "/orgs/:org/repos",
       org: "octokit",
       type: "private"
@@ -62,7 +62,7 @@ describe("endpoint()", () => {
   it("Custom user-agent header", () => {
     const options = endpoint("GET /", {
       headers: {
-        // also test that header keys get lowercased
+        // also test that header keys GET lowercased
         "User-Agent": "my-app/1.2.3"
       }
     });
@@ -257,7 +257,7 @@ describe("endpoint()", () => {
       }
     });
 
-    expect(options.request.agent).toBeInstanceof(Agent);
+    expect(options.request.agent).toBeInstanceOf(Agent);
   });
 
   it("Just URL", () => {
@@ -270,7 +270,7 @@ describe("endpoint()", () => {
 
   it("options.mediaType.format", () => {
     const options = endpoint({
-      method: "get",
+      method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
         format: "raw"
@@ -292,7 +292,7 @@ describe("endpoint()", () => {
 
   it("options.mediaType.previews", () => {
     const options = endpoint({
-      method: "get",
+      method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
         previews: ["symmetra"]
@@ -314,7 +314,7 @@ describe("endpoint()", () => {
 
   it("options.mediaType.previews with -preview suffix", () => {
     const options = endpoint({
-      method: "get",
+      method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
         previews: ["jean-grey-preview", "symmetra-preview"]
@@ -337,7 +337,7 @@ describe("endpoint()", () => {
 
   it("options.mediaType.format + options.mediaType.previews", () => {
     const options = endpoint({
-      method: "get",
+      method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
         format: "raw",
@@ -360,7 +360,7 @@ describe("endpoint()", () => {
 
   it("options.mediaType.format + options.mediaType.previews + accept header", () => {
     const options = endpoint({
-      method: "get",
+      method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       headers: {
         accept: "application/vnd.foo-preview,application/vnd.bar-preview"
