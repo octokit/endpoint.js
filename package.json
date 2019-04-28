@@ -85,6 +85,12 @@
         "@pika/plugin-build-web"
       ],
       [
+        "@pika/plugin-bundle-web",
+        {
+          "browser": true
+        }
+      ],
+      [
         "pika-plugin-unpkg-field"
       ]
     ]
