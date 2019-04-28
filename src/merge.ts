@@ -6,7 +6,7 @@ import { lowercaseKeys } from "./util/lowercase-keys";
 
 export function merge(
   defaults: Defaults | null,
-  route: Route | Parameters,
+  route?: Route | Parameters,
   options?: Parameters
 ) {
   if (typeof route === "string") {
