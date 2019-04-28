@@ -1,4 +1,4 @@
-import endpoint from "../src";
+import { endpoint } from "../src";
 import { Defaults, Endpoint } from "../src/types";
 
 describe("endpoint.parse()", () => {
