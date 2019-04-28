@@ -1,19 +1,13 @@
 # endpoint.js
 
-> Turns REST API endpoints into generic request options
+> Turns GitHub REST API endpoints into generic request options
 
 [![@latest](https://img.shields.io/npm/v/@octokit/endpoint.svg)](https://www.npmjs.com/package/@octokit/endpoint)
 [![Build Status](https://travis-ci.org/octokit/endpoint.js.svg?branch=master)](https://travis-ci.org/octokit/endpoint.js)
 [![Coverage Status](https://coveralls.io/repos/github/octokit/endpoint.js/badge.svg)](https://coveralls.io/github/octokit/endpoint.js)
 [![Greenkeeper](https://badges.greenkeeper.io/octokit/endpoint.js.svg)](https://greenkeeper.io/)
 
-`@octokit/endpoint` combines [GitHub REST API](https://developer.github.com/v3/)
-with your options and turns them into generic request options which you can
-then pass into your request library of choice.
-
-`@octokit/endpoint` is meant to run in all JavaScript environments. Browser
-builds can be downloaded from each [Release](https://github.com/octokit/endpoint.js/releases).
-Minified and gzipped, the build is less than 3kb.
+`@octokit/endpoint` combines [GitHub REST API routes](https://developer.github.com/v3/) with your parameters and turns them into generic request options that can be used in any request library.
 
 <!-- update table of contents by running `npx markdown-toc README.md -i` -->
 <!-- toc -->
@@ -34,56 +28,78 @@ Minified and gzipped, the build is less than 3kb.
 
 ## Usage
 
-```js
-const endpoint = require("@octokit/endpoint");
+<table width=100%>
+<tbody valign=top align=left>
+<tr><th>
+Browsers
+</th><td>
+Load <code>@octokit/endpoint</code> directly from <a href="https://unpkg.com">unpkg.com</a>
+        
+```html
+<script type="module">
+import { endpoint } from "https://unpkg.com/@octokit/endpoint";
+</script>
+```
 
-// Following GitHub docs formatting:
-// https://developer.github.com/v3/repos/#list-organization-repositories
-const options = endpoint("GET /orgs/:org/repos", {
+</td></tr>
+<tr><th>
+Node
+</th><td>
+
+Install with <code>npm install @octokit/endpoint</code>
+
+```js
+const { endpoint } = require("@octokit/endpoint");
+// or: import { endpoint } from "@octokit/endpoint";
+```
+
+</td></tr>
+</tbody>
+</table>
+
+Example for [List organization repositories](https://developer.github.com/v3/repos/#list-organization-repositories)
+
+```js
+const requestOptions = endpoint("GET /orgs/:org/repos", {
   headers: {
     authorization: "token 0000000000000000000000000000000000000001"
   },
   org: "octokit",
   type: "private"
 });
-
-// {
-//   method: 'GET',
-//   url: 'https://api.github.com/orgs/octokit/repos?type=private',
-//   headers: {
-//     accept: 'application/vnd.github.v3+json',
-//     authorization: 'token 0000000000000000000000000000000000000001',
-//     'user-agent': 'octokit/endpoint.js v1.2.3'
-//   }
-// }
 ```
 
-Alternatively, pass in all options in a single object:
+The resulting `requestOptions` looks as follows
 
-```js
-const options = endpoint({ method, url, headers, org, type });
+```json
+{
+  "method": "GET",
+  "url": "https://api.github.com/orgs/octokit/repos?type=private",
+  "headers": {
+    "accept": "application/vnd.github.v3+json",
+    "authorization": "token 0000000000000000000000000000000000000001",
+    "user-agent": "octokit/endpoint.js v1.2.3"
+  }
+}
 ```
 
-Using `@octokit/endpoint` with common request libraries:
+You can pass `requestOptions` to commen request libraries
 
 ```js
+const { url, ...options } = requestOptions;
 // using with fetch (https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
-fetch(options.url, ...options);
+fetch(url, options);
 // using with request (https://github.com/request/request)
-request(options);
+request(requestOptions);
 // using with got (https://github.com/sindresorhus/got)
-got[options.method](options.url, options);
+got[options.method](url, options);
 // using with axios
-axios(options);
+axios(requestOptions);
 ```
 
 ## API
 
-### endpoint()
-
-`endpoint(route, options)` or `endpoint(options)`.
-
-**Options**
+### `endpoint(route, options)` or `endpoint(options)`
 
 <table>
   <thead>
@@ -249,7 +265,7 @@ All other options will be passed depending on the `method` and `url` options.
   </tr>
 </table>
 
-### endpoint.defaults()
+### `endpoint.defaults()`
 
 Override or set default options. Example:
 
@@ -289,7 +305,7 @@ const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
 `org` and `headers['authorization']` on top of `headers['accept']` that is set
 by the global default.
 
-### endpoint.DEFAULTS
+### `endpoint.DEFAULTS`
 
 The current default options.
 
@@ -301,7 +317,7 @@ const myEndpoint = endpoint.defaults({
 myEndpoint.DEFAULTS.baseUrl; // https://github-enterprise.acme-inc.com/api/v3
 ```
 
-### endpoint.merge()
+### `endpoint.merge(route, options)` or `endpoint.merge(options)`
 
 Get the defaulted endpoint options, but without parsing them into request options:
 
@@ -320,6 +336,7 @@ myProjectEndpoint.merge("GET /orgs/:org/repos", {
   org: "my-secret-project",
   type: "private"
 });
+
 // {
 //   baseUrl: 'https://github-enterprise.acme-inc.com/api/v3',
 //   method: 'GET',
@@ -334,7 +351,7 @@ myProjectEndpoint.merge("GET /orgs/:org/repos", {
 // }
 ```
 
-### endpoint.parse()
+### `endpoint.parse()`
 
 Stateless method to turn endpoint options into request options. Calling
 `endpoint(options)` is the same as calling `endpoint.parse(endpoint.merge(options))`.
