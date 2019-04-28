@@ -128,6 +128,29 @@ axios(requestOptions);
   </tr>
   <tr>
     <th align=left>
+      <code>options.method</code>
+    </th>
+    <td>
+      String
+    </td>
+    <td>
+      <strong>Required unless <code>route</code> is set.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>. <em>Defaults to <code>GET</code></em>.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
+      <code>options.url</code>
+    </th>
+    <td>
+      String
+    </td>
+    <td>
+      <strong>Required unless <code>route</code> is set.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
+      e.g., <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
+    </td>
+  </tr>
+  <tr>
+    <th align=left>
       <code>options.baseUrl</code>
     </th>
     <td>
@@ -170,29 +193,6 @@ axios(requestOptions);
     </td>
     <td>
       Name of previews, such as <code>mercy</code>, <code>symmetra</code>, or <code>scarlet-witch</code>. See <a href="https://developer.github.com/v3/previews/">API Previews</a>. If <code>options.mediaType.previews</code> was set as default, the new previews will be merged into the default ones. Setting <code>options.mediaType.previews</code> will amend the <code>headers.accept</code> value. <code>options.mediaType.previews</code> will be merged with an existing array set using <code>.defaults()</code>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.method</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <strong>Required.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>, case insensitive. <em>Defaults to <code>Get</code></em>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.url</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <strong>Required.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
-      e.g., <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
     </td>
   </tr>
   <tr>
