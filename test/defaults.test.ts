@@ -1,4 +1,4 @@
-import endpoint from "../src";
+import { endpoint } from "../src";
 
 describe("endpoint.defaults()", () => {
   it("is a function", () => {

@@ -2,15 +2,15 @@ import { Agent } from "http";
 
 import getUserAgent from "universal-user-agent";
 
-import endpoint from "../src";
+import { endpoint } from "../src";
+import { VERSION } from "../src/version";
 
-import * as pkg from "../package.json";
-const userAgent = `octokit-endpoint.js/${pkg.version} ${getUserAgent()}`;
+const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
 describe("endpoint()", () => {
-  /*it("is a function", () => {
-    expect(endpoint).toBe("function");
-  });*/
+  it("is a function", () => {
+    expect(endpoint).toBeInstanceOf(Function);
+  });
 
   it("README example", () => {
     const options = endpoint({
