@@ -1,5 +1,3 @@
-/// <reference path="external.d.ts" />
-
 export interface endpoint {
   /**
    * Transforms a GitHub REST API endpoint into generic request options
