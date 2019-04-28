@@ -18,9 +18,6 @@
     "prebuild": "mkdirp dist/",
     "build": "npm-run-all build:*",
     "build:ts": "tsc -p tsconfig.json",
-    "build:development": "webpack --mode development --entry ./lib --output-library=octokitEndpoint --output=./dist/octokit-endpoint.js --profile --json > dist/bundle-stats.json",
-    "build:production": "webpack --mode production --entry ./lib --plugin=compression-webpack-plugin --output-library=octokitEndpoint --output-path=./dist --output-filename=octokit-endpoint.min.js --devtool source-map",
-    "bundle-report": "webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html",
     "coverage:upload": "cat ./coverage/lcov.info | coveralls",
     "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json",
     "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json",
@@ -47,7 +44,6 @@
   "devDependencies": {
     "@types/jest": "^24.0.11",
     "@types/url-template": "^2.0.28",
-    "compression-webpack-plugin": "^2.0.0",
     "coveralls": "^3.0.2",
     "jest": "^24.7.1",
     "mkdirp": "^0.5.1",
@@ -56,10 +52,7 @@
     "prettier": "1.17.0",
     "semantic-release": "^15.13.8",
     "ts-jest": "^24.0.2",
-    "typescript": "^3.4.5",
-    "webpack": "^4.21.0",
-    "webpack-bundle-analyzer": "^3.0.3",
-    "webpack-cli": "^3.1.2"
+    "typescript": "^3.4.5"
   },
   "dependencies": {
     "deepmerge": "3.2.0",
@@ -67,25 +60,11 @@
     "universal-user-agent": "^2.0.1",
     "url-template": "^2.0.8"
   },
-  "bundlesize": [
-    {
-      "path": "./dist/octokit-endpoint.min.js.gz",
-      "maxSize": "3.5KB"
-    }
-  ],
   "release": {
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
-      [
-        "@semantic-release/github",
-        {
-          "assets": [
-            "dist/*",
-            "!dist/*.map.gz"
-          ]
-        }
-      ],
+      "@semantic-release/github",
       "@semantic-release/npm",
       "./scripts/semantic-release-create-version.js"
     ]
