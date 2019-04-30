@@ -36,31 +36,35 @@ export function parse(options: Defaults): RequestOptions {
     .concat("baseUrl");
   const remainingParameters = omit(parameters, omittedParameters);
 
-  if (options.mediaType.format) {
-    // e.g. application/vnd.github.v3+json => application/vnd.github.v3.raw
-    headers.accept = headers.accept
-      .split(/,/)
-      .map(preview =>
-        preview.replace(
-          /application\/vnd(\.\w+)(\.v3)?(\.\w+)?(\+json)?$/,
-          `application/vnd$1$2.${options.mediaType.format}`
-        )
-      )
-      .join(",");
-  }
+  const isBinaryRequset = /application\/octet-stream/i.test(headers.accept)
 
-  if (options.mediaType.previews.length) {
-    const previewsFromAcceptHeader =
-      headers.accept.match(/[\w-]+(?=-preview)/g) || [];
-    headers.accept = previewsFromAcceptHeader
-      .concat(options.mediaType.previews)
-      .map(preview => {
-        const format = options.mediaType.format
-          ? `.${options.mediaType.format}`
-          : "+json";
-        return `application/vnd.github.${preview}-preview${format}`;
-      })
-      .join(",");
+  if (!isBinaryRequset) {
+    if (options.mediaType.format) {
+      // e.g. application/vnd.github.v3+json => application/vnd.github.v3.raw
+      headers.accept = headers.accept
+        .split(/,/)
+        .map(preview =>
+          preview.replace(
+            /application\/vnd(\.\w+)(\.v3)?(\.\w+)?(\+json)?$/,
+            `application/vnd$1$2.${options.mediaType.format}`
+          )
+        )
+        .join(",");
+    }
+
+    if (options.mediaType.previews.length) {
+      const previewsFromAcceptHeader =
+        headers.accept.match(/[\w-]+(?=-preview)/g) || [];
+      headers.accept = previewsFromAcceptHeader
+        .concat(options.mediaType.previews)
+        .map(preview => {
+          const format = options.mediaType.format
+            ? `.${options.mediaType.format}`
+            : "+json";
+          return `application/vnd.github.${preview}-preview${format}`;
+        })
+        .join(",");
+    }
   }
 
   // for GET/HEAD requests, set URL query parameters from remaining parameters
