@@ -363,8 +363,7 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       headers: {
-        accept:
-          "application/vnd.foo-preview,application/vnd.bar-preview"
+        accept: "application/vnd.foo-preview,application/vnd.bar-preview"
       },
       mediaType: {
         format: "raw",
@@ -403,10 +402,10 @@ describe("endpoint()", () => {
 
     expect(options).toEqual({
       method: "GET",
-      url: "https://api.github.com/repos/octokit/endpoint.js/releases/assets/123",
+      url:
+        "https://api.github.com/repos/octokit/endpoint.js/releases/assets/123",
       headers: {
-        accept:
-          "application/octet-stream",
+        accept: "application/octet-stream",
         "user-agent": userAgent
       }
     });
