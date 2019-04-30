@@ -363,7 +363,8 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       headers: {
-        accept: "application/vnd.foo-preview,application/vnd.bar-preview"
+        accept:
+          "application/vnd.foo-preview,application/vnd.bar-preview"
       },
       mediaType: {
         format: "raw",
@@ -380,6 +381,32 @@ describe("endpoint()", () => {
       headers: {
         accept:
           "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.symmetra-preview.raw",
+        "user-agent": userAgent
+      }
+    });
+  });
+
+  it("application/octet-stream accept header + previews", () => {
+    const options = endpoint({
+      method: "GET",
+      url: "/repos/:owner/:repo/releases/assets/:asset_id",
+      headers: {
+        accept: "application/octet-stream"
+      },
+      mediaType: {
+        previews: ["symmetra"]
+      },
+      owner: "octokit",
+      repo: "endpoint.js",
+      asset_id: 123
+    });
+
+    expect(options).toEqual({
+      method: "GET",
+      url: "https://api.github.com/repos/octokit/endpoint.js/releases/assets/123",
+      headers: {
+        accept:
+          "application/octet-stream",
         "user-agent": userAgent
       }
     });
