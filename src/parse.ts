@@ -36,7 +36,7 @@ export function parse(options: Defaults): RequestOptions {
     .concat("baseUrl");
   const remainingParameters = omit(parameters, omittedParameters);
 
-  const isBinaryRequset = /application\/octet-stream/i.test(headers.accept)
+  const isBinaryRequset = /application\/octet-stream/i.test(headers.accept);
 
   if (!isBinaryRequset) {
     if (options.mediaType.format) {
