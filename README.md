@@ -27,11 +27,11 @@
 
 ## Usage
 
-<table width=100%>
+<table>
 <tbody valign=top align=left>
 <tr><th>
 Browsers
-</th><td>
+</th><td width=100%>
 Load <code>@octokit/endpoint</code> directly from <a href="https://unpkg.com">unpkg.com</a>
         
 ```html
@@ -101,121 +101,123 @@ axios(requestOptions);
 ### `endpoint(route, options)` or `endpoint(options)`
 
 <table>
-  <thead>
+  <thead align=left>
     <tr>
-      <th align=left>
+      <th>
         name
       </th>
-      <th align=left>
+      <th>
         type
       </th>
-      <th align=left>
+      <th width=100%>
         description
       </th>
     </tr>
   </thead>
-  <tr>
-    <th align=left>
-      <code>route</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      If set, it has to be a string consisting of URL and the request method, e.g., <code>GET /orgs/:org</code>. If it’s set to a URL, only the method defaults to <code>GET</code>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.method</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <strong>Required unless <code>route</code> is set.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>. <em>Defaults to <code>GET</code></em>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.url</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <strong>Required unless <code>route</code> is set.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
-      e.g., <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.baseUrl</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      <em>Defaults to <code>https://api.github.com</code></em>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.headers</code>
-    </th>
-    <td>
-      Object
-    </td>
-    <td>
-      Custom headers. Passed headers are merged with defaults:<br>
-      <em><code>headers['user-agent']</code> defaults to <code>octokit-endpoint.js/1.2.3</code> (where <code>1.2.3</code> is the released version)</em>.<br>
-      <em><code>headers['accept']</code> defaults to <code>application/vnd.github.v3+json</code>.<br>
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.mediaType.format</code>
-    </th>
-    <td>
-      String
-    </td>
-    <td>
-      Media type param, such as <code>raw</code>, <code>diff</code>, or <code>text+json</code>. See <a href="https://developer.github.com/v3/media/">Media Types</a>. Setting <code>options.mediaType.format</code> will amend the <code>headers.accept</code> value.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.mediaType.previews</code>
-    </th>
-    <td>
-      Array of Strings
-    </td>
-    <td>
-      Name of previews, such as <code>mercy</code>, <code>symmetra</code>, or <code>scarlet-witch</code>. See <a href="https://developer.github.com/v3/previews/">API Previews</a>. If <code>options.mediaType.previews</code> was set as default, the new previews will be merged into the default ones. Setting <code>options.mediaType.previews</code> will amend the <code>headers.accept</code> value. <code>options.mediaType.previews</code> will be merged with an existing array set using <code>.defaults()</code>.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.data</code>
-    </th>
-    <td>
-      Any
-    </td>
-    <td>
-      Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The <code>data</code> parameter"</a> below.
-    </td>
-  </tr>
-  <tr>
-    <th align=left>
-      <code>options.request</code>
-    </th>
-    <td>
-      Object
-    </td>
-    <td>
-      Pass custom meta information for the request. The <code>request</code> object will be returned as is.
-    </td>
-  </tr>
+  <tbody align=left valign=top>
+    <tr>
+      <th>
+        <code>route</code>
+      </th>
+      <td>
+        String
+      </td>
+      <td>
+        If set, it has to be a string consisting of URL and the request method, e.g., <code>GET /orgs/:org</code>. If it’s set to a URL, only the method defaults to <code>GET</code>.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.method</code>
+      </th>
+      <td>
+        String
+      </td>
+      <td>
+        <strong>Required unless <code>route</code> is set.</strong> Any supported <a href="https://developer.github.com/v3/#http-verbs">http verb</a>. <em>Defaults to <code>GET</code></em>.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.url</code>
+      </th>
+      <td>
+        String
+      </td>
+      <td>
+        <strong>Required unless <code>route</code> is set.</strong> A path or full URL which may contain <code>:variable</code> or <code>{variable}</code> placeholders,
+        e.g., <code>/orgs/:org/repos</code>. The <code>url</code> is parsed using <a href="https://github.com/bramstein/url-template">url-template</a>.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.baseUrl</code>
+      </th>
+      <td>
+        String
+      </td>
+      <td>
+        <em>Defaults to <code>https://api.github.com</code></em>.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.headers</code>
+      </th>
+      <td>
+        Object
+      </td>
+      <td>
+        Custom headers. Passed headers are merged with defaults:<br>
+        <em><code>headers['user-agent']</code> defaults to <code>octokit-endpoint.js/1.2.3</code> (where <code>1.2.3</code> is the released version)</em>.<br>
+        <em><code>headers['accept']</code> defaults to <code>application/vnd.github.v3+json</code></em>.<br>
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.mediaType.format</code>
+      </th>
+      <td>
+        String
+      </td>
+      <td>
+        Media type param, such as <code>raw</code>, <code>diff</code>, or <code>text+json</code>. See <a href="https://developer.github.com/v3/media/">Media Types</a>. Setting <code>options.mediaType.format</code> will amend the <code>headers.accept</code> value.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.mediaType.previews</code>
+      </th>
+      <td>
+        Array of Strings
+      </td>
+      <td>
+        Name of previews, such as <code>mercy</code>, <code>symmetra</code>, or <code>scarlet-witch</code>. See <a href="https://developer.github.com/v3/previews/">API Previews</a>. If <code>options.mediaType.previews</code> was set as default, the new previews will be merged into the default ones. Setting <code>options.mediaType.previews</code> will amend the <code>headers.accept</code> value. <code>options.mediaType.previews</code> will be merged with an existing array set using <code>.defaults()</code>.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.data</code>
+      </th>
+      <td>
+        Any
+      </td>
+      <td>
+        Set request body directly instead of setting it to JSON based on additional parameters. See <a href="#data-parameter">"The <code>data</code> parameter"</a> below.
+      </td>
+    </tr>
+    <tr>
+      <th>
+        <code>options.request</code>
+      </th>
+      <td>
+        Object
+      </td>
+      <td>
+        Pass custom meta information for the request. The <code>request</code> object will be returned as is.
+      </td>
+    </tr>
+  </tbody>
 </table>
 
 All other options will be passed depending on the `method` and `url` options.
@@ -229,39 +231,41 @@ All other options will be passed depending on the `method` and `url` options.
 `endpoint()` is a synchronous method and returns an object with the following keys:
 
 <table>
-  <thead>
+  <thead align=left>
     <tr>
-      <th align=left>
+      <th>
         key
       </th>
-      <th align=left>
+      <th>
         type
       </th>
-      <th align=left>
+      <th width=100%>
         description
       </th>
     </tr>
   </thead>
-  <tr>
-    <th align=left><code>method</code></th>
-    <td>String</td>
-    <td>The http method. Always lowercase.</td>
-  </tr>
-  <tr>
-    <th align=left><code>url</code></th>
-    <td>String</td>
-    <td>The url with placeholders replaced with passed parameters.</td>
-  </tr>
-  <tr>
-    <th align=left><code>headers</code></th>
-    <td>Object</td>
-    <td>All header names are lowercased.</td>
-  </tr>
-  <tr>
-    <th align=left><code>body</code></th>
-    <td>Any</td>
-    <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests.</td>
-  </tr>
+  <tbody align=left valign=top>
+    <tr>
+      <th><code>method</code></th>
+      <td>String</td>
+      <td>The http method. Always lowercase.</td>
+    </tr>
+    <tr>
+      <th><code>url</code></th>
+      <td>String</td>
+      <td>The url with placeholders replaced with passed parameters.</td>
+    </tr>
+    <tr>
+      <th><code>headers</code></th>
+      <td>Object</td>
+      <td>All header names are lowercased.</td>
+    </tr>
+    <tr>
+      <th><code>body</code></th>
+      <td>Any</td>
+      <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests.</td>
+    </tr>
+  </tbody>
 </table>
 
 ### `endpoint.defaults()`
