@@ -1,12 +1,12 @@
 const fs = require("fs");
+const glob = require("glob");
 const { version } = require("../package.json");
 
 module.exports = {
   prepare() {
-    const content = fs.readFileSync("lib/version.js", "utf8");
-    fs.writeFileSync(
-      "lib/version.js",
-      content.replace("0.0.0-development", version)
-    );
+    glob.sync("*/*.js").forEach(file => {
+      const content = fs.readFileSync(file, "utf8");
+      fs.writeFileSync(file, content.replace("0.0.0-development", version));
+    });
   }
 };
