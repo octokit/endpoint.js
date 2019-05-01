@@ -1,18 +1,25 @@
-export interface endpoint {
-  /**
-   * Transforms a GitHub REST API endpoint into generic request options
-   *
-   * @param {string} route Request method + URL. Example: `'GET /orgs/:org'`
-   * @param {object} [parameters] URL, query or body parameters, as well as `headers`, `mediaType.{format|previews}`, `request`, or `baseUrl`.
-   */
-  (route: Route, parameters?: Parameters): RequestOptions;
+import { Routes as KnownRoutes } from "./generated/routes";
 
+export interface endpoint {
   /**
    * Transforms a GitHub REST API endpoint into generic request options
    *
    * @param {object} endpoint Must set `method` and `url`. Plus URL, query or body parameters, as well as `headers`, `mediaType.{format|previews}`, `request`, or `baseUrl`.
    */
   (options: Endpoint): RequestOptions;
+
+  /**
+   * Transforms a GitHub REST API endpoint into generic request options
+   *
+   * @param {string} route Request method + URL. Example: `'GET /orgs/:org'`
+   * @param {object} [parameters] URL, query or body parameters, as well as `headers`, `mediaType.{format|previews}`, `request`, or `baseUrl`.
+   */
+  <R extends Route>(
+    route: keyof KnownRoutes | R,
+    options?: R extends keyof KnownRoutes
+      ? KnownRoutes[R][0] & Parameters
+      : Parameters
+  ): R extends keyof KnownRoutes ? KnownRoutes[R][1] : RequestOptions;
 
   /**
    * Object with current default route and parameters
@@ -66,6 +73,11 @@ export interface endpoint {
 export type Route = string;
 
 /**
+ * Relative or absolute URL. Examples: `'/orgs/:org'`, `https://example.com/foo/bar`
+ */
+export type Url = string;
+
+/**
  * Request method
  */
 export type Method = "DELETE" | "GET" | "HEAD" | "PATCH" | "POST" | "PUT";
@@ -84,21 +96,7 @@ export type Parameters = {
   /**
    * HTTP headers. Use lowercase keys.
    */
-  headers?: {
-    /**
-     * Avoid setting `accept`, use `mediaFormat.{format|previews}` instead.
-     */
-    accept?: string;
-    /**
-     * Use `authorization` to send authenticated request, remember `token ` / `bearer ` prefixes. Example: `token 1234567890abcdef1234567890abcdef12345678`
-     */
-    authorization?: string;
-    /**
-     * `user-agent` is set do a default and can be overwritten as needed.
-     */
-    "user-agent"?: string;
-    [header: string]: string | number | undefined;
-  };
+  headers?: Headers;
 
   /**
    * Media type options, see {@link https://developer.github.com/v3/media/|GitHub Developer Guide}
@@ -120,9 +118,7 @@ export type Parameters = {
   /**
    * Pass custom meta information for the request. The `request` object will be returned as is.
    */
-  request?: {
-    [option: string]: any;
-  };
+  request?: EndpointRequestOptions;
 
   /**
    * Any additional parameter will be passed as follows
@@ -136,6 +132,7 @@ export type Parameters = {
 
 export type Endpoint = Parameters & {
   method: Method;
+  url: Url;
 };
 
 export type Defaults = Parameters & {
@@ -150,14 +147,29 @@ export type Defaults = Parameters & {
 
 export type RequestOptions = {
   method: Method;
-  url: string;
-  headers: {
-    accept: string;
-    "user-agent": string;
-    [option: string]: any;
-  };
+  url: Url;
+  headers: Headers;
   body?: any;
-  request?: {
-    [option: string]: any;
-  };
+  request?: EndpointRequestOptions;
+};
+
+export type Headers = {
+  /**
+   * Avoid setting `accept`, use `mediaFormat.{format|previews}` instead.
+   */
+  accept?: string;
+  /**
+   * Use `authorization` to send authenticated request, remember `token ` / `bearer ` prefixes. Example: `token 1234567890abcdef1234567890abcdef12345678`
+   */
+  authorization?: string;
+  /**
+   * `user-agent` is set do a default and can be overwritten as needed.
+   */
+  "user-agent"?: string;
+
+  [header: string]: string | number | undefined;
+};
+
+export type EndpointRequestOptions = {
+  [option: string]: any;
 };
