@@ -16,7 +16,6 @@
   ],
   "scripts": {
     "build": "pack build",
-    "coverage:upload": "cat ./coverage/lcov.info | coveralls",
     "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json",
     "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json",
     "pretest": "npm run -s lint",
@@ -47,7 +46,6 @@
     "@pika/plugin-ts-standard-pkg": "^0.3.16",
     "@types/jest": "^24.0.11",
     "@types/url-template": "^2.0.28",
-    "coveralls": "^3.0.2",
     "jest": "^24.7.1",
     "nyc": "^14.0.0",
     "pika-plugin-unpkg-field": "^1.0.1",
@@ -75,7 +73,15 @@
     ]
   },
   "jest": {
-    "preset": "ts-jest"
+    "preset": "ts-jest",
+    "coverageThreshold": {
+      "global": {
+        "statements": 100,
+        "branches": 100,
+        "functions": 100,
+        "lines": 100
+      }
+    }
   },
   "@pika/pack": {
     "pipeline": [
