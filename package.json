@@ -68,7 +68,7 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/github",
       "@semantic-release/npm",
-      "./scripts/semantic-release-create-version.js"
+      "../scripts/semantic-release-create-version.js"
     ]
   },
   "jest": {
