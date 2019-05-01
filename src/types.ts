@@ -141,10 +141,14 @@ export type Endpoint = Parameters & {
 export type Defaults = Parameters & {
   method: Method;
   baseUrl: string;
+<<<<<<< HEAD
   headers: {
     accept: string;
     "user-agent": string;
   };
+=======
+  headers: Headers & { accept: string; "user-agent": string };
+>>>>>>> 1113df9... fix(typescript): `accept` and `user-agent` header are always set for `Defaults` type
   mediaType: {
     format: string;
     previews: string[];
