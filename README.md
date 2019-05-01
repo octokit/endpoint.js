@@ -265,6 +265,11 @@ All other options will be passed depending on the `method` and `url` options.
       <td>Any</td>
       <td>The request body if one is present. Only for <code>PATCH</code>, <code>POST</code>, <code>PUT</code>, <code>DELETE</code> requests.</td>
     </tr>
+    <tr>
+      <th><code>request</code></th>
+      <td>Object</td>
+      <td>Request meta option, it will be returned as it was passed into <code>endpoint()</code></td>
+    </tr>
   </tbody>
 </table>
 
