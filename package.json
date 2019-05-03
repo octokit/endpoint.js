@@ -54,6 +54,7 @@
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^4.2.3",
     "semantic-release": "^15.13.8",
+    "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "ts-jest": "^24.0.2",
     "typescript": "^3.4.5"
   },
@@ -69,7 +70,16 @@
       "@semantic-release/release-notes-generator",
       "@semantic-release/github",
       "@semantic-release/npm",
-      "../scripts/semantic-release-create-version.js"
+      [
+        "semantic-release-plugin-update-version-in-files",
+        {
+          "files": [
+            "dist-web/*",
+            "dist-node/*",
+            "*/version.*"
+          ]
+        }
+      ]
     ]
   },
   "jest": {
