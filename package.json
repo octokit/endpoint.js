@@ -9,8 +9,8 @@
   "scripts": {
     "build": "pack build",
     "generate-types": "node scripts/update-route-types.js",
-    "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json",
-    "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json",
+    "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json !src/generated/*.ts",
+    "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json !src/generated/*.ts",
     "pretest": "npm run -s lint",
     "test": "jest --coverage"
   },
