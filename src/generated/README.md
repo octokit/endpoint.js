@@ -1,3 +1,3 @@
-# Do not edit files in this folder
+# ⚠️ Do not edit files in this folder
 
-They are generated automatically.
+All manual edits will be overwritten the next time they are edited. Edit the scripts / templates instead.
