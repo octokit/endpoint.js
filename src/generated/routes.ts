@@ -6777,8 +6777,9 @@ type ReposGetPages_RequestOptions = {
 type ReposEnablePagesSite_Options = {
   owner: string;
   repo: string;
-  "source[branch]"?: string;
-  "source[path]"?: string;
+  source?: object;
+  "source.branch"?: string;
+  "source.path"?: string;
 };
 type ReposEnablePagesSite_RequestOptions = {
   method: "POST";
