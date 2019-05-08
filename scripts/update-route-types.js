@@ -8,7 +8,7 @@ const pascalCase = require("pascal-case");
 const prettier = require("prettier");
 const { stringToJsdocComment } = require("string-to-jsdoc-comment");
 
-const ROUTES_PATH = resolve(process.cwd(), "generated", "routes.ts");
+const ROUTES_PATH = resolve(process.cwd(), "src", "generated", "routes.ts");
 const ROUTES_TEMPLATE_PATH = resolve(
   process.cwd(),
   "scripts",
