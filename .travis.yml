@@ -25,7 +25,7 @@ jobs:
       before_install: npm uninstall leakage cypress semantic-release
       script:
         - git checkout $TRAVIS_BRANCH
-        - npm run generate-routes
+        - npm run generate-types
         # commit changes and push back to branch on GitHub. If there are no changes then exit without error
         - 'git commit src/generated/routes.ts -m "fix(typescript): updated endpoint route & parameter definitions" --author="Octokit Bot <octokitbot@martynus.net>" && git push "https://${GH_TOKEN}@github.com/$TRAVIS_REPO_SLUG" ${TRAVIS_BRANCH} || true'
 
