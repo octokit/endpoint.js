@@ -46,7 +46,7 @@
     "nyc": "^14.0.0",
     "pascal-case": "^2.0.1",
     "pika-plugin-unpkg-field": "^1.1.0",
-    "prettier": "1.17.0",
+    "prettier": "1.17.1",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-node-resolve": "^4.2.3",
