@@ -60,9 +60,9 @@ Object.keys(ROUTES).forEach(scope => {
     }
 
     endpointsByRoute[route].push({
-      optionsTypeName: pascalCase(`${scope} ${endpoint.idName}`) + "_Options",
+      optionsTypeName: pascalCase(`${scope} ${endpoint.idName}`) + "Endpoint",
       requestOptionsTypeName:
-        pascalCase(`${scope} ${endpoint.idName}`) + "_RequestOptions"
+        pascalCase(`${scope} ${endpoint.idName}`) + "RequestOptions"
     });
   });
 });
@@ -76,9 +76,9 @@ Object.keys(ROUTES).forEach(scope => {
     const { method, url, params } = endpoint;
 
     const optionsTypeName =
-      pascalCase(`${scope} ${endpoint.idName}`) + "_Options";
+      pascalCase(`${scope} ${endpoint.idName}`) + "Endpoint";
     const requestOptionsTypeName =
-      pascalCase(`${scope} ${endpoint.idName}`) + "_RequestOptions";
+      pascalCase(`${scope} ${endpoint.idName}`) + "RequestOptions";
 
     params
       .map(parameterize)
