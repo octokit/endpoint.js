@@ -49,7 +49,7 @@
     "prettier": "1.17.1",
     "rollup-plugin-commonjs": "^9.3.4",
     "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-node-resolve": "^4.2.3",
+    "rollup-plugin-node-resolve": "^5.0.0",
     "semantic-release": "^15.13.8",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "string-to-jsdoc-comment": "^1.0.0",
