@@ -31,11 +31,11 @@
   },
   "homepage": "https://github.com/octokit/endpoint.js#readme",
   "devDependencies": {
+    "@gr2m/pika-plugin-bundle-web": "^0.3.16-patch-issue-46-6",
     "@octokit/routes": "20.2.4",
     "@pika/pack": "^0.3.7",
     "@pika/plugin-build-node": "^0.3.16",
     "@pika/plugin-build-web": "^0.3.16",
-    "@pika/plugin-bundle-web": "file:./patches/@pika/plugin-bundle-web",
     "@pika/plugin-ts-standard-pkg": "^0.3.16",
     "@types/jest": "^24.0.11",
     "@types/url-template": "^2.0.28",
@@ -103,7 +103,7 @@
         "@pika/plugin-build-web"
       ],
       [
-        "@pika/plugin-bundle-web",
+        "@gr2m/pika-plugin-bundle-web",
         {
           "browser": true
         }
