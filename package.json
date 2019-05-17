@@ -32,7 +32,7 @@
   "homepage": "https://github.com/octokit/endpoint.js#readme",
   "devDependencies": {
     "@gr2m/pika-plugin-bundle-web": "^0.3.16-patch-issue-46-6",
-    "@octokit/routes": "20.2.4",
+    "@octokit/routes": "20.2.5",
     "@pika/pack": "^0.3.7",
     "@pika/plugin-build-node": "^0.3.16",
     "@pika/plugin-build-web": "^0.3.16",
