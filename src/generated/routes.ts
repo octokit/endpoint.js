@@ -6363,7 +6363,11 @@ type ReposDeleteFileEndpoint = {
   sha: string;
   branch?: string;
   committer?: object;
+  "committer.name"?: string;
+  "committer.email"?: string;
   author?: object;
+  "author.name"?: string;
+  "author.email"?: string;
 };
 type ReposDeleteFileRequestOptions = {
   method: "DELETE";
