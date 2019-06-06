@@ -10,9 +10,9 @@ branches:
 
 stages:
   - name: greenkeeper-routes-update
-    if: branch =~ ^greenkeeper/@octokit/routes
+    if: type IN (push) AND branch =~ ^greenkeeper/@octokit/routes
   - name: prettier-update
-    if: branch =~ ^greenkeeper/prettier
+    if: type IN (push) AND branch =~ ^greenkeeper/prettier
   - test
   - name: release
     if: branch = master AND type IN (push)
