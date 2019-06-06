@@ -46,7 +46,7 @@
     "nyc": "^14.0.0",
     "pascal-case": "^2.0.1",
     "pika-plugin-unpkg-field": "^1.1.0",
-    "prettier": "1.17.1",
+    "prettier": "1.18.0",
     "semantic-release": "^15.13.8",
     "semantic-release-plugin-update-version-in-files": "^1.0.0",
     "string-to-jsdoc-comment": "^1.0.0",
