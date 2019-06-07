@@ -31,7 +31,7 @@
   },
   "homepage": "https://github.com/octokit/endpoint.js#readme",
   "devDependencies": {
-    "@octokit/routes": "20.5.0",
+    "@octokit/routes": "20.6.0",
     "@pika/pack": "^0.3.7",
     "@pika/plugin-build-node": "^0.4.0",
     "@pika/plugin-build-web": "^0.4.0",
