@@ -975,6 +975,10 @@ export interface Routes {
     PullsCreateEndpoint | PullsCreateFromIssueEndpoint,
     PullsCreateRequestOptions | PullsCreateFromIssueRequestOptions
   ];
+  "PUT /repos/:owner/:repo/pulls/:pull_number/update-branch": [
+    PullsUpdateBranchEndpoint,
+    PullsUpdateBranchRequestOptions
+  ];
   "PATCH /repos/:owner/:repo/pulls/:pull_number": [
     PullsUpdateEndpoint,
     PullsUpdateRequestOptions
@@ -1152,6 +1156,14 @@ export interface Routes {
     ReposDisableVulnerabilityAlertsEndpoint,
     ReposDisableVulnerabilityAlertsRequestOptions
   ];
+  "PUT /repos/:owner/:repo/automated-security-fixes": [
+    ReposEnableAutomatedSecurityFixesEndpoint,
+    ReposEnableAutomatedSecurityFixesRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/automated-security-fixes": [
+    ReposDisableAutomatedSecurityFixesEndpoint,
+    ReposDisableAutomatedSecurityFixesRequestOptions
+  ];
   "GET /repos/:owner/:repo/contributors": [
     ReposListContributorsEndpoint,
     ReposListContributorsRequestOptions
@@ -1324,11 +1336,11 @@ export interface Routes {
     ReposListCommitCommentsEndpoint,
     ReposListCommitCommentsRequestOptions
   ];
-  "GET /repos/:owner/:repo/commits/:ref/comments": [
+  "GET /repos/:owner/:repo/commits/:commit_sha/comments": [
     ReposListCommentsForCommitEndpoint,
     ReposListCommentsForCommitRequestOptions
   ];
-  "POST /repos/:owner/:repo/commits/:sha/comments": [
+  "POST /repos/:owner/:repo/commits/:commit_sha/comments": [
     ReposCreateCommitCommentEndpoint,
     ReposCreateCommitCommentRequestOptions
   ];
@@ -1381,8 +1393,14 @@ export interface Routes {
     ReposGetContentsRequestOptions
   ];
   "PUT /repos/:owner/:repo/contents/:path": [
-    ReposCreateFileEndpoint | ReposUpdateFileEndpoint,
-    ReposCreateFileRequestOptions | ReposUpdateFileRequestOptions
+
+      | ReposCreateOrUpdateFileEndpoint
+      | ReposCreateFileEndpoint
+      | ReposUpdateFileEndpoint,
+
+      | ReposCreateOrUpdateFileRequestOptions
+      | ReposCreateFileRequestOptions
+      | ReposUpdateFileRequestOptions
   ];
   "DELETE /repos/:owner/:repo/contents/:path": [
     ReposDeleteFileEndpoint,
@@ -2343,6 +2361,8 @@ type AppsDeleteInstallationRequestOptions = {
 };
 type AppsCreateInstallationTokenEndpoint = {
   installation_id: number;
+  repository_ids?: number[];
+  permissions?: object;
 };
 type AppsCreateInstallationTokenRequestOptions = {
   method: "POST";
@@ -4956,6 +4976,18 @@ type PullsCreateFromIssueRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
+type PullsUpdateBranchEndpoint = {
+  owner: string;
+  repo: string;
+  pull_number: number;
+  expected_head_sha?: string;
+};
+type PullsUpdateBranchRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
 type PullsUpdateEndpoint = {
   owner: string;
   repo: string;
@@ -5628,6 +5660,26 @@ type ReposDisableVulnerabilityAlertsRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
+type ReposEnableAutomatedSecurityFixesEndpoint = {
+  owner: string;
+  repo: string;
+};
+type ReposEnableAutomatedSecurityFixesRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDisableAutomatedSecurityFixesEndpoint = {
+  owner: string;
+  repo: string;
+};
+type ReposDisableAutomatedSecurityFixesRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
 type ReposListContributorsEndpoint = {
   owner: string;
   repo: string;
@@ -6146,9 +6198,10 @@ type ReposListCommitCommentsRequestOptions = {
 type ReposListCommentsForCommitEndpoint = {
   owner: string;
   repo: string;
-  ref: string;
+  commit_sha: string;
   per_page?: number;
   page?: number;
+  ref?: string;
 };
 type ReposListCommentsForCommitRequestOptions = {
   method: "GET";
@@ -6159,11 +6212,12 @@ type ReposListCommentsForCommitRequestOptions = {
 type ReposCreateCommitCommentEndpoint = {
   owner: string;
   repo: string;
-  sha: string;
+  commit_sha: string;
   body: string;
   path?: string;
   position?: number;
   line?: number;
+  sha?: string;
 };
 type ReposCreateCommitCommentRequestOptions = {
   method: "POST";
@@ -6314,12 +6368,34 @@ type ReposGetContentsRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
+type ReposCreateOrUpdateFileEndpoint = {
+  owner: string;
+  repo: string;
+  path: string;
+  message: string;
+  content: string;
+  sha?: string;
+  branch?: string;
+  committer?: object;
+  "committer.name": string;
+  "committer.email": string;
+  author?: object;
+  "author.name": string;
+  "author.email": string;
+};
+type ReposCreateOrUpdateFileRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
 type ReposCreateFileEndpoint = {
   owner: string;
   repo: string;
   path: string;
   message: string;
   content: string;
+  sha?: string;
   branch?: string;
   committer?: object;
   "committer.name": string;
@@ -6340,7 +6416,7 @@ type ReposUpdateFileEndpoint = {
   path: string;
   message: string;
   content: string;
-  sha: string;
+  sha?: string;
   branch?: string;
   committer?: object;
   "committer.name": string;
