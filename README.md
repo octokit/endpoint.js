@@ -32,11 +32,11 @@
 <tr><th>
 Browsers
 </th><td width=100%>
-Load <code>@octokit/endpoint</code> directly from <a href="https://unpkg.com">unpkg.com</a>
+Load <code>@octokit/endpoint</code> directly from <a href="https://cdn.pika.dev">cdn.pika.dev</a>
         
 ```html
 <script type="module">
-import { endpoint } from "https://unpkg.com/@octokit/endpoint";
+import { endpoint } from "https://cdn.pika.dev/@octokit/endpoint";
 </script>
 ```
 
