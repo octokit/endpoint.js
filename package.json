@@ -3,7 +3,7 @@
   "version": "0.0.0-development",
   "publishConfig": {
     "access": "public",
-    "tag": "latest"
+    "tag": "next"
   },
   "description": "Turns REST API endpoints into generic request options",
   "scripts": {
