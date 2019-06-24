@@ -1148,6 +1148,10 @@ export interface Routes {
     ReposReplaceTopicsEndpoint,
     ReposReplaceTopicsRequestOptions
   ];
+  "GET /repos/:owner/:repo/vulnerability-alerts": [
+    ReposCheckVulnerabilityAlertsEndpoint,
+    ReposCheckVulnerabilityAlertsRequestOptions
+  ];
   "PUT /repos/:owner/:repo/vulnerability-alerts": [
     ReposEnableVulnerabilityAlertsEndpoint,
     ReposEnableVulnerabilityAlertsRequestOptions
@@ -1360,13 +1364,9 @@ export interface Routes {
     ReposListCommitsEndpoint,
     ReposListCommitsRequestOptions
   ];
-  "GET /repos/:owner/:repo/commits/:commit_sha": [
-    ReposGetCommitEndpoint,
-    ReposGetCommitRequestOptions
-  ];
   "GET /repos/:owner/:repo/commits/:ref": [
-    ReposGetCommitRefShaEndpoint,
-    ReposGetCommitRefShaRequestOptions
+    ReposGetCommitEndpoint | ReposGetCommitRefShaEndpoint,
+    ReposGetCommitRequestOptions | ReposGetCommitRefShaRequestOptions
   ];
   "GET /repos/:owner/:repo/compare/:base...:head": [
     ReposCompareCommitsEndpoint,
@@ -1830,6 +1830,18 @@ export interface Routes {
   "GET /teams/:team_id/invitations": [
     TeamsListPendingInvitationsEndpoint,
     TeamsListPendingInvitationsRequestOptions
+  ];
+  "GET /orgs/:org/team-sync/groups": [
+    TeamsListIdPGroupsForOrgEndpoint,
+    TeamsListIdPGroupsForOrgRequestOptions
+  ];
+  "GET /teams/:team_id/team-sync/group-mappings": [
+    TeamsListIdPGroupsEndpoint,
+    TeamsListIdPGroupsRequestOptions
+  ];
+  "PATCH /teams/:team_id/team-sync/group-mappings": [
+    TeamsCreateOrUpdateIdPGroupConnectionsEndpoint,
+    TeamsCreateOrUpdateIdPGroupConnectionsRequestOptions
   ];
   "GET /users/:username": [
     UsersGetByUsernameEndpoint,
@@ -5640,6 +5652,16 @@ type ReposReplaceTopicsRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
+type ReposCheckVulnerabilityAlertsEndpoint = {
+  owner: string;
+  repo: string;
+};
+type ReposCheckVulnerabilityAlertsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
 type ReposEnableVulnerabilityAlertsEndpoint = {
   owner: string;
   repo: string;
@@ -6279,8 +6301,9 @@ type ReposListCommitsRequestOptions = {
 type ReposGetCommitEndpoint = {
   owner: string;
   repo: string;
-  commit_sha: string;
+  ref: string;
   sha?: string;
+  commit_sha?: string;
 };
 type ReposGetCommitRequestOptions = {
   method: "GET";
@@ -7798,6 +7821,39 @@ type TeamsListPendingInvitationsEndpoint = {
 };
 type TeamsListPendingInvitationsRequestOptions = {
   method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListIdPGroupsForOrgEndpoint = {
+  org: string;
+  per_page?: number;
+  page?: number;
+};
+type TeamsListIdPGroupsForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListIdPGroupsEndpoint = {
+  team_id: number;
+};
+type TeamsListIdPGroupsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsCreateOrUpdateIdPGroupConnectionsEndpoint = {
+  team_id: number;
+  groups: object[];
+  "groups[].group_id": string;
+  "groups[].group_name": string;
+  "groups[].group_description": string;
+};
+type TeamsCreateOrUpdateIdPGroupConnectionsRequestOptions = {
+  method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
