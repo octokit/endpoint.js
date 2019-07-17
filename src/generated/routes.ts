@@ -1138,6 +1138,10 @@ export interface Routes {
     ReposCreateInOrgEndpoint,
     ReposCreateInOrgRequestOptions
   ];
+  "POST /repos/:owner/:repo/generate": [
+    ReposCreateUsingTemplateEndpoint,
+    ReposCreateUsingTemplateRequestOptions
+  ];
   "GET /repos/:owner/:repo": [ReposGetEndpoint, ReposGetRequestOptions];
   "PATCH /repos/:owner/:repo": [ReposUpdateEndpoint, ReposUpdateRequestOptions];
   "GET /repos/:owner/:repo/topics": [
@@ -5562,6 +5566,7 @@ type ReposCreateForAuthenticatedUserEndpoint = {
   has_issues?: boolean;
   has_projects?: boolean;
   has_wiki?: boolean;
+  is_template?: boolean;
   team_id?: number;
   auto_init?: boolean;
   gitignore_template?: string;
@@ -5585,6 +5590,7 @@ type ReposCreateInOrgEndpoint = {
   has_issues?: boolean;
   has_projects?: boolean;
   has_wiki?: boolean;
+  is_template?: boolean;
   team_id?: number;
   auto_init?: boolean;
   gitignore_template?: string;
@@ -5594,6 +5600,19 @@ type ReposCreateInOrgEndpoint = {
   allow_rebase_merge?: boolean;
 };
 type ReposCreateInOrgRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateUsingTemplateEndpoint = {
+  repo: string;
+  owner: string;
+  name: string;
+  description?: string;
+  private?: boolean;
+};
+type ReposCreateUsingTemplateRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
@@ -5619,6 +5638,7 @@ type ReposUpdateEndpoint = {
   has_issues?: boolean;
   has_projects?: boolean;
   has_wiki?: boolean;
+  is_template?: boolean;
   default_branch?: string;
   allow_squash_merge?: boolean;
   allow_merge_commit?: boolean;
