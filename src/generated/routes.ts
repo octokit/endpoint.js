@@ -1138,7 +1138,7 @@ export interface Routes {
     ReposCreateInOrgEndpoint,
     ReposCreateInOrgRequestOptions
   ];
-  "POST /repos/:owner/:repo/generate": [
+  "POST /repos/:template_owner/:template_repo/generate": [
     ReposCreateUsingTemplateEndpoint,
     ReposCreateUsingTemplateRequestOptions
   ];
@@ -5606,8 +5606,9 @@ type ReposCreateInOrgRequestOptions = {
   request: EndpointRequestOptions;
 };
 type ReposCreateUsingTemplateEndpoint = {
-  repo: string;
-  owner: string;
+  template_owner: string;
+  template_repo: string;
+  owner?: string;
   name: string;
   description?: string;
   private?: boolean;
