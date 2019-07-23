@@ -5632,7 +5632,7 @@ type ReposGetRequestOptions = {
 type ReposUpdateEndpoint = {
   owner: string;
   repo: string;
-  name: string;
+  name?: string;
   description?: string;
   homepage?: string;
   private?: boolean;
