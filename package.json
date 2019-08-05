@@ -6,7 +6,7 @@
   },
   "description": "Turns REST API endpoints into generic request options",
   "scripts": {
-    "build": "pack build",
+    "build": "pika build",
     "generate-types": "node scripts/update-route-types.js",
     "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json !src/generated/*.ts !scripts/routes.ts.template",
     "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json !src/generated/*.ts !scripts/routes.ts.template",
