@@ -1,8 +1,6 @@
-import deepmerge from "deepmerge";
-import isPlainObject from "is-plain-object";
-
 import { Defaults, Route, Parameters } from "./types";
 import { lowercaseKeys } from "./util/lowercase-keys";
+import { mergeDeep } from "./util/merge-deep";
 
 export function merge(
   defaults: Defaults | null,
@@ -19,9 +17,7 @@ export function merge(
   // lowercase header names before merging with defaults to avoid duplicates
   options.headers = lowercaseKeys(options.headers);
 
-  const mergedOptions = deepmerge.all([defaults!, options].filter(Boolean), {
-    isMergeableObject: isPlainObject
-  }) as Defaults;
+  const mergedOptions = mergeDeep(defaults || {}, options) as Defaults;
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {
