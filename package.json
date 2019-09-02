@@ -49,7 +49,6 @@
     "typescript": "^3.4.5"
   },
   "dependencies": {
-    "deepmerge": "4.0.0",
     "is-plain-object": "^3.0.0",
     "universal-user-agent": "^3.0.0",
     "url-template": "^2.0.8"
