@@ -1,4 +1,4 @@
-import getUserAgent from "universal-user-agent";
+import { getUserAgent } from "universal-user-agent";
 
 import { endpoint } from "../src";
 import { VERSION } from "../src/version";
