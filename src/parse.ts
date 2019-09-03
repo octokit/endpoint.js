@@ -1,9 +1,8 @@
-import urlTemplate from "url-template";
-
 import { addQueryParameters } from "./util/add-query-parameters";
 import { extractUrlVariableNames } from "./util/extract-url-variable-names";
 import { omit } from "./util/omit";
 import { Defaults, Method, RequestOptions } from "./types";
+import { parseUrl } from "./util/url-template";
 
 export function parse(options: Defaults): RequestOptions {
   // https://fetch.spec.whatwg.org/#methods
@@ -25,7 +24,7 @@ export function parse(options: Defaults): RequestOptions {
   // extract variable names from URL to calculate remaining variables later
   const urlVariableNames = extractUrlVariableNames(url);
 
-  url = urlTemplate.parse(url).expand(parameters);
+  url = parseUrl(url).expand(parameters);
 
   if (!/^http/.test(url)) {
     url = options.baseUrl + url;
