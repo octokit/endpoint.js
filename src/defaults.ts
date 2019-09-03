@@ -1,4 +1,4 @@
-import getUserAgent from "universal-user-agent";
+import { getUserAgent } from "universal-user-agent";
 
 import { Defaults } from "./types";
 import { VERSION } from "./version";
