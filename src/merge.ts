@@ -11,7 +11,7 @@ export function merge(
     let [method, url] = route.split(" ");
     options = Object.assign(url ? { method, url } : { url: method }, options);
   } else {
-    options = route || {};
+    options = Object.assign({}, route);
   }
 
   // lowercase header names before merging with defaults to avoid duplicates

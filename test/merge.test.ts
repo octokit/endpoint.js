@@ -90,4 +90,38 @@ describe("endpoint.merge()", () => {
       }
     });
   });
+
+  it("does not mutate the route param", () => {
+    const route = {
+      owner: "octokit",
+      repo: "endpoint.js"
+    };
+
+    endpoint.merge(route);
+
+    expect(route).toEqual({
+      owner: "octokit",
+      repo: "endpoint.js"
+    });
+  });
+
+  it("does not mutate/lowercase the headers field of route", () => {
+    const route = {
+      owner: "octokit",
+      repo: "endpoint.js",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    };
+
+    endpoint.merge(route);
+
+    expect(route).toEqual({
+      owner: "octokit",
+      repo: "endpoint.js",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+  });
 });
