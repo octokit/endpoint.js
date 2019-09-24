@@ -99,7 +99,7 @@ describe("endpoint.merge()", () => {
 
     endpoint.merge(route);
 
-    expect(route).toEqual({
+    expect(route).toStrictEqual({
       owner: "octokit",
       repo: "endpoint.js"
     });
@@ -116,7 +116,7 @@ describe("endpoint.merge()", () => {
 
     endpoint.merge(route);
 
-    expect(route).toEqual({
+    expect(route).toStrictEqual({
       owner: "octokit",
       repo: "endpoint.js",
       headers: {
