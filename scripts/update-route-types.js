@@ -7,6 +7,7 @@ const set = require("lodash.set");
 const pascalCase = require("pascal-case");
 const prettier = require("prettier");
 const { stringToJsdocComment } = require("string-to-jsdoc-comment");
+const sortKeys = require("sort-keys");
 
 const ROUTES_PATH = resolve(process.cwd(), "src", "generated", "routes.ts");
 const ROUTES_TEMPLATE_PATH = resolve(
@@ -133,7 +134,7 @@ Object.keys(ROUTES).forEach(scope => {
 });
 
 const result = template({
-  endpointsByRoute,
+  endpointsByRoute: sortKeys(endpointsByRoute, { deep: true }),
   options
 });
 

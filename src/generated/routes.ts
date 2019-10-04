@@ -2,140 +2,316 @@
 import { Url, Headers, EndpointRequestOptions } from "../types";
 
 export interface Routes {
-  "GET /events": [
-    ActivityListPublicEventsEndpoint,
-    ActivityListPublicEventsRequestOptions
+  "DELETE /app/installations/:installation_id": [
+    AppsDeleteInstallationEndpoint,
+    AppsDeleteInstallationRequestOptions
   ];
-  "GET /repos/:owner/:repo/events": [
-    ActivityListRepoEventsEndpoint,
-    ActivityListRepoEventsRequestOptions
+  "DELETE /applications/:client_id/grants/:access_token": [
+    OauthAuthorizationsRevokeGrantForApplicationEndpoint,
+    OauthAuthorizationsRevokeGrantForApplicationRequestOptions
   ];
-  "GET /networks/:owner/:repo/events": [
-    ActivityListPublicEventsForRepoNetworkEndpoint,
-    ActivityListPublicEventsForRepoNetworkRequestOptions
+  "DELETE /applications/:client_id/tokens/:access_token": [
+    OauthAuthorizationsRevokeAuthorizationForApplicationEndpoint,
+    OauthAuthorizationsRevokeAuthorizationForApplicationRequestOptions
   ];
-  "GET /orgs/:org/events": [
-    ActivityListPublicEventsForOrgEndpoint,
-    ActivityListPublicEventsForOrgRequestOptions
+  "DELETE /applications/grants/:grant_id": [
+    OauthAuthorizationsDeleteGrantEndpoint,
+    OauthAuthorizationsDeleteGrantRequestOptions
   ];
-  "GET /users/:username/received_events": [
-    ActivityListReceivedEventsForUserEndpoint,
-    ActivityListReceivedEventsForUserRequestOptions
+  "DELETE /authorizations/:authorization_id": [
+    OauthAuthorizationsDeleteAuthorizationEndpoint,
+    OauthAuthorizationsDeleteAuthorizationRequestOptions
   ];
-  "GET /users/:username/received_events/public": [
-    ActivityListReceivedPublicEventsForUserEndpoint,
-    ActivityListReceivedPublicEventsForUserRequestOptions
+  "DELETE /gists/:gist_id": [GistsDeleteEndpoint, GistsDeleteRequestOptions];
+  "DELETE /gists/:gist_id/comments/:comment_id": [
+    GistsDeleteCommentEndpoint,
+    GistsDeleteCommentRequestOptions
   ];
-  "GET /users/:username/events": [
-    ActivityListEventsForUserEndpoint,
-    ActivityListEventsForUserRequestOptions
-  ];
-  "GET /users/:username/events/public": [
-    ActivityListPublicEventsForUserEndpoint,
-    ActivityListPublicEventsForUserRequestOptions
-  ];
-  "GET /users/:username/events/orgs/:org": [
-    ActivityListEventsForOrgEndpoint,
-    ActivityListEventsForOrgRequestOptions
-  ];
-  "GET /feeds": [ActivityListFeedsEndpoint, ActivityListFeedsRequestOptions];
-  "GET /notifications": [
-    ActivityListNotificationsEndpoint,
-    ActivityListNotificationsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/notifications": [
-    ActivityListNotificationsForRepoEndpoint,
-    ActivityListNotificationsForRepoRequestOptions
-  ];
-  "PUT /notifications": [
-    ActivityMarkAsReadEndpoint,
-    ActivityMarkAsReadRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/notifications": [
-    ActivityMarkNotificationsAsReadForRepoEndpoint,
-    ActivityMarkNotificationsAsReadForRepoRequestOptions
-  ];
-  "GET /notifications/threads/:thread_id": [
-    ActivityGetThreadEndpoint,
-    ActivityGetThreadRequestOptions
-  ];
-  "PATCH /notifications/threads/:thread_id": [
-    ActivityMarkThreadAsReadEndpoint,
-    ActivityMarkThreadAsReadRequestOptions
-  ];
-  "GET /notifications/threads/:thread_id/subscription": [
-    ActivityGetThreadSubscriptionEndpoint,
-    ActivityGetThreadSubscriptionRequestOptions
-  ];
-  "PUT /notifications/threads/:thread_id/subscription": [
-    ActivitySetThreadSubscriptionEndpoint,
-    ActivitySetThreadSubscriptionRequestOptions
+  "DELETE /gists/:gist_id/star": [
+    GistsUnstarEndpoint,
+    GistsUnstarRequestOptions
   ];
   "DELETE /notifications/threads/:thread_id/subscription": [
     ActivityDeleteThreadSubscriptionEndpoint,
     ActivityDeleteThreadSubscriptionRequestOptions
   ];
-  "GET /repos/:owner/:repo/stargazers": [
-    ActivityListStargazersForRepoEndpoint,
-    ActivityListStargazersForRepoRequestOptions
+  "DELETE /orgs/:org/blocks/:username": [
+    OrgsUnblockUserEndpoint,
+    OrgsUnblockUserRequestOptions
   ];
-  "GET /users/:username/starred": [
-    ActivityListReposStarredByUserEndpoint,
-    ActivityListReposStarredByUserRequestOptions
+  "DELETE /orgs/:org/credential-authorizations/:credential_id": [
+    OrgsRemoveCredentialAuthorizationEndpoint,
+    OrgsRemoveCredentialAuthorizationRequestOptions
   ];
-  "GET /user/starred": [
-    ActivityListReposStarredByAuthenticatedUserEndpoint,
-    ActivityListReposStarredByAuthenticatedUserRequestOptions
+  "DELETE /orgs/:org/hooks/:hook_id": [
+    OrgsDeleteHookEndpoint,
+    OrgsDeleteHookRequestOptions
   ];
-  "GET /user/starred/:owner/:repo": [
-    ActivityCheckStarringRepoEndpoint,
-    ActivityCheckStarringRepoRequestOptions
+  "DELETE /orgs/:org/interaction-limits": [
+    InteractionsRemoveRestrictionsForOrgEndpoint,
+    InteractionsRemoveRestrictionsForOrgRequestOptions
   ];
-  "PUT /user/starred/:owner/:repo": [
-    ActivityStarRepoEndpoint,
-    ActivityStarRepoRequestOptions
+  "DELETE /orgs/:org/members/:username": [
+    OrgsRemoveMemberEndpoint,
+    OrgsRemoveMemberRequestOptions
   ];
-  "DELETE /user/starred/:owner/:repo": [
-    ActivityUnstarRepoEndpoint,
-    ActivityUnstarRepoRequestOptions
+  "DELETE /orgs/:org/memberships/:username": [
+    OrgsRemoveMembershipEndpoint,
+    OrgsRemoveMembershipRequestOptions
   ];
-  "GET /repos/:owner/:repo/subscribers": [
-    ActivityListWatchersForRepoEndpoint,
-    ActivityListWatchersForRepoRequestOptions
+  "DELETE /orgs/:org/migrations/:migration_id/archive": [
+    MigrationsDeleteArchiveForOrgEndpoint,
+    MigrationsDeleteArchiveForOrgRequestOptions
   ];
-  "GET /users/:username/subscriptions": [
-    ActivityListReposWatchedByUserEndpoint,
-    ActivityListReposWatchedByUserRequestOptions
+  "DELETE /orgs/:org/migrations/:migration_id/repos/:repo_name/lock": [
+    MigrationsUnlockRepoForOrgEndpoint,
+    MigrationsUnlockRepoForOrgRequestOptions
   ];
-  "GET /user/subscriptions": [
-    ActivityListWatchedReposForAuthenticatedUserEndpoint,
-    ActivityListWatchedReposForAuthenticatedUserRequestOptions
+  "DELETE /orgs/:org/outside_collaborators/:username": [
+    OrgsRemoveOutsideCollaboratorEndpoint,
+    OrgsRemoveOutsideCollaboratorRequestOptions
   ];
-  "GET /repos/:owner/:repo/subscription": [
-    ActivityGetRepoSubscriptionEndpoint,
-    ActivityGetRepoSubscriptionRequestOptions
+  "DELETE /orgs/:org/public_members/:username": [
+    OrgsConcealMembershipEndpoint,
+    OrgsConcealMembershipRequestOptions
   ];
-  "PUT /repos/:owner/:repo/subscription": [
-    ActivitySetRepoSubscriptionEndpoint,
-    ActivitySetRepoSubscriptionRequestOptions
+  "DELETE /projects/:project_id": [
+    ProjectsDeleteEndpoint,
+    ProjectsDeleteRequestOptions
+  ];
+  "DELETE /projects/:project_id/collaborators/:username": [
+    ProjectsRemoveCollaboratorEndpoint,
+    ProjectsRemoveCollaboratorRequestOptions
+  ];
+  "DELETE /projects/columns/:column_id": [
+    ProjectsDeleteColumnEndpoint,
+    ProjectsDeleteColumnRequestOptions
+  ];
+  "DELETE /projects/columns/cards/:card_id": [
+    ProjectsDeleteCardEndpoint,
+    ProjectsDeleteCardRequestOptions
+  ];
+  "DELETE /reactions/:reaction_id": [
+    ReactionsDeleteEndpoint,
+    ReactionsDeleteRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo": [
+    ReposDeleteEndpoint,
+    ReposDeleteRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/automated-security-fixes": [
+    ReposDisableAutomatedSecurityFixesEndpoint,
+    ReposDisableAutomatedSecurityFixesRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection": [
+    ReposRemoveBranchProtectionEndpoint,
+    ReposRemoveBranchProtectionRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/enforce_admins": [
+    ReposRemoveProtectedBranchAdminEnforcementEndpoint,
+    ReposRemoveProtectedBranchAdminEnforcementRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews": [
+    ReposRemoveProtectedBranchPullRequestReviewEnforcementEndpoint,
+    ReposRemoveProtectedBranchPullRequestReviewEnforcementRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_signatures": [
+    ReposRemoveProtectedBranchRequiredSignaturesEndpoint,
+    ReposRemoveProtectedBranchRequiredSignaturesRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_status_checks": [
+    ReposRemoveProtectedBranchRequiredStatusChecksEndpoint,
+    ReposRemoveProtectedBranchRequiredStatusChecksRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
+    ReposRemoveProtectedBranchRequiredStatusChecksContextsEndpoint,
+    ReposRemoveProtectedBranchRequiredStatusChecksContextsRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions": [
+    ReposRemoveProtectedBranchRestrictionsEndpoint,
+    ReposRemoveProtectedBranchRestrictionsRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
+    ReposRemoveProtectedBranchTeamRestrictionsEndpoint,
+    ReposRemoveProtectedBranchTeamRestrictionsRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
+    ReposRemoveProtectedBranchUserRestrictionsEndpoint,
+    ReposRemoveProtectedBranchUserRestrictionsRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/collaborators/:username": [
+    ReposRemoveCollaboratorEndpoint,
+    ReposRemoveCollaboratorRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/comments/:comment_id": [
+    ReposDeleteCommitCommentEndpoint,
+    ReposDeleteCommitCommentRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/contents/:path": [
+    ReposDeleteFileEndpoint,
+    ReposDeleteFileRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/downloads/:download_id": [
+    ReposDeleteDownloadEndpoint,
+    ReposDeleteDownloadRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/git/refs/:ref": [
+    GitDeleteRefEndpoint,
+    GitDeleteRefRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/hooks/:hook_id": [
+    ReposDeleteHookEndpoint,
+    ReposDeleteHookRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/import": [
+    MigrationsCancelImportEndpoint,
+    MigrationsCancelImportRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/interaction-limits": [
+    InteractionsRemoveRestrictionsForRepoEndpoint,
+    InteractionsRemoveRestrictionsForRepoRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/invitations/:invitation_id": [
+    ReposDeleteInvitationEndpoint,
+    ReposDeleteInvitationRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/issues/:issue_number/assignees": [
+    IssuesRemoveAssigneesEndpoint,
+    IssuesRemoveAssigneesRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/issues/:issue_number/labels": [
+    IssuesRemoveLabelsEndpoint,
+    IssuesRemoveLabelsRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/issues/:issue_number/labels/:name": [
+    IssuesRemoveLabelEndpoint,
+    IssuesRemoveLabelRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/issues/:issue_number/lock": [
+    IssuesUnlockEndpoint,
+    IssuesUnlockRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/issues/comments/:comment_id": [
+    IssuesDeleteCommentEndpoint,
+    IssuesDeleteCommentRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/keys/:key_id": [
+    ReposRemoveDeployKeyEndpoint,
+    ReposRemoveDeployKeyRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/labels/:name": [
+    IssuesDeleteLabelEndpoint,
+    IssuesDeleteLabelRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/milestones/:milestone_number": [
+    IssuesDeleteMilestoneEndpoint,
+    IssuesDeleteMilestoneRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/pages": [
+    ReposDisablePagesSiteEndpoint,
+    ReposDisablePagesSiteRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/pulls/:pull_number/requested_reviewers": [
+    PullsDeleteReviewRequestEndpoint,
+    PullsDeleteReviewRequestRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id": [
+    PullsDeletePendingReviewEndpoint,
+    PullsDeletePendingReviewRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/pulls/comments/:comment_id": [
+    PullsDeleteCommentEndpoint,
+    PullsDeleteCommentRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/releases/:release_id": [
+    ReposDeleteReleaseEndpoint,
+    ReposDeleteReleaseRequestOptions
+  ];
+  "DELETE /repos/:owner/:repo/releases/assets/:asset_id": [
+    ReposDeleteReleaseAssetEndpoint,
+    ReposDeleteReleaseAssetRequestOptions
   ];
   "DELETE /repos/:owner/:repo/subscription": [
     ActivityDeleteRepoSubscriptionEndpoint,
     ActivityDeleteRepoSubscriptionRequestOptions
   ];
-  "GET /user/subscriptions/:owner/:repo": [
-    ActivityCheckWatchingRepoLegacyEndpoint,
-    ActivityCheckWatchingRepoLegacyRequestOptions
+  "DELETE /repos/:owner/:repo/vulnerability-alerts": [
+    ReposDisableVulnerabilityAlertsEndpoint,
+    ReposDisableVulnerabilityAlertsRequestOptions
   ];
-  "PUT /user/subscriptions/:owner/:repo": [
-    ActivityWatchRepoLegacyEndpoint,
-    ActivityWatchRepoLegacyRequestOptions
+  "DELETE /scim/v2/organizations/:org/Users/:scim_user_id": [
+    ScimRemoveUserFromOrgEndpoint,
+    ScimRemoveUserFromOrgRequestOptions
+  ];
+  "DELETE /teams/:team_id": [TeamsDeleteEndpoint, TeamsDeleteRequestOptions];
+  "DELETE /teams/:team_id/discussions/:discussion_number": [
+    TeamsDeleteDiscussionEndpoint,
+    TeamsDeleteDiscussionRequestOptions
+  ];
+  "DELETE /teams/:team_id/discussions/:discussion_number/comments/:comment_number": [
+    TeamsDeleteDiscussionCommentEndpoint,
+    TeamsDeleteDiscussionCommentRequestOptions
+  ];
+  "DELETE /teams/:team_id/members/:username": [
+    TeamsRemoveMemberEndpoint,
+    TeamsRemoveMemberRequestOptions
+  ];
+  "DELETE /teams/:team_id/memberships/:username": [
+    TeamsRemoveMembershipEndpoint,
+    TeamsRemoveMembershipRequestOptions
+  ];
+  "DELETE /teams/:team_id/projects/:project_id": [
+    TeamsRemoveProjectEndpoint,
+    TeamsRemoveProjectRequestOptions
+  ];
+  "DELETE /teams/:team_id/repos/:owner/:repo": [
+    TeamsRemoveRepoEndpoint,
+    TeamsRemoveRepoRequestOptions
+  ];
+  "DELETE /user/blocks/:username": [
+    UsersUnblockEndpoint,
+    UsersUnblockRequestOptions
+  ];
+  "DELETE /user/emails": [
+    UsersDeleteEmailsEndpoint,
+    UsersDeleteEmailsRequestOptions
+  ];
+  "DELETE /user/following/:username": [
+    UsersUnfollowEndpoint,
+    UsersUnfollowRequestOptions
+  ];
+  "DELETE /user/gpg_keys/:gpg_key_id": [
+    UsersDeleteGpgKeyEndpoint,
+    UsersDeleteGpgKeyRequestOptions
+  ];
+  "DELETE /user/installations/:installation_id/repositories/:repository_id": [
+    AppsRemoveRepoFromInstallationEndpoint,
+    AppsRemoveRepoFromInstallationRequestOptions
+  ];
+  "DELETE /user/keys/:key_id": [
+    UsersDeletePublicKeyEndpoint,
+    UsersDeletePublicKeyRequestOptions
+  ];
+  "DELETE /user/migrations/:migration_id/archive": [
+    MigrationsDeleteArchiveForAuthenticatedUserEndpoint,
+    MigrationsDeleteArchiveForAuthenticatedUserRequestOptions
+  ];
+  "DELETE /user/migrations/:migration_id/repos/:repo_name/lock": [
+    MigrationsUnlockRepoForAuthenticatedUserEndpoint,
+    MigrationsUnlockRepoForAuthenticatedUserRequestOptions
+  ];
+  "DELETE /user/repository_invitations/:invitation_id": [
+    ReposDeclineInvitationEndpoint,
+    ReposDeclineInvitationRequestOptions
+  ];
+  "DELETE /user/starred/:owner/:repo": [
+    ActivityUnstarRepoEndpoint,
+    ActivityUnstarRepoRequestOptions
   ];
   "DELETE /user/subscriptions/:owner/:repo": [
     ActivityStopWatchingRepoLegacyEndpoint,
     ActivityStopWatchingRepoLegacyRequestOptions
   ];
-  "GET /apps/:app_slug": [AppsGetBySlugEndpoint, AppsGetBySlugRequestOptions];
   "GET /app": [
     AppsGetAuthenticatedEndpoint,
     AppsGetAuthenticatedRequestOptions
@@ -148,133 +324,26 @@ export interface Routes {
     AppsGetInstallationEndpoint,
     AppsGetInstallationRequestOptions
   ];
-  "DELETE /app/installations/:installation_id": [
-    AppsDeleteInstallationEndpoint,
-    AppsDeleteInstallationRequestOptions
+  "GET /applications/:client_id/tokens/:access_token": [
+    OauthAuthorizationsCheckAuthorizationEndpoint,
+    OauthAuthorizationsCheckAuthorizationRequestOptions
   ];
-  "POST /app/installations/:installation_id/access_tokens": [
-    AppsCreateInstallationTokenEndpoint,
-    AppsCreateInstallationTokenRequestOptions
+  "GET /applications/grants": [
+    OauthAuthorizationsListGrantsEndpoint,
+    OauthAuthorizationsListGrantsRequestOptions
   ];
-  "GET /orgs/:org/installation": [
-    AppsGetOrgInstallationEndpoint | AppsFindOrgInstallationEndpoint,
-    AppsGetOrgInstallationRequestOptions | AppsFindOrgInstallationRequestOptions
+  "GET /applications/grants/:grant_id": [
+    OauthAuthorizationsGetGrantEndpoint,
+    OauthAuthorizationsGetGrantRequestOptions
   ];
-  "GET /repos/:owner/:repo/installation": [
-    AppsGetRepoInstallationEndpoint | AppsFindRepoInstallationEndpoint,
-
-      | AppsGetRepoInstallationRequestOptions
-      | AppsFindRepoInstallationRequestOptions
+  "GET /apps/:app_slug": [AppsGetBySlugEndpoint, AppsGetBySlugRequestOptions];
+  "GET /authorizations": [
+    OauthAuthorizationsListAuthorizationsEndpoint,
+    OauthAuthorizationsListAuthorizationsRequestOptions
   ];
-  "GET /users/:username/installation": [
-    AppsGetUserInstallationEndpoint | AppsFindUserInstallationEndpoint,
-
-      | AppsGetUserInstallationRequestOptions
-      | AppsFindUserInstallationRequestOptions
-  ];
-  "POST /app-manifests/:code/conversions": [
-    AppsCreateFromManifestEndpoint,
-    AppsCreateFromManifestRequestOptions
-  ];
-  "GET /installation/repositories": [
-    AppsListReposEndpoint,
-    AppsListReposRequestOptions
-  ];
-  "GET /user/installations": [
-    AppsListInstallationsForAuthenticatedUserEndpoint,
-    AppsListInstallationsForAuthenticatedUserRequestOptions
-  ];
-  "GET /user/installations/:installation_id/repositories": [
-    AppsListInstallationReposForAuthenticatedUserEndpoint,
-    AppsListInstallationReposForAuthenticatedUserRequestOptions
-  ];
-  "PUT /user/installations/:installation_id/repositories/:repository_id": [
-    AppsAddRepoToInstallationEndpoint,
-    AppsAddRepoToInstallationRequestOptions
-  ];
-  "DELETE /user/installations/:installation_id/repositories/:repository_id": [
-    AppsRemoveRepoFromInstallationEndpoint,
-    AppsRemoveRepoFromInstallationRequestOptions
-  ];
-  "POST /content_references/:content_reference_id/attachments": [
-    AppsCreateContentAttachmentEndpoint,
-    AppsCreateContentAttachmentRequestOptions
-  ];
-  "GET /marketplace_listing/plans": [
-    AppsListPlansEndpoint,
-    AppsListPlansRequestOptions
-  ];
-  "GET /marketplace_listing/stubbed/plans": [
-    AppsListPlansStubbedEndpoint,
-    AppsListPlansStubbedRequestOptions
-  ];
-  "GET /marketplace_listing/plans/:plan_id/accounts": [
-    AppsListAccountsUserOrOrgOnPlanEndpoint,
-    AppsListAccountsUserOrOrgOnPlanRequestOptions
-  ];
-  "GET /marketplace_listing/stubbed/plans/:plan_id/accounts": [
-    AppsListAccountsUserOrOrgOnPlanStubbedEndpoint,
-    AppsListAccountsUserOrOrgOnPlanStubbedRequestOptions
-  ];
-  "GET /marketplace_listing/accounts/:account_id": [
-    AppsCheckAccountIsAssociatedWithAnyEndpoint,
-    AppsCheckAccountIsAssociatedWithAnyRequestOptions
-  ];
-  "GET /marketplace_listing/stubbed/accounts/:account_id": [
-    AppsCheckAccountIsAssociatedWithAnyStubbedEndpoint,
-    AppsCheckAccountIsAssociatedWithAnyStubbedRequestOptions
-  ];
-  "GET /user/marketplace_purchases": [
-    AppsListMarketplacePurchasesForAuthenticatedUserEndpoint,
-    AppsListMarketplacePurchasesForAuthenticatedUserRequestOptions
-  ];
-  "GET /user/marketplace_purchases/stubbed": [
-    AppsListMarketplacePurchasesForAuthenticatedUserStubbedEndpoint,
-    AppsListMarketplacePurchasesForAuthenticatedUserStubbedRequestOptions
-  ];
-  "POST /repos/:owner/:repo/check-runs": [
-    ChecksCreateEndpoint,
-    ChecksCreateRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/check-runs/:check_run_id": [
-    ChecksUpdateEndpoint,
-    ChecksUpdateRequestOptions
-  ];
-  "GET /repos/:owner/:repo/commits/:ref/check-runs": [
-    ChecksListForRefEndpoint,
-    ChecksListForRefRequestOptions
-  ];
-  "GET /repos/:owner/:repo/check-suites/:check_suite_id/check-runs": [
-    ChecksListForSuiteEndpoint,
-    ChecksListForSuiteRequestOptions
-  ];
-  "GET /repos/:owner/:repo/check-runs/:check_run_id": [
-    ChecksGetEndpoint,
-    ChecksGetRequestOptions
-  ];
-  "GET /repos/:owner/:repo/check-runs/:check_run_id/annotations": [
-    ChecksListAnnotationsEndpoint,
-    ChecksListAnnotationsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/check-suites/:check_suite_id": [
-    ChecksGetSuiteEndpoint,
-    ChecksGetSuiteRequestOptions
-  ];
-  "GET /repos/:owner/:repo/commits/:ref/check-suites": [
-    ChecksListSuitesForRefEndpoint,
-    ChecksListSuitesForRefRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/check-suites/preferences": [
-    ChecksSetSuitesPreferencesEndpoint,
-    ChecksSetSuitesPreferencesRequestOptions
-  ];
-  "POST /repos/:owner/:repo/check-suites": [
-    ChecksCreateSuiteEndpoint,
-    ChecksCreateSuiteRequestOptions
-  ];
-  "POST /repos/:owner/:repo/check-suites/:check_suite_id/rerequest": [
-    ChecksRerequestSuiteEndpoint,
-    ChecksRerequestSuiteRequestOptions
+  "GET /authorizations/:authorization_id": [
+    OauthAuthorizationsGetAuthorizationEndpoint,
+    OauthAuthorizationsGetAuthorizationRequestOptions
   ];
   "GET /codes_of_conduct": [
     CodesOfConductListConductCodesEndpoint,
@@ -284,47 +353,18 @@ export interface Routes {
     CodesOfConductGetConductCodeEndpoint,
     CodesOfConductGetConductCodeRequestOptions
   ];
-  "GET /repos/:owner/:repo/community/code_of_conduct": [
-    CodesOfConductGetForRepoEndpoint,
-    CodesOfConductGetForRepoRequestOptions
-  ];
   "GET /emojis": [EmojisGetEndpoint, EmojisGetRequestOptions];
-  "GET /users/:username/gists": [
-    GistsListPublicForUserEndpoint,
-    GistsListPublicForUserRequestOptions
+  "GET /events": [
+    ActivityListPublicEventsEndpoint,
+    ActivityListPublicEventsRequestOptions
   ];
+  "GET /feeds": [ActivityListFeedsEndpoint, ActivityListFeedsRequestOptions];
   "GET /gists": [GistsListEndpoint, GistsListRequestOptions];
-  "GET /gists/public": [GistsListPublicEndpoint, GistsListPublicRequestOptions];
-  "GET /gists/starred": [
-    GistsListStarredEndpoint,
-    GistsListStarredRequestOptions
-  ];
   "GET /gists/:gist_id": [GistsGetEndpoint, GistsGetRequestOptions];
   "GET /gists/:gist_id/:sha": [
     GistsGetRevisionEndpoint,
     GistsGetRevisionRequestOptions
   ];
-  "POST /gists": [GistsCreateEndpoint, GistsCreateRequestOptions];
-  "PATCH /gists/:gist_id": [GistsUpdateEndpoint, GistsUpdateRequestOptions];
-  "GET /gists/:gist_id/commits": [
-    GistsListCommitsEndpoint,
-    GistsListCommitsRequestOptions
-  ];
-  "PUT /gists/:gist_id/star": [GistsStarEndpoint, GistsStarRequestOptions];
-  "DELETE /gists/:gist_id/star": [
-    GistsUnstarEndpoint,
-    GistsUnstarRequestOptions
-  ];
-  "GET /gists/:gist_id/star": [
-    GistsCheckIsStarredEndpoint,
-    GistsCheckIsStarredRequestOptions
-  ];
-  "POST /gists/:gist_id/forks": [GistsForkEndpoint, GistsForkRequestOptions];
-  "GET /gists/:gist_id/forks": [
-    GistsListForksEndpoint,
-    GistsListForksRequestOptions
-  ];
-  "DELETE /gists/:gist_id": [GistsDeleteEndpoint, GistsDeleteRequestOptions];
   "GET /gists/:gist_id/comments": [
     GistsListCommentsEndpoint,
     GistsListCommentsRequestOptions
@@ -333,69 +373,22 @@ export interface Routes {
     GistsGetCommentEndpoint,
     GistsGetCommentRequestOptions
   ];
-  "POST /gists/:gist_id/comments": [
-    GistsCreateCommentEndpoint,
-    GistsCreateCommentRequestOptions
+  "GET /gists/:gist_id/commits": [
+    GistsListCommitsEndpoint,
+    GistsListCommitsRequestOptions
   ];
-  "PATCH /gists/:gist_id/comments/:comment_id": [
-    GistsUpdateCommentEndpoint,
-    GistsUpdateCommentRequestOptions
+  "GET /gists/:gist_id/forks": [
+    GistsListForksEndpoint,
+    GistsListForksRequestOptions
   ];
-  "DELETE /gists/:gist_id/comments/:comment_id": [
-    GistsDeleteCommentEndpoint,
-    GistsDeleteCommentRequestOptions
+  "GET /gists/:gist_id/star": [
+    GistsCheckIsStarredEndpoint,
+    GistsCheckIsStarredRequestOptions
   ];
-  "GET /repos/:owner/:repo/git/blobs/:file_sha": [
-    GitGetBlobEndpoint,
-    GitGetBlobRequestOptions
-  ];
-  "POST /repos/:owner/:repo/git/blobs": [
-    GitCreateBlobEndpoint,
-    GitCreateBlobRequestOptions
-  ];
-  "GET /repos/:owner/:repo/git/commits/:commit_sha": [
-    GitGetCommitEndpoint,
-    GitGetCommitRequestOptions
-  ];
-  "POST /repos/:owner/:repo/git/commits": [
-    GitCreateCommitEndpoint,
-    GitCreateCommitRequestOptions
-  ];
-  "GET /repos/:owner/:repo/git/refs/:ref": [
-    GitGetRefEndpoint,
-    GitGetRefRequestOptions
-  ];
-  "GET /repos/:owner/:repo/git/refs/:namespace": [
-    GitListRefsEndpoint,
-    GitListRefsRequestOptions
-  ];
-  "POST /repos/:owner/:repo/git/refs": [
-    GitCreateRefEndpoint,
-    GitCreateRefRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/git/refs/:ref": [
-    GitUpdateRefEndpoint,
-    GitUpdateRefRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/git/refs/:ref": [
-    GitDeleteRefEndpoint,
-    GitDeleteRefRequestOptions
-  ];
-  "GET /repos/:owner/:repo/git/tags/:tag_sha": [
-    GitGetTagEndpoint,
-    GitGetTagRequestOptions
-  ];
-  "POST /repos/:owner/:repo/git/tags": [
-    GitCreateTagEndpoint,
-    GitCreateTagRequestOptions
-  ];
-  "GET /repos/:owner/:repo/git/trees/:tree_sha": [
-    GitGetTreeEndpoint,
-    GitGetTreeRequestOptions
-  ];
-  "POST /repos/:owner/:repo/git/trees": [
-    GitCreateTreeEndpoint,
-    GitCreateTreeRequestOptions
+  "GET /gists/public": [GistsListPublicEndpoint, GistsListPublicRequestOptions];
+  "GET /gists/starred": [
+    GistsListStarredEndpoint,
+    GistsListStarredRequestOptions
   ];
   "GET /gitignore/templates": [
     GitignoreListTemplatesEndpoint,
@@ -405,201 +398,127 @@ export interface Routes {
     GitignoreGetTemplateEndpoint,
     GitignoreGetTemplateRequestOptions
   ];
-  "GET /orgs/:org/interaction-limits": [
-    InteractionsGetRestrictionsForOrgEndpoint,
-    InteractionsGetRestrictionsForOrgRequestOptions
-  ];
-  "PUT /orgs/:org/interaction-limits": [
-    InteractionsAddOrUpdateRestrictionsForOrgEndpoint,
-    InteractionsAddOrUpdateRestrictionsForOrgRequestOptions
-  ];
-  "DELETE /orgs/:org/interaction-limits": [
-    InteractionsRemoveRestrictionsForOrgEndpoint,
-    InteractionsRemoveRestrictionsForOrgRequestOptions
-  ];
-  "GET /repos/:owner/:repo/interaction-limits": [
-    InteractionsGetRestrictionsForRepoEndpoint,
-    InteractionsGetRestrictionsForRepoRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/interaction-limits": [
-    InteractionsAddOrUpdateRestrictionsForRepoEndpoint,
-    InteractionsAddOrUpdateRestrictionsForRepoRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/interaction-limits": [
-    InteractionsRemoveRestrictionsForRepoEndpoint,
-    InteractionsRemoveRestrictionsForRepoRequestOptions
+  "GET /installation/repositories": [
+    AppsListReposEndpoint,
+    AppsListReposRequestOptions
   ];
   "GET /issues": [IssuesListEndpoint, IssuesListRequestOptions];
-  "GET /user/issues": [
-    IssuesListForAuthenticatedUserEndpoint,
-    IssuesListForAuthenticatedUserRequestOptions
+  "GET /legacy/issues/search/:owner/:repository/:state/:keyword": [
+    SearchIssuesLegacyEndpoint,
+    SearchIssuesLegacyRequestOptions
   ];
-  "GET /orgs/:org/issues": [
-    IssuesListForOrgEndpoint,
-    IssuesListForOrgRequestOptions
+  "GET /legacy/repos/search/:keyword": [
+    SearchReposLegacyEndpoint,
+    SearchReposLegacyRequestOptions
   ];
-  "GET /repos/:owner/:repo/issues": [
-    IssuesListForRepoEndpoint,
-    IssuesListForRepoRequestOptions
+  "GET /legacy/user/email/:email": [
+    SearchEmailLegacyEndpoint,
+    SearchEmailLegacyRequestOptions
   ];
-  "GET /repos/:owner/:repo/issues/:issue_number": [
-    IssuesGetEndpoint,
-    IssuesGetRequestOptions
-  ];
-  "POST /repos/:owner/:repo/issues": [
-    IssuesCreateEndpoint,
-    IssuesCreateRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/issues/:issue_number": [
-    IssuesUpdateEndpoint,
-    IssuesUpdateRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/issues/:issue_number/lock": [
-    IssuesLockEndpoint,
-    IssuesLockRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/issues/:issue_number/lock": [
-    IssuesUnlockEndpoint,
-    IssuesUnlockRequestOptions
-  ];
-  "GET /repos/:owner/:repo/assignees": [
-    IssuesListAssigneesEndpoint,
-    IssuesListAssigneesRequestOptions
-  ];
-  "GET /repos/:owner/:repo/assignees/:assignee": [
-    IssuesCheckAssigneeEndpoint,
-    IssuesCheckAssigneeRequestOptions
-  ];
-  "POST /repos/:owner/:repo/issues/:issue_number/assignees": [
-    IssuesAddAssigneesEndpoint,
-    IssuesAddAssigneesRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/issues/:issue_number/assignees": [
-    IssuesRemoveAssigneesEndpoint,
-    IssuesRemoveAssigneesRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/:issue_number/comments": [
-    IssuesListCommentsEndpoint,
-    IssuesListCommentsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/comments": [
-    IssuesListCommentsForRepoEndpoint,
-    IssuesListCommentsForRepoRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/comments/:comment_id": [
-    IssuesGetCommentEndpoint,
-    IssuesGetCommentRequestOptions
-  ];
-  "POST /repos/:owner/:repo/issues/:issue_number/comments": [
-    IssuesCreateCommentEndpoint,
-    IssuesCreateCommentRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/issues/comments/:comment_id": [
-    IssuesUpdateCommentEndpoint,
-    IssuesUpdateCommentRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/issues/comments/:comment_id": [
-    IssuesDeleteCommentEndpoint,
-    IssuesDeleteCommentRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/:issue_number/events": [
-    IssuesListEventsEndpoint,
-    IssuesListEventsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/events": [
-    IssuesListEventsForRepoEndpoint,
-    IssuesListEventsForRepoRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/events/:event_id": [
-    IssuesGetEventEndpoint,
-    IssuesGetEventRequestOptions
-  ];
-  "GET /repos/:owner/:repo/labels": [
-    IssuesListLabelsForRepoEndpoint,
-    IssuesListLabelsForRepoRequestOptions
-  ];
-  "GET /repos/:owner/:repo/labels/:name": [
-    IssuesGetLabelEndpoint,
-    IssuesGetLabelRequestOptions
-  ];
-  "POST /repos/:owner/:repo/labels": [
-    IssuesCreateLabelEndpoint,
-    IssuesCreateLabelRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/labels/:current_name": [
-    IssuesUpdateLabelEndpoint,
-    IssuesUpdateLabelRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/labels/:name": [
-    IssuesDeleteLabelEndpoint,
-    IssuesDeleteLabelRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/:issue_number/labels": [
-    IssuesListLabelsOnIssueEndpoint,
-    IssuesListLabelsOnIssueRequestOptions
-  ];
-  "POST /repos/:owner/:repo/issues/:issue_number/labels": [
-    IssuesAddLabelsEndpoint,
-    IssuesAddLabelsRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/issues/:issue_number/labels/:name": [
-    IssuesRemoveLabelEndpoint,
-    IssuesRemoveLabelRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/issues/:issue_number/labels": [
-    IssuesReplaceLabelsEndpoint,
-    IssuesReplaceLabelsRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/issues/:issue_number/labels": [
-    IssuesRemoveLabelsEndpoint,
-    IssuesRemoveLabelsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/milestones/:milestone_number/labels": [
-    IssuesListLabelsForMilestoneEndpoint,
-    IssuesListLabelsForMilestoneRequestOptions
-  ];
-  "GET /repos/:owner/:repo/milestones": [
-    IssuesListMilestonesForRepoEndpoint,
-    IssuesListMilestonesForRepoRequestOptions
-  ];
-  "GET /repos/:owner/:repo/milestones/:milestone_number": [
-    IssuesGetMilestoneEndpoint,
-    IssuesGetMilestoneRequestOptions
-  ];
-  "POST /repos/:owner/:repo/milestones": [
-    IssuesCreateMilestoneEndpoint,
-    IssuesCreateMilestoneRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/milestones/:milestone_number": [
-    IssuesUpdateMilestoneEndpoint,
-    IssuesUpdateMilestoneRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/milestones/:milestone_number": [
-    IssuesDeleteMilestoneEndpoint,
-    IssuesDeleteMilestoneRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/:issue_number/timeline": [
-    IssuesListEventsForTimelineEndpoint,
-    IssuesListEventsForTimelineRequestOptions
+  "GET /legacy/user/search/:keyword": [
+    SearchUsersLegacyEndpoint,
+    SearchUsersLegacyRequestOptions
   ];
   "GET /licenses": [
     LicensesListCommonlyUsedEndpoint | LicensesListEndpoint,
     LicensesListCommonlyUsedRequestOptions | LicensesListRequestOptions
   ];
   "GET /licenses/:license": [LicensesGetEndpoint, LicensesGetRequestOptions];
-  "GET /repos/:owner/:repo/license": [
-    LicensesGetForRepoEndpoint,
-    LicensesGetForRepoRequestOptions
+  "GET /marketplace_listing/accounts/:account_id": [
+    AppsCheckAccountIsAssociatedWithAnyEndpoint,
+    AppsCheckAccountIsAssociatedWithAnyRequestOptions
   ];
-  "POST /markdown": [MarkdownRenderEndpoint, MarkdownRenderRequestOptions];
-  "POST /markdown/raw": [
-    MarkdownRenderRawEndpoint,
-    MarkdownRenderRawRequestOptions
+  "GET /marketplace_listing/plans": [
+    AppsListPlansEndpoint,
+    AppsListPlansRequestOptions
+  ];
+  "GET /marketplace_listing/plans/:plan_id/accounts": [
+    AppsListAccountsUserOrOrgOnPlanEndpoint,
+    AppsListAccountsUserOrOrgOnPlanRequestOptions
+  ];
+  "GET /marketplace_listing/stubbed/accounts/:account_id": [
+    AppsCheckAccountIsAssociatedWithAnyStubbedEndpoint,
+    AppsCheckAccountIsAssociatedWithAnyStubbedRequestOptions
+  ];
+  "GET /marketplace_listing/stubbed/plans": [
+    AppsListPlansStubbedEndpoint,
+    AppsListPlansStubbedRequestOptions
+  ];
+  "GET /marketplace_listing/stubbed/plans/:plan_id/accounts": [
+    AppsListAccountsUserOrOrgOnPlanStubbedEndpoint,
+    AppsListAccountsUserOrOrgOnPlanStubbedRequestOptions
   ];
   "GET /meta": [MetaGetEndpoint, MetaGetRequestOptions];
-  "POST /orgs/:org/migrations": [
-    MigrationsStartForOrgEndpoint,
-    MigrationsStartForOrgRequestOptions
+  "GET /networks/:owner/:repo/events": [
+    ActivityListPublicEventsForRepoNetworkEndpoint,
+    ActivityListPublicEventsForRepoNetworkRequestOptions
+  ];
+  "GET /notifications": [
+    ActivityListNotificationsEndpoint,
+    ActivityListNotificationsRequestOptions
+  ];
+  "GET /notifications/threads/:thread_id": [
+    ActivityGetThreadEndpoint,
+    ActivityGetThreadRequestOptions
+  ];
+  "GET /notifications/threads/:thread_id/subscription": [
+    ActivityGetThreadSubscriptionEndpoint,
+    ActivityGetThreadSubscriptionRequestOptions
+  ];
+  "GET /organizations": [OrgsListEndpoint, OrgsListRequestOptions];
+  "GET /orgs/:org": [OrgsGetEndpoint, OrgsGetRequestOptions];
+  "GET /orgs/:org/blocks": [
+    OrgsListBlockedUsersEndpoint,
+    OrgsListBlockedUsersRequestOptions
+  ];
+  "GET /orgs/:org/blocks/:username": [
+    OrgsCheckBlockedUserEndpoint,
+    OrgsCheckBlockedUserRequestOptions
+  ];
+  "GET /orgs/:org/credential-authorizations": [
+    OrgsListCredentialAuthorizationsEndpoint,
+    OrgsListCredentialAuthorizationsRequestOptions
+  ];
+  "GET /orgs/:org/events": [
+    ActivityListPublicEventsForOrgEndpoint,
+    ActivityListPublicEventsForOrgRequestOptions
+  ];
+  "GET /orgs/:org/hooks": [OrgsListHooksEndpoint, OrgsListHooksRequestOptions];
+  "GET /orgs/:org/hooks/:hook_id": [
+    OrgsGetHookEndpoint,
+    OrgsGetHookRequestOptions
+  ];
+  "GET /orgs/:org/installation": [
+    AppsGetOrgInstallationEndpoint | AppsFindOrgInstallationEndpoint,
+    AppsGetOrgInstallationRequestOptions | AppsFindOrgInstallationRequestOptions
+  ];
+  "GET /orgs/:org/interaction-limits": [
+    InteractionsGetRestrictionsForOrgEndpoint,
+    InteractionsGetRestrictionsForOrgRequestOptions
+  ];
+  "GET /orgs/:org/invitations": [
+    OrgsListPendingInvitationsEndpoint,
+    OrgsListPendingInvitationsRequestOptions
+  ];
+  "GET /orgs/:org/invitations/:invitation_id/teams": [
+    OrgsListInvitationTeamsEndpoint,
+    OrgsListInvitationTeamsRequestOptions
+  ];
+  "GET /orgs/:org/issues": [
+    IssuesListForOrgEndpoint,
+    IssuesListForOrgRequestOptions
+  ];
+  "GET /orgs/:org/members": [
+    OrgsListMembersEndpoint,
+    OrgsListMembersRequestOptions
+  ];
+  "GET /orgs/:org/members/:username": [
+    OrgsCheckMembershipEndpoint,
+    OrgsCheckMembershipRequestOptions
+  ];
+  "GET /orgs/:org/memberships/:username": [
+    OrgsGetMembershipEndpoint,
+    OrgsGetMembershipRequestOptions
   ];
   "GET /orgs/:org/migrations": [
     MigrationsListForOrgEndpoint,
@@ -613,197 +532,13 @@ export interface Routes {
     MigrationsGetArchiveForOrgEndpoint,
     MigrationsGetArchiveForOrgRequestOptions
   ];
-  "DELETE /orgs/:org/migrations/:migration_id/archive": [
-    MigrationsDeleteArchiveForOrgEndpoint,
-    MigrationsDeleteArchiveForOrgRequestOptions
+  "GET /orgs/:org/outside_collaborators": [
+    OrgsListOutsideCollaboratorsEndpoint,
+    OrgsListOutsideCollaboratorsRequestOptions
   ];
-  "DELETE /orgs/:org/migrations/:migration_id/repos/:repo_name/lock": [
-    MigrationsUnlockRepoForOrgEndpoint,
-    MigrationsUnlockRepoForOrgRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/import": [
-    MigrationsStartImportEndpoint,
-    MigrationsStartImportRequestOptions
-  ];
-  "GET /repos/:owner/:repo/import": [
-    MigrationsGetImportProgressEndpoint,
-    MigrationsGetImportProgressRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/import": [
-    MigrationsUpdateImportEndpoint,
-    MigrationsUpdateImportRequestOptions
-  ];
-  "GET /repos/:owner/:repo/import/authors": [
-    MigrationsGetCommitAuthorsEndpoint,
-    MigrationsGetCommitAuthorsRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/import/authors/:author_id": [
-    MigrationsMapCommitAuthorEndpoint,
-    MigrationsMapCommitAuthorRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/import/lfs": [
-    MigrationsSetLfsPreferenceEndpoint,
-    MigrationsSetLfsPreferenceRequestOptions
-  ];
-  "GET /repos/:owner/:repo/import/large_files": [
-    MigrationsGetLargeFilesEndpoint,
-    MigrationsGetLargeFilesRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/import": [
-    MigrationsCancelImportEndpoint,
-    MigrationsCancelImportRequestOptions
-  ];
-  "POST /user/migrations": [
-    MigrationsStartForAuthenticatedUserEndpoint,
-    MigrationsStartForAuthenticatedUserRequestOptions
-  ];
-  "GET /user/migrations": [
-    MigrationsListForAuthenticatedUserEndpoint,
-    MigrationsListForAuthenticatedUserRequestOptions
-  ];
-  "GET /user/migrations/:migration_id": [
-    MigrationsGetStatusForAuthenticatedUserEndpoint,
-    MigrationsGetStatusForAuthenticatedUserRequestOptions
-  ];
-  "GET /user/migrations/:migration_id/archive": [
-    MigrationsGetArchiveForAuthenticatedUserEndpoint,
-    MigrationsGetArchiveForAuthenticatedUserRequestOptions
-  ];
-  "DELETE /user/migrations/:migration_id/archive": [
-    MigrationsDeleteArchiveForAuthenticatedUserEndpoint,
-    MigrationsDeleteArchiveForAuthenticatedUserRequestOptions
-  ];
-  "DELETE /user/migrations/:migration_id/repos/:repo_name/lock": [
-    MigrationsUnlockRepoForAuthenticatedUserEndpoint,
-    MigrationsUnlockRepoForAuthenticatedUserRequestOptions
-  ];
-  "GET /applications/grants": [
-    OauthAuthorizationsListGrantsEndpoint,
-    OauthAuthorizationsListGrantsRequestOptions
-  ];
-  "GET /applications/grants/:grant_id": [
-    OauthAuthorizationsGetGrantEndpoint,
-    OauthAuthorizationsGetGrantRequestOptions
-  ];
-  "DELETE /applications/grants/:grant_id": [
-    OauthAuthorizationsDeleteGrantEndpoint,
-    OauthAuthorizationsDeleteGrantRequestOptions
-  ];
-  "GET /authorizations": [
-    OauthAuthorizationsListAuthorizationsEndpoint,
-    OauthAuthorizationsListAuthorizationsRequestOptions
-  ];
-  "GET /authorizations/:authorization_id": [
-    OauthAuthorizationsGetAuthorizationEndpoint,
-    OauthAuthorizationsGetAuthorizationRequestOptions
-  ];
-  "POST /authorizations": [
-    OauthAuthorizationsCreateAuthorizationEndpoint,
-    OauthAuthorizationsCreateAuthorizationRequestOptions
-  ];
-  "PUT /authorizations/clients/:client_id": [
-    OauthAuthorizationsGetOrCreateAuthorizationForAppEndpoint,
-    OauthAuthorizationsGetOrCreateAuthorizationForAppRequestOptions
-  ];
-  "PUT /authorizations/clients/:client_id/:fingerprint": [
-
-      | OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintEndpoint
-      | OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintEndpoint,
-
-      | OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintRequestOptions
-      | OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintRequestOptions
-  ];
-  "PATCH /authorizations/:authorization_id": [
-    OauthAuthorizationsUpdateAuthorizationEndpoint,
-    OauthAuthorizationsUpdateAuthorizationRequestOptions
-  ];
-  "DELETE /authorizations/:authorization_id": [
-    OauthAuthorizationsDeleteAuthorizationEndpoint,
-    OauthAuthorizationsDeleteAuthorizationRequestOptions
-  ];
-  "GET /applications/:client_id/tokens/:access_token": [
-    OauthAuthorizationsCheckAuthorizationEndpoint,
-    OauthAuthorizationsCheckAuthorizationRequestOptions
-  ];
-  "POST /applications/:client_id/tokens/:access_token": [
-    OauthAuthorizationsResetAuthorizationEndpoint,
-    OauthAuthorizationsResetAuthorizationRequestOptions
-  ];
-  "DELETE /applications/:client_id/tokens/:access_token": [
-    OauthAuthorizationsRevokeAuthorizationForApplicationEndpoint,
-    OauthAuthorizationsRevokeAuthorizationForApplicationRequestOptions
-  ];
-  "DELETE /applications/:client_id/grants/:access_token": [
-    OauthAuthorizationsRevokeGrantForApplicationEndpoint,
-    OauthAuthorizationsRevokeGrantForApplicationRequestOptions
-  ];
-  "GET /user/orgs": [
-    OrgsListForAuthenticatedUserEndpoint,
-    OrgsListForAuthenticatedUserRequestOptions
-  ];
-  "GET /organizations": [OrgsListEndpoint, OrgsListRequestOptions];
-  "GET /users/:username/orgs": [
-    OrgsListForUserEndpoint,
-    OrgsListForUserRequestOptions
-  ];
-  "GET /orgs/:org": [OrgsGetEndpoint, OrgsGetRequestOptions];
-  "PATCH /orgs/:org": [OrgsUpdateEndpoint, OrgsUpdateRequestOptions];
-  "GET /orgs/:org/credential-authorizations": [
-    OrgsListCredentialAuthorizationsEndpoint,
-    OrgsListCredentialAuthorizationsRequestOptions
-  ];
-  "DELETE /orgs/:org/credential-authorizations/:credential_id": [
-    OrgsRemoveCredentialAuthorizationEndpoint,
-    OrgsRemoveCredentialAuthorizationRequestOptions
-  ];
-  "GET /orgs/:org/blocks": [
-    OrgsListBlockedUsersEndpoint,
-    OrgsListBlockedUsersRequestOptions
-  ];
-  "GET /orgs/:org/blocks/:username": [
-    OrgsCheckBlockedUserEndpoint,
-    OrgsCheckBlockedUserRequestOptions
-  ];
-  "PUT /orgs/:org/blocks/:username": [
-    OrgsBlockUserEndpoint,
-    OrgsBlockUserRequestOptions
-  ];
-  "DELETE /orgs/:org/blocks/:username": [
-    OrgsUnblockUserEndpoint,
-    OrgsUnblockUserRequestOptions
-  ];
-  "GET /orgs/:org/hooks": [OrgsListHooksEndpoint, OrgsListHooksRequestOptions];
-  "GET /orgs/:org/hooks/:hook_id": [
-    OrgsGetHookEndpoint,
-    OrgsGetHookRequestOptions
-  ];
-  "POST /orgs/:org/hooks": [
-    OrgsCreateHookEndpoint,
-    OrgsCreateHookRequestOptions
-  ];
-  "PATCH /orgs/:org/hooks/:hook_id": [
-    OrgsUpdateHookEndpoint,
-    OrgsUpdateHookRequestOptions
-  ];
-  "POST /orgs/:org/hooks/:hook_id/pings": [
-    OrgsPingHookEndpoint,
-    OrgsPingHookRequestOptions
-  ];
-  "DELETE /orgs/:org/hooks/:hook_id": [
-    OrgsDeleteHookEndpoint,
-    OrgsDeleteHookRequestOptions
-  ];
-  "GET /orgs/:org/members": [
-    OrgsListMembersEndpoint,
-    OrgsListMembersRequestOptions
-  ];
-  "GET /orgs/:org/members/:username": [
-    OrgsCheckMembershipEndpoint,
-    OrgsCheckMembershipRequestOptions
-  ];
-  "DELETE /orgs/:org/members/:username": [
-    OrgsRemoveMemberEndpoint,
-    OrgsRemoveMemberRequestOptions
+  "GET /orgs/:org/projects": [
+    ProjectsListForOrgEndpoint,
+    ProjectsListForOrgRequestOptions
   ];
   "GET /orgs/:org/public_members": [
     OrgsListPublicMembersEndpoint,
@@ -813,119 +548,20 @@ export interface Routes {
     OrgsCheckPublicMembershipEndpoint,
     OrgsCheckPublicMembershipRequestOptions
   ];
-  "PUT /orgs/:org/public_members/:username": [
-    OrgsPublicizeMembershipEndpoint,
-    OrgsPublicizeMembershipRequestOptions
+  "GET /orgs/:org/repos": [
+    ReposListForOrgEndpoint,
+    ReposListForOrgRequestOptions
   ];
-  "DELETE /orgs/:org/public_members/:username": [
-    OrgsConcealMembershipEndpoint,
-    OrgsConcealMembershipRequestOptions
+  "GET /orgs/:org/team-sync/groups": [
+    TeamsListIdPGroupsForOrgEndpoint,
+    TeamsListIdPGroupsForOrgRequestOptions
   ];
-  "GET /orgs/:org/memberships/:username": [
-    OrgsGetMembershipEndpoint,
-    OrgsGetMembershipRequestOptions
-  ];
-  "PUT /orgs/:org/memberships/:username": [
-    OrgsAddOrUpdateMembershipEndpoint,
-    OrgsAddOrUpdateMembershipRequestOptions
-  ];
-  "DELETE /orgs/:org/memberships/:username": [
-    OrgsRemoveMembershipEndpoint,
-    OrgsRemoveMembershipRequestOptions
-  ];
-  "GET /orgs/:org/invitations/:invitation_id/teams": [
-    OrgsListInvitationTeamsEndpoint,
-    OrgsListInvitationTeamsRequestOptions
-  ];
-  "GET /orgs/:org/invitations": [
-    OrgsListPendingInvitationsEndpoint,
-    OrgsListPendingInvitationsRequestOptions
-  ];
-  "POST /orgs/:org/invitations": [
-    OrgsCreateInvitationEndpoint,
-    OrgsCreateInvitationRequestOptions
-  ];
-  "GET /user/memberships/orgs": [
-    OrgsListMembershipsEndpoint,
-    OrgsListMembershipsRequestOptions
-  ];
-  "GET /user/memberships/orgs/:org": [
-    OrgsGetMembershipForAuthenticatedUserEndpoint,
-    OrgsGetMembershipForAuthenticatedUserRequestOptions
-  ];
-  "PATCH /user/memberships/orgs/:org": [
-    OrgsUpdateMembershipEndpoint,
-    OrgsUpdateMembershipRequestOptions
-  ];
-  "GET /orgs/:org/outside_collaborators": [
-    OrgsListOutsideCollaboratorsEndpoint,
-    OrgsListOutsideCollaboratorsRequestOptions
-  ];
-  "DELETE /orgs/:org/outside_collaborators/:username": [
-    OrgsRemoveOutsideCollaboratorEndpoint,
-    OrgsRemoveOutsideCollaboratorRequestOptions
-  ];
-  "PUT /orgs/:org/outside_collaborators/:username": [
-    OrgsConvertMemberToOutsideCollaboratorEndpoint,
-    OrgsConvertMemberToOutsideCollaboratorRequestOptions
-  ];
-  "GET /repos/:owner/:repo/projects": [
-    ProjectsListForRepoEndpoint,
-    ProjectsListForRepoRequestOptions
-  ];
-  "GET /orgs/:org/projects": [
-    ProjectsListForOrgEndpoint,
-    ProjectsListForOrgRequestOptions
-  ];
-  "GET /users/:username/projects": [
-    ProjectsListForUserEndpoint,
-    ProjectsListForUserRequestOptions
+  "GET /orgs/:org/teams": [TeamsListEndpoint, TeamsListRequestOptions];
+  "GET /orgs/:org/teams/:team_slug": [
+    TeamsGetByNameEndpoint,
+    TeamsGetByNameRequestOptions
   ];
   "GET /projects/:project_id": [ProjectsGetEndpoint, ProjectsGetRequestOptions];
-  "POST /repos/:owner/:repo/projects": [
-    ProjectsCreateForRepoEndpoint,
-    ProjectsCreateForRepoRequestOptions
-  ];
-  "POST /orgs/:org/projects": [
-    ProjectsCreateForOrgEndpoint,
-    ProjectsCreateForOrgRequestOptions
-  ];
-  "POST /user/projects": [
-    ProjectsCreateForAuthenticatedUserEndpoint,
-    ProjectsCreateForAuthenticatedUserRequestOptions
-  ];
-  "PATCH /projects/:project_id": [
-    ProjectsUpdateEndpoint,
-    ProjectsUpdateRequestOptions
-  ];
-  "DELETE /projects/:project_id": [
-    ProjectsDeleteEndpoint,
-    ProjectsDeleteRequestOptions
-  ];
-  "GET /projects/columns/:column_id/cards": [
-    ProjectsListCardsEndpoint,
-    ProjectsListCardsRequestOptions
-  ];
-  "GET /projects/columns/cards/:card_id": [
-    ProjectsGetCardEndpoint,
-    ProjectsGetCardRequestOptions
-  ];
-  "POST /projects/columns/:column_id/cards": [
-    ProjectsCreateCardEndpoint,
-    ProjectsCreateCardRequestOptions
-  ];
-  "PATCH /projects/columns/cards/:card_id": [
-    ProjectsUpdateCardEndpoint,
-    ProjectsUpdateCardRequestOptions
-  ];
-  "DELETE /projects/columns/cards/:card_id": [
-    ProjectsDeleteCardEndpoint,
-    ProjectsDeleteCardRequestOptions
-  ];
-  "POST /projects/columns/cards/:card_id/moves": [
-    ProjectsMoveCardEndpoint,
-    ProjectsMoveCardRequestOptions
-  ];
   "GET /projects/:project_id/collaborators": [
     ProjectsListCollaboratorsEndpoint,
     ProjectsListCollaboratorsRequestOptions
@@ -933,14 +569,6 @@ export interface Routes {
   "GET /projects/:project_id/collaborators/:username/permission": [
     ProjectsReviewUserPermissionLevelEndpoint,
     ProjectsReviewUserPermissionLevelRequestOptions
-  ];
-  "PUT /projects/:project_id/collaborators/:username": [
-    ProjectsAddCollaboratorEndpoint,
-    ProjectsAddCollaboratorRequestOptions
-  ];
-  "DELETE /projects/:project_id/collaborators/:username": [
-    ProjectsRemoveCollaboratorEndpoint,
-    ProjectsRemoveCollaboratorRequestOptions
   ];
   "GET /projects/:project_id/columns": [
     ProjectsListColumnsEndpoint,
@@ -950,251 +578,27 @@ export interface Routes {
     ProjectsGetColumnEndpoint,
     ProjectsGetColumnRequestOptions
   ];
-  "POST /projects/:project_id/columns": [
-    ProjectsCreateColumnEndpoint,
-    ProjectsCreateColumnRequestOptions
+  "GET /projects/columns/:column_id/cards": [
+    ProjectsListCardsEndpoint,
+    ProjectsListCardsRequestOptions
   ];
-  "PATCH /projects/columns/:column_id": [
-    ProjectsUpdateColumnEndpoint,
-    ProjectsUpdateColumnRequestOptions
-  ];
-  "DELETE /projects/columns/:column_id": [
-    ProjectsDeleteColumnEndpoint,
-    ProjectsDeleteColumnRequestOptions
-  ];
-  "POST /projects/columns/:column_id/moves": [
-    ProjectsMoveColumnEndpoint,
-    ProjectsMoveColumnRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls": [PullsListEndpoint, PullsListRequestOptions];
-  "GET /repos/:owner/:repo/pulls/:pull_number": [
-    PullsGetEndpoint,
-    PullsGetRequestOptions
-  ];
-  "POST /repos/:owner/:repo/pulls": [
-    PullsCreateEndpoint | PullsCreateFromIssueEndpoint,
-    PullsCreateRequestOptions | PullsCreateFromIssueRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/pulls/:pull_number/update-branch": [
-    PullsUpdateBranchEndpoint,
-    PullsUpdateBranchRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/pulls/:pull_number": [
-    PullsUpdateEndpoint,
-    PullsUpdateRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/commits": [
-    PullsListCommitsEndpoint,
-    PullsListCommitsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/files": [
-    PullsListFilesEndpoint,
-    PullsListFilesRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/merge": [
-    PullsCheckIfMergedEndpoint,
-    PullsCheckIfMergedRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/pulls/:pull_number/merge": [
-    PullsMergeEndpoint,
-    PullsMergeRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/comments": [
-    PullsListCommentsEndpoint,
-    PullsListCommentsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/comments": [
-    PullsListCommentsForRepoEndpoint,
-    PullsListCommentsForRepoRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/comments/:comment_id": [
-    PullsGetCommentEndpoint,
-    PullsGetCommentRequestOptions
-  ];
-  "POST /repos/:owner/:repo/pulls/:pull_number/comments": [
-    PullsCreateCommentEndpoint | PullsCreateCommentReplyEndpoint,
-    PullsCreateCommentRequestOptions | PullsCreateCommentReplyRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/pulls/comments/:comment_id": [
-    PullsUpdateCommentEndpoint,
-    PullsUpdateCommentRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/pulls/comments/:comment_id": [
-    PullsDeleteCommentEndpoint,
-    PullsDeleteCommentRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/requested_reviewers": [
-    PullsListReviewRequestsEndpoint,
-    PullsListReviewRequestsRequestOptions
-  ];
-  "POST /repos/:owner/:repo/pulls/:pull_number/requested_reviewers": [
-    PullsCreateReviewRequestEndpoint,
-    PullsCreateReviewRequestRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/pulls/:pull_number/requested_reviewers": [
-    PullsDeleteReviewRequestEndpoint,
-    PullsDeleteReviewRequestRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/reviews": [
-    PullsListReviewsEndpoint,
-    PullsListReviewsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id": [
-    PullsGetReviewEndpoint,
-    PullsGetReviewRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id": [
-    PullsDeletePendingReviewEndpoint,
-    PullsDeletePendingReviewRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/comments": [
-    PullsGetCommentsForReviewEndpoint,
-    PullsGetCommentsForReviewRequestOptions
-  ];
-  "POST /repos/:owner/:repo/pulls/:pull_number/reviews": [
-    PullsCreateReviewEndpoint,
-    PullsCreateReviewRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id": [
-    PullsUpdateReviewEndpoint,
-    PullsUpdateReviewRequestOptions
-  ];
-  "POST /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/events": [
-    PullsSubmitReviewEndpoint,
-    PullsSubmitReviewRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/dismissals": [
-    PullsDismissReviewEndpoint,
-    PullsDismissReviewRequestOptions
+  "GET /projects/columns/cards/:card_id": [
+    ProjectsGetCardEndpoint,
+    ProjectsGetCardRequestOptions
   ];
   "GET /rate_limit": [RateLimitGetEndpoint, RateLimitGetRequestOptions];
-  "GET /repos/:owner/:repo/comments/:comment_id/reactions": [
-    ReactionsListForCommitCommentEndpoint,
-    ReactionsListForCommitCommentRequestOptions
-  ];
-  "POST /repos/:owner/:repo/comments/:comment_id/reactions": [
-    ReactionsCreateForCommitCommentEndpoint,
-    ReactionsCreateForCommitCommentRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/:issue_number/reactions": [
-    ReactionsListForIssueEndpoint,
-    ReactionsListForIssueRequestOptions
-  ];
-  "POST /repos/:owner/:repo/issues/:issue_number/reactions": [
-    ReactionsCreateForIssueEndpoint,
-    ReactionsCreateForIssueRequestOptions
-  ];
-  "GET /repos/:owner/:repo/issues/comments/:comment_id/reactions": [
-    ReactionsListForIssueCommentEndpoint,
-    ReactionsListForIssueCommentRequestOptions
-  ];
-  "POST /repos/:owner/:repo/issues/comments/:comment_id/reactions": [
-    ReactionsCreateForIssueCommentEndpoint,
-    ReactionsCreateForIssueCommentRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pulls/comments/:comment_id/reactions": [
-    ReactionsListForPullRequestReviewCommentEndpoint,
-    ReactionsListForPullRequestReviewCommentRequestOptions
-  ];
-  "POST /repos/:owner/:repo/pulls/comments/:comment_id/reactions": [
-    ReactionsCreateForPullRequestReviewCommentEndpoint,
-    ReactionsCreateForPullRequestReviewCommentRequestOptions
-  ];
-  "GET /teams/:team_id/discussions/:discussion_number/reactions": [
-    ReactionsListForTeamDiscussionEndpoint,
-    ReactionsListForTeamDiscussionRequestOptions
-  ];
-  "POST /teams/:team_id/discussions/:discussion_number/reactions": [
-    ReactionsCreateForTeamDiscussionEndpoint,
-    ReactionsCreateForTeamDiscussionRequestOptions
-  ];
-  "GET /teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions": [
-    ReactionsListForTeamDiscussionCommentEndpoint,
-    ReactionsListForTeamDiscussionCommentRequestOptions
-  ];
-  "POST /teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions": [
-    ReactionsCreateForTeamDiscussionCommentEndpoint,
-    ReactionsCreateForTeamDiscussionCommentRequestOptions
-  ];
-  "DELETE /reactions/:reaction_id": [
-    ReactionsDeleteEndpoint,
-    ReactionsDeleteRequestOptions
-  ];
-  "GET /user/repos": [ReposListEndpoint, ReposListRequestOptions];
-  "GET /users/:username/repos": [
-    ReposListForUserEndpoint,
-    ReposListForUserRequestOptions
-  ];
-  "GET /orgs/:org/repos": [
-    ReposListForOrgEndpoint,
-    ReposListForOrgRequestOptions
-  ];
-  "GET /repositories": [ReposListPublicEndpoint, ReposListPublicRequestOptions];
-  "POST /user/repos": [
-    ReposCreateForAuthenticatedUserEndpoint,
-    ReposCreateForAuthenticatedUserRequestOptions
-  ];
-  "POST /orgs/:org/repos": [
-    ReposCreateInOrgEndpoint,
-    ReposCreateInOrgRequestOptions
-  ];
-  "POST /repos/:template_owner/:template_repo/generate": [
-    ReposCreateUsingTemplateEndpoint,
-    ReposCreateUsingTemplateRequestOptions
-  ];
   "GET /repos/:owner/:repo": [ReposGetEndpoint, ReposGetRequestOptions];
-  "PATCH /repos/:owner/:repo": [ReposUpdateEndpoint, ReposUpdateRequestOptions];
-  "GET /repos/:owner/:repo/topics": [
-    ReposListTopicsEndpoint,
-    ReposListTopicsRequestOptions
+  "GET /repos/:owner/:repo/:archive_format/:ref": [
+    ReposGetArchiveLinkEndpoint,
+    ReposGetArchiveLinkRequestOptions
   ];
-  "PUT /repos/:owner/:repo/topics": [
-    ReposReplaceTopicsEndpoint,
-    ReposReplaceTopicsRequestOptions
+  "GET /repos/:owner/:repo/assignees": [
+    IssuesListAssigneesEndpoint,
+    IssuesListAssigneesRequestOptions
   ];
-  "GET /repos/:owner/:repo/vulnerability-alerts": [
-    ReposCheckVulnerabilityAlertsEndpoint,
-    ReposCheckVulnerabilityAlertsRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/vulnerability-alerts": [
-    ReposEnableVulnerabilityAlertsEndpoint,
-    ReposEnableVulnerabilityAlertsRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/vulnerability-alerts": [
-    ReposDisableVulnerabilityAlertsEndpoint,
-    ReposDisableVulnerabilityAlertsRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/automated-security-fixes": [
-    ReposEnableAutomatedSecurityFixesEndpoint,
-    ReposEnableAutomatedSecurityFixesRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/automated-security-fixes": [
-    ReposDisableAutomatedSecurityFixesEndpoint,
-    ReposDisableAutomatedSecurityFixesRequestOptions
-  ];
-  "GET /repos/:owner/:repo/contributors": [
-    ReposListContributorsEndpoint,
-    ReposListContributorsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/languages": [
-    ReposListLanguagesEndpoint,
-    ReposListLanguagesRequestOptions
-  ];
-  "GET /repos/:owner/:repo/teams": [
-    ReposListTeamsEndpoint,
-    ReposListTeamsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/tags": [
-    ReposListTagsEndpoint,
-    ReposListTagsRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo": [
-    ReposDeleteEndpoint,
-    ReposDeleteRequestOptions
-  ];
-  "POST /repos/:owner/:repo/transfer": [
-    ReposTransferEndpoint,
-    ReposTransferRequestOptions
+  "GET /repos/:owner/:repo/assignees/:assignee": [
+    IssuesCheckAssigneeEndpoint,
+    IssuesCheckAssigneeRequestOptions
   ];
   "GET /repos/:owner/:repo/branches": [
     ReposListBranchesEndpoint,
@@ -1208,117 +612,53 @@ export interface Routes {
     ReposGetBranchProtectionEndpoint,
     ReposGetBranchProtectionRequestOptions
   ];
-  "PUT /repos/:owner/:repo/branches/:branch/protection": [
-    ReposUpdateBranchProtectionEndpoint,
-    ReposUpdateBranchProtectionRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection": [
-    ReposRemoveBranchProtectionEndpoint,
-    ReposRemoveBranchProtectionRequestOptions
-  ];
-  "GET /repos/:owner/:repo/branches/:branch/protection/required_status_checks": [
-    ReposGetProtectedBranchRequiredStatusChecksEndpoint,
-    ReposGetProtectedBranchRequiredStatusChecksRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/branches/:branch/protection/required_status_checks": [
-    ReposUpdateProtectedBranchRequiredStatusChecksEndpoint,
-    ReposUpdateProtectedBranchRequiredStatusChecksRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_status_checks": [
-    ReposRemoveProtectedBranchRequiredStatusChecksEndpoint,
-    ReposRemoveProtectedBranchRequiredStatusChecksRequestOptions
-  ];
-  "GET /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
-    ReposListProtectedBranchRequiredStatusChecksContextsEndpoint,
-    ReposListProtectedBranchRequiredStatusChecksContextsRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
-    ReposReplaceProtectedBranchRequiredStatusChecksContextsEndpoint,
-    ReposReplaceProtectedBranchRequiredStatusChecksContextsRequestOptions
-  ];
-  "POST /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
-    ReposAddProtectedBranchRequiredStatusChecksContextsEndpoint,
-    ReposAddProtectedBranchRequiredStatusChecksContextsRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
-    ReposRemoveProtectedBranchRequiredStatusChecksContextsEndpoint,
-    ReposRemoveProtectedBranchRequiredStatusChecksContextsRequestOptions
+  "GET /repos/:owner/:repo/branches/:branch/protection/enforce_admins": [
+    ReposGetProtectedBranchAdminEnforcementEndpoint,
+    ReposGetProtectedBranchAdminEnforcementRequestOptions
   ];
   "GET /repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews": [
     ReposGetProtectedBranchPullRequestReviewEnforcementEndpoint,
     ReposGetProtectedBranchPullRequestReviewEnforcementRequestOptions
   ];
-  "PATCH /repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews": [
-    ReposUpdateProtectedBranchPullRequestReviewEnforcementEndpoint,
-    ReposUpdateProtectedBranchPullRequestReviewEnforcementRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews": [
-    ReposRemoveProtectedBranchPullRequestReviewEnforcementEndpoint,
-    ReposRemoveProtectedBranchPullRequestReviewEnforcementRequestOptions
-  ];
   "GET /repos/:owner/:repo/branches/:branch/protection/required_signatures": [
     ReposGetProtectedBranchRequiredSignaturesEndpoint,
     ReposGetProtectedBranchRequiredSignaturesRequestOptions
   ];
-  "POST /repos/:owner/:repo/branches/:branch/protection/required_signatures": [
-    ReposAddProtectedBranchRequiredSignaturesEndpoint,
-    ReposAddProtectedBranchRequiredSignaturesRequestOptions
+  "GET /repos/:owner/:repo/branches/:branch/protection/required_status_checks": [
+    ReposGetProtectedBranchRequiredStatusChecksEndpoint,
+    ReposGetProtectedBranchRequiredStatusChecksRequestOptions
   ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/required_signatures": [
-    ReposRemoveProtectedBranchRequiredSignaturesEndpoint,
-    ReposRemoveProtectedBranchRequiredSignaturesRequestOptions
-  ];
-  "GET /repos/:owner/:repo/branches/:branch/protection/enforce_admins": [
-    ReposGetProtectedBranchAdminEnforcementEndpoint,
-    ReposGetProtectedBranchAdminEnforcementRequestOptions
-  ];
-  "POST /repos/:owner/:repo/branches/:branch/protection/enforce_admins": [
-    ReposAddProtectedBranchAdminEnforcementEndpoint,
-    ReposAddProtectedBranchAdminEnforcementRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/enforce_admins": [
-    ReposRemoveProtectedBranchAdminEnforcementEndpoint,
-    ReposRemoveProtectedBranchAdminEnforcementRequestOptions
+  "GET /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
+    ReposListProtectedBranchRequiredStatusChecksContextsEndpoint,
+    ReposListProtectedBranchRequiredStatusChecksContextsRequestOptions
   ];
   "GET /repos/:owner/:repo/branches/:branch/protection/restrictions": [
     ReposGetProtectedBranchRestrictionsEndpoint,
     ReposGetProtectedBranchRestrictionsRequestOptions
   ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions": [
-    ReposRemoveProtectedBranchRestrictionsEndpoint,
-    ReposRemoveProtectedBranchRestrictionsRequestOptions
-  ];
   "GET /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
     ReposListProtectedBranchTeamRestrictionsEndpoint,
     ReposListProtectedBranchTeamRestrictionsRequestOptions
-  ];
-  "PUT /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
-    ReposReplaceProtectedBranchTeamRestrictionsEndpoint,
-    ReposReplaceProtectedBranchTeamRestrictionsRequestOptions
-  ];
-  "POST /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
-    ReposAddProtectedBranchTeamRestrictionsEndpoint,
-    ReposAddProtectedBranchTeamRestrictionsRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
-    ReposRemoveProtectedBranchTeamRestrictionsEndpoint,
-    ReposRemoveProtectedBranchTeamRestrictionsRequestOptions
   ];
   "GET /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
     ReposListProtectedBranchUserRestrictionsEndpoint,
     ReposListProtectedBranchUserRestrictionsRequestOptions
   ];
-  "PUT /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
-    ReposReplaceProtectedBranchUserRestrictionsEndpoint,
-    ReposReplaceProtectedBranchUserRestrictionsRequestOptions
+  "GET /repos/:owner/:repo/check-runs/:check_run_id": [
+    ChecksGetEndpoint,
+    ChecksGetRequestOptions
   ];
-  "POST /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
-    ReposAddProtectedBranchUserRestrictionsEndpoint,
-    ReposAddProtectedBranchUserRestrictionsRequestOptions
+  "GET /repos/:owner/:repo/check-runs/:check_run_id/annotations": [
+    ChecksListAnnotationsEndpoint,
+    ChecksListAnnotationsRequestOptions
   ];
-  "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
-    ReposRemoveProtectedBranchUserRestrictionsEndpoint,
-    ReposRemoveProtectedBranchUserRestrictionsRequestOptions
+  "GET /repos/:owner/:repo/check-suites/:check_suite_id": [
+    ChecksGetSuiteEndpoint,
+    ChecksGetSuiteRequestOptions
+  ];
+  "GET /repos/:owner/:repo/check-suites/:check_suite_id/check-runs": [
+    ChecksListForSuiteEndpoint,
+    ChecksListForSuiteRequestOptions
   ];
   "GET /repos/:owner/:repo/collaborators": [
     ReposListCollaboratorsEndpoint,
@@ -1332,69 +672,1193 @@ export interface Routes {
     ReposGetCollaboratorPermissionLevelEndpoint,
     ReposGetCollaboratorPermissionLevelRequestOptions
   ];
-  "PUT /repos/:owner/:repo/collaborators/:username": [
-    ReposAddCollaboratorEndpoint,
-    ReposAddCollaboratorRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/collaborators/:username": [
-    ReposRemoveCollaboratorEndpoint,
-    ReposRemoveCollaboratorRequestOptions
-  ];
   "GET /repos/:owner/:repo/comments": [
     ReposListCommitCommentsEndpoint,
     ReposListCommitCommentsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/commits/:commit_sha/comments": [
-    ReposListCommentsForCommitEndpoint,
-    ReposListCommentsForCommitRequestOptions
-  ];
-  "POST /repos/:owner/:repo/commits/:commit_sha/comments": [
-    ReposCreateCommitCommentEndpoint,
-    ReposCreateCommitCommentRequestOptions
   ];
   "GET /repos/:owner/:repo/comments/:comment_id": [
     ReposGetCommitCommentEndpoint,
     ReposGetCommitCommentRequestOptions
   ];
-  "PATCH /repos/:owner/:repo/comments/:comment_id": [
-    ReposUpdateCommitCommentEndpoint,
-    ReposUpdateCommitCommentRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/comments/:comment_id": [
-    ReposDeleteCommitCommentEndpoint,
-    ReposDeleteCommitCommentRequestOptions
+  "GET /repos/:owner/:repo/comments/:comment_id/reactions": [
+    ReactionsListForCommitCommentEndpoint,
+    ReactionsListForCommitCommentRequestOptions
   ];
   "GET /repos/:owner/:repo/commits": [
     ReposListCommitsEndpoint,
     ReposListCommitsRequestOptions
   ];
-  "GET /repos/:owner/:repo/commits/:ref": [
-    ReposGetCommitEndpoint | ReposGetCommitRefShaEndpoint,
-    ReposGetCommitRequestOptions | ReposGetCommitRefShaRequestOptions
-  ];
-  "GET /repos/:owner/:repo/compare/:base...:head": [
-    ReposCompareCommitsEndpoint,
-    ReposCompareCommitsRequestOptions
-  ];
   "GET /repos/:owner/:repo/commits/:commit_sha/branches-where-head": [
     ReposListBranchesForHeadCommitEndpoint,
     ReposListBranchesForHeadCommitRequestOptions
+  ];
+  "GET /repos/:owner/:repo/commits/:commit_sha/comments": [
+    ReposListCommentsForCommitEndpoint,
+    ReposListCommentsForCommitRequestOptions
   ];
   "GET /repos/:owner/:repo/commits/:commit_sha/pulls": [
     ReposListPullRequestsAssociatedWithCommitEndpoint,
     ReposListPullRequestsAssociatedWithCommitRequestOptions
   ];
+  "GET /repos/:owner/:repo/commits/:ref": [
+    ReposGetCommitEndpoint | ReposGetCommitRefShaEndpoint,
+    ReposGetCommitRequestOptions | ReposGetCommitRefShaRequestOptions
+  ];
+  "GET /repos/:owner/:repo/commits/:ref/check-runs": [
+    ChecksListForRefEndpoint,
+    ChecksListForRefRequestOptions
+  ];
+  "GET /repos/:owner/:repo/commits/:ref/check-suites": [
+    ChecksListSuitesForRefEndpoint,
+    ChecksListSuitesForRefRequestOptions
+  ];
+  "GET /repos/:owner/:repo/commits/:ref/status": [
+    ReposGetCombinedStatusForRefEndpoint,
+    ReposGetCombinedStatusForRefRequestOptions
+  ];
+  "GET /repos/:owner/:repo/commits/:ref/statuses": [
+    ReposListStatusesForRefEndpoint,
+    ReposListStatusesForRefRequestOptions
+  ];
+  "GET /repos/:owner/:repo/community/code_of_conduct": [
+    CodesOfConductGetForRepoEndpoint,
+    CodesOfConductGetForRepoRequestOptions
+  ];
   "GET /repos/:owner/:repo/community/profile": [
     ReposRetrieveCommunityProfileMetricsEndpoint,
     ReposRetrieveCommunityProfileMetricsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/compare/:base...:head": [
+    ReposCompareCommitsEndpoint,
+    ReposCompareCommitsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/contents/:path": [
+    ReposGetContentsEndpoint,
+    ReposGetContentsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/contributors": [
+    ReposListContributorsEndpoint,
+    ReposListContributorsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/deployments": [
+    ReposListDeploymentsEndpoint,
+    ReposListDeploymentsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/deployments/:deployment_id": [
+    ReposGetDeploymentEndpoint,
+    ReposGetDeploymentRequestOptions
+  ];
+  "GET /repos/:owner/:repo/deployments/:deployment_id/statuses": [
+    ReposListDeploymentStatusesEndpoint,
+    ReposListDeploymentStatusesRequestOptions
+  ];
+  "GET /repos/:owner/:repo/deployments/:deployment_id/statuses/:status_id": [
+    ReposGetDeploymentStatusEndpoint,
+    ReposGetDeploymentStatusRequestOptions
+  ];
+  "GET /repos/:owner/:repo/downloads": [
+    ReposListDownloadsEndpoint,
+    ReposListDownloadsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/downloads/:download_id": [
+    ReposGetDownloadEndpoint,
+    ReposGetDownloadRequestOptions
+  ];
+  "GET /repos/:owner/:repo/events": [
+    ActivityListRepoEventsEndpoint,
+    ActivityListRepoEventsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/forks": [
+    ReposListForksEndpoint,
+    ReposListForksRequestOptions
+  ];
+  "GET /repos/:owner/:repo/git/blobs/:file_sha": [
+    GitGetBlobEndpoint,
+    GitGetBlobRequestOptions
+  ];
+  "GET /repos/:owner/:repo/git/commits/:commit_sha": [
+    GitGetCommitEndpoint,
+    GitGetCommitRequestOptions
+  ];
+  "GET /repos/:owner/:repo/git/refs/:namespace": [
+    GitListRefsEndpoint,
+    GitListRefsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/git/refs/:ref": [
+    GitGetRefEndpoint,
+    GitGetRefRequestOptions
+  ];
+  "GET /repos/:owner/:repo/git/tags/:tag_sha": [
+    GitGetTagEndpoint,
+    GitGetTagRequestOptions
+  ];
+  "GET /repos/:owner/:repo/git/trees/:tree_sha": [
+    GitGetTreeEndpoint,
+    GitGetTreeRequestOptions
+  ];
+  "GET /repos/:owner/:repo/hooks": [
+    ReposListHooksEndpoint,
+    ReposListHooksRequestOptions
+  ];
+  "GET /repos/:owner/:repo/hooks/:hook_id": [
+    ReposGetHookEndpoint,
+    ReposGetHookRequestOptions
+  ];
+  "GET /repos/:owner/:repo/import": [
+    MigrationsGetImportProgressEndpoint,
+    MigrationsGetImportProgressRequestOptions
+  ];
+  "GET /repos/:owner/:repo/import/authors": [
+    MigrationsGetCommitAuthorsEndpoint,
+    MigrationsGetCommitAuthorsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/import/large_files": [
+    MigrationsGetLargeFilesEndpoint,
+    MigrationsGetLargeFilesRequestOptions
+  ];
+  "GET /repos/:owner/:repo/installation": [
+    AppsGetRepoInstallationEndpoint | AppsFindRepoInstallationEndpoint,
+
+      | AppsGetRepoInstallationRequestOptions
+      | AppsFindRepoInstallationRequestOptions
+  ];
+  "GET /repos/:owner/:repo/interaction-limits": [
+    InteractionsGetRestrictionsForRepoEndpoint,
+    InteractionsGetRestrictionsForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/invitations": [
+    ReposListInvitationsEndpoint,
+    ReposListInvitationsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues": [
+    IssuesListForRepoEndpoint,
+    IssuesListForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/:issue_number": [
+    IssuesGetEndpoint,
+    IssuesGetRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/:issue_number/comments": [
+    IssuesListCommentsEndpoint,
+    IssuesListCommentsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/:issue_number/events": [
+    IssuesListEventsEndpoint,
+    IssuesListEventsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/:issue_number/labels": [
+    IssuesListLabelsOnIssueEndpoint,
+    IssuesListLabelsOnIssueRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/:issue_number/reactions": [
+    ReactionsListForIssueEndpoint,
+    ReactionsListForIssueRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/:issue_number/timeline": [
+    IssuesListEventsForTimelineEndpoint,
+    IssuesListEventsForTimelineRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/comments": [
+    IssuesListCommentsForRepoEndpoint,
+    IssuesListCommentsForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/comments/:comment_id": [
+    IssuesGetCommentEndpoint,
+    IssuesGetCommentRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/comments/:comment_id/reactions": [
+    ReactionsListForIssueCommentEndpoint,
+    ReactionsListForIssueCommentRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/events": [
+    IssuesListEventsForRepoEndpoint,
+    IssuesListEventsForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/issues/events/:event_id": [
+    IssuesGetEventEndpoint,
+    IssuesGetEventRequestOptions
+  ];
+  "GET /repos/:owner/:repo/keys": [
+    ReposListDeployKeysEndpoint,
+    ReposListDeployKeysRequestOptions
+  ];
+  "GET /repos/:owner/:repo/keys/:key_id": [
+    ReposGetDeployKeyEndpoint,
+    ReposGetDeployKeyRequestOptions
+  ];
+  "GET /repos/:owner/:repo/labels": [
+    IssuesListLabelsForRepoEndpoint,
+    IssuesListLabelsForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/labels/:name": [
+    IssuesGetLabelEndpoint,
+    IssuesGetLabelRequestOptions
+  ];
+  "GET /repos/:owner/:repo/languages": [
+    ReposListLanguagesEndpoint,
+    ReposListLanguagesRequestOptions
+  ];
+  "GET /repos/:owner/:repo/license": [
+    LicensesGetForRepoEndpoint,
+    LicensesGetForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/milestones": [
+    IssuesListMilestonesForRepoEndpoint,
+    IssuesListMilestonesForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/milestones/:milestone_number": [
+    IssuesGetMilestoneEndpoint,
+    IssuesGetMilestoneRequestOptions
+  ];
+  "GET /repos/:owner/:repo/milestones/:milestone_number/labels": [
+    IssuesListLabelsForMilestoneEndpoint,
+    IssuesListLabelsForMilestoneRequestOptions
+  ];
+  "GET /repos/:owner/:repo/notifications": [
+    ActivityListNotificationsForRepoEndpoint,
+    ActivityListNotificationsForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pages": [
+    ReposGetPagesEndpoint,
+    ReposGetPagesRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pages/builds": [
+    ReposListPagesBuildsEndpoint,
+    ReposListPagesBuildsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pages/builds/:build_id": [
+    ReposGetPagesBuildEndpoint,
+    ReposGetPagesBuildRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pages/builds/latest": [
+    ReposGetLatestPagesBuildEndpoint,
+    ReposGetLatestPagesBuildRequestOptions
+  ];
+  "GET /repos/:owner/:repo/projects": [
+    ProjectsListForRepoEndpoint,
+    ProjectsListForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls": [PullsListEndpoint, PullsListRequestOptions];
+  "GET /repos/:owner/:repo/pulls/:pull_number": [
+    PullsGetEndpoint,
+    PullsGetRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/comments": [
+    PullsListCommentsEndpoint,
+    PullsListCommentsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/commits": [
+    PullsListCommitsEndpoint,
+    PullsListCommitsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/files": [
+    PullsListFilesEndpoint,
+    PullsListFilesRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/merge": [
+    PullsCheckIfMergedEndpoint,
+    PullsCheckIfMergedRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/requested_reviewers": [
+    PullsListReviewRequestsEndpoint,
+    PullsListReviewRequestsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/reviews": [
+    PullsListReviewsEndpoint,
+    PullsListReviewsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id": [
+    PullsGetReviewEndpoint,
+    PullsGetReviewRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/comments": [
+    PullsGetCommentsForReviewEndpoint,
+    PullsGetCommentsForReviewRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/comments": [
+    PullsListCommentsForRepoEndpoint,
+    PullsListCommentsForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/comments/:comment_id": [
+    PullsGetCommentEndpoint,
+    PullsGetCommentRequestOptions
+  ];
+  "GET /repos/:owner/:repo/pulls/comments/:comment_id/reactions": [
+    ReactionsListForPullRequestReviewCommentEndpoint,
+    ReactionsListForPullRequestReviewCommentRequestOptions
   ];
   "GET /repos/:owner/:repo/readme": [
     ReposGetReadmeEndpoint,
     ReposGetReadmeRequestOptions
   ];
-  "GET /repos/:owner/:repo/contents/:path": [
-    ReposGetContentsEndpoint,
-    ReposGetContentsRequestOptions
+  "GET /repos/:owner/:repo/releases": [
+    ReposListReleasesEndpoint,
+    ReposListReleasesRequestOptions
+  ];
+  "GET /repos/:owner/:repo/releases/:release_id": [
+    ReposGetReleaseEndpoint,
+    ReposGetReleaseRequestOptions
+  ];
+  "GET /repos/:owner/:repo/releases/:release_id/assets": [
+    ReposListAssetsForReleaseEndpoint,
+    ReposListAssetsForReleaseRequestOptions
+  ];
+  "GET /repos/:owner/:repo/releases/assets/:asset_id": [
+    ReposGetReleaseAssetEndpoint,
+    ReposGetReleaseAssetRequestOptions
+  ];
+  "GET /repos/:owner/:repo/releases/latest": [
+    ReposGetLatestReleaseEndpoint,
+    ReposGetLatestReleaseRequestOptions
+  ];
+  "GET /repos/:owner/:repo/releases/tags/:tag": [
+    ReposGetReleaseByTagEndpoint,
+    ReposGetReleaseByTagRequestOptions
+  ];
+  "GET /repos/:owner/:repo/stargazers": [
+    ActivityListStargazersForRepoEndpoint,
+    ActivityListStargazersForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/stats/code_frequency": [
+    ReposGetCodeFrequencyStatsEndpoint,
+    ReposGetCodeFrequencyStatsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/stats/commit_activity": [
+    ReposGetCommitActivityStatsEndpoint,
+    ReposGetCommitActivityStatsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/stats/contributors": [
+    ReposGetContributorsStatsEndpoint,
+    ReposGetContributorsStatsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/stats/participation": [
+    ReposGetParticipationStatsEndpoint,
+    ReposGetParticipationStatsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/stats/punch_card": [
+    ReposGetPunchCardStatsEndpoint,
+    ReposGetPunchCardStatsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/subscribers": [
+    ActivityListWatchersForRepoEndpoint,
+    ActivityListWatchersForRepoRequestOptions
+  ];
+  "GET /repos/:owner/:repo/subscription": [
+    ActivityGetRepoSubscriptionEndpoint,
+    ActivityGetRepoSubscriptionRequestOptions
+  ];
+  "GET /repos/:owner/:repo/tags": [
+    ReposListTagsEndpoint,
+    ReposListTagsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/teams": [
+    ReposListTeamsEndpoint,
+    ReposListTeamsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/topics": [
+    ReposListTopicsEndpoint,
+    ReposListTopicsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/traffic/clones": [
+    ReposGetClonesEndpoint,
+    ReposGetClonesRequestOptions
+  ];
+  "GET /repos/:owner/:repo/traffic/popular/paths": [
+    ReposGetTopPathsEndpoint,
+    ReposGetTopPathsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/traffic/popular/referrers": [
+    ReposGetTopReferrersEndpoint,
+    ReposGetTopReferrersRequestOptions
+  ];
+  "GET /repos/:owner/:repo/traffic/views": [
+    ReposGetViewsEndpoint,
+    ReposGetViewsRequestOptions
+  ];
+  "GET /repos/:owner/:repo/vulnerability-alerts": [
+    ReposCheckVulnerabilityAlertsEndpoint,
+    ReposCheckVulnerabilityAlertsRequestOptions
+  ];
+  "GET /repositories": [ReposListPublicEndpoint, ReposListPublicRequestOptions];
+  "GET /scim/v2/organizations/:org/Users": [
+    ScimListProvisionedIdentitiesEndpoint,
+    ScimListProvisionedIdentitiesRequestOptions
+  ];
+  "GET /scim/v2/organizations/:org/Users/:scim_user_id": [
+    ScimGetProvisioningDetailsForUserEndpoint,
+    ScimGetProvisioningDetailsForUserRequestOptions
+  ];
+  "GET /search/code": [SearchCodeEndpoint, SearchCodeRequestOptions];
+  "GET /search/commits": [SearchCommitsEndpoint, SearchCommitsRequestOptions];
+  "GET /search/issues": [
+    SearchIssuesAndPullRequestsEndpoint | SearchIssuesEndpoint,
+    SearchIssuesAndPullRequestsRequestOptions | SearchIssuesRequestOptions
+  ];
+  "GET /search/labels": [SearchLabelsEndpoint, SearchLabelsRequestOptions];
+  "GET /search/repositories": [SearchReposEndpoint, SearchReposRequestOptions];
+  "GET /search/topics": [SearchTopicsEndpoint, SearchTopicsRequestOptions];
+  "GET /search/users": [SearchUsersEndpoint, SearchUsersRequestOptions];
+  "GET /teams/:team_id": [TeamsGetEndpoint, TeamsGetRequestOptions];
+  "GET /teams/:team_id/discussions": [
+    TeamsListDiscussionsEndpoint,
+    TeamsListDiscussionsRequestOptions
+  ];
+  "GET /teams/:team_id/discussions/:discussion_number": [
+    TeamsGetDiscussionEndpoint,
+    TeamsGetDiscussionRequestOptions
+  ];
+  "GET /teams/:team_id/discussions/:discussion_number/comments": [
+    TeamsListDiscussionCommentsEndpoint,
+    TeamsListDiscussionCommentsRequestOptions
+  ];
+  "GET /teams/:team_id/discussions/:discussion_number/comments/:comment_number": [
+    TeamsGetDiscussionCommentEndpoint,
+    TeamsGetDiscussionCommentRequestOptions
+  ];
+  "GET /teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions": [
+    ReactionsListForTeamDiscussionCommentEndpoint,
+    ReactionsListForTeamDiscussionCommentRequestOptions
+  ];
+  "GET /teams/:team_id/discussions/:discussion_number/reactions": [
+    ReactionsListForTeamDiscussionEndpoint,
+    ReactionsListForTeamDiscussionRequestOptions
+  ];
+  "GET /teams/:team_id/invitations": [
+    TeamsListPendingInvitationsEndpoint,
+    TeamsListPendingInvitationsRequestOptions
+  ];
+  "GET /teams/:team_id/members": [
+    TeamsListMembersEndpoint,
+    TeamsListMembersRequestOptions
+  ];
+  "GET /teams/:team_id/members/:username": [
+    TeamsGetMemberEndpoint,
+    TeamsGetMemberRequestOptions
+  ];
+  "GET /teams/:team_id/memberships/:username": [
+    TeamsGetMembershipEndpoint,
+    TeamsGetMembershipRequestOptions
+  ];
+  "GET /teams/:team_id/projects": [
+    TeamsListProjectsEndpoint,
+    TeamsListProjectsRequestOptions
+  ];
+  "GET /teams/:team_id/projects/:project_id": [
+    TeamsReviewProjectEndpoint,
+    TeamsReviewProjectRequestOptions
+  ];
+  "GET /teams/:team_id/repos": [
+    TeamsListReposEndpoint,
+    TeamsListReposRequestOptions
+  ];
+  "GET /teams/:team_id/repos/:owner/:repo": [
+    TeamsCheckManagesRepoEndpoint,
+    TeamsCheckManagesRepoRequestOptions
+  ];
+  "GET /teams/:team_id/team-sync/group-mappings": [
+    TeamsListIdPGroupsEndpoint,
+    TeamsListIdPGroupsRequestOptions
+  ];
+  "GET /teams/:team_id/teams": [
+    TeamsListChildEndpoint,
+    TeamsListChildRequestOptions
+  ];
+  "GET /user": [
+    UsersGetAuthenticatedEndpoint,
+    UsersGetAuthenticatedRequestOptions
+  ];
+  "GET /user/blocks": [
+    UsersListBlockedEndpoint,
+    UsersListBlockedRequestOptions
+  ];
+  "GET /user/blocks/:username": [
+    UsersCheckBlockedEndpoint,
+    UsersCheckBlockedRequestOptions
+  ];
+  "GET /user/emails": [UsersListEmailsEndpoint, UsersListEmailsRequestOptions];
+  "GET /user/followers": [
+    UsersListFollowersForAuthenticatedUserEndpoint,
+    UsersListFollowersForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/following": [
+    UsersListFollowingForAuthenticatedUserEndpoint,
+    UsersListFollowingForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/following/:username": [
+    UsersCheckFollowingEndpoint,
+    UsersCheckFollowingRequestOptions
+  ];
+  "GET /user/gpg_keys": [
+    UsersListGpgKeysEndpoint,
+    UsersListGpgKeysRequestOptions
+  ];
+  "GET /user/gpg_keys/:gpg_key_id": [
+    UsersGetGpgKeyEndpoint,
+    UsersGetGpgKeyRequestOptions
+  ];
+  "GET /user/installations": [
+    AppsListInstallationsForAuthenticatedUserEndpoint,
+    AppsListInstallationsForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/installations/:installation_id/repositories": [
+    AppsListInstallationReposForAuthenticatedUserEndpoint,
+    AppsListInstallationReposForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/issues": [
+    IssuesListForAuthenticatedUserEndpoint,
+    IssuesListForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/keys": [
+    UsersListPublicKeysEndpoint,
+    UsersListPublicKeysRequestOptions
+  ];
+  "GET /user/keys/:key_id": [
+    UsersGetPublicKeyEndpoint,
+    UsersGetPublicKeyRequestOptions
+  ];
+  "GET /user/marketplace_purchases": [
+    AppsListMarketplacePurchasesForAuthenticatedUserEndpoint,
+    AppsListMarketplacePurchasesForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/marketplace_purchases/stubbed": [
+    AppsListMarketplacePurchasesForAuthenticatedUserStubbedEndpoint,
+    AppsListMarketplacePurchasesForAuthenticatedUserStubbedRequestOptions
+  ];
+  "GET /user/memberships/orgs": [
+    OrgsListMembershipsEndpoint,
+    OrgsListMembershipsRequestOptions
+  ];
+  "GET /user/memberships/orgs/:org": [
+    OrgsGetMembershipForAuthenticatedUserEndpoint,
+    OrgsGetMembershipForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/migrations": [
+    MigrationsListForAuthenticatedUserEndpoint,
+    MigrationsListForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/migrations/:migration_id": [
+    MigrationsGetStatusForAuthenticatedUserEndpoint,
+    MigrationsGetStatusForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/migrations/:migration_id/archive": [
+    MigrationsGetArchiveForAuthenticatedUserEndpoint,
+    MigrationsGetArchiveForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/orgs": [
+    OrgsListForAuthenticatedUserEndpoint,
+    OrgsListForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/public_emails": [
+    UsersListPublicEmailsEndpoint,
+    UsersListPublicEmailsRequestOptions
+  ];
+  "GET /user/repos": [ReposListEndpoint, ReposListRequestOptions];
+  "GET /user/repository_invitations": [
+    ReposListInvitationsForAuthenticatedUserEndpoint,
+    ReposListInvitationsForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/starred": [
+    ActivityListReposStarredByAuthenticatedUserEndpoint,
+    ActivityListReposStarredByAuthenticatedUserRequestOptions
+  ];
+  "GET /user/starred/:owner/:repo": [
+    ActivityCheckStarringRepoEndpoint,
+    ActivityCheckStarringRepoRequestOptions
+  ];
+  "GET /user/subscriptions": [
+    ActivityListWatchedReposForAuthenticatedUserEndpoint,
+    ActivityListWatchedReposForAuthenticatedUserRequestOptions
+  ];
+  "GET /user/subscriptions/:owner/:repo": [
+    ActivityCheckWatchingRepoLegacyEndpoint,
+    ActivityCheckWatchingRepoLegacyRequestOptions
+  ];
+  "GET /user/teams": [
+    TeamsListForAuthenticatedUserEndpoint,
+    TeamsListForAuthenticatedUserRequestOptions
+  ];
+  "GET /users": [UsersListEndpoint, UsersListRequestOptions];
+  "GET /users/:username": [
+    UsersGetByUsernameEndpoint,
+    UsersGetByUsernameRequestOptions
+  ];
+  "GET /users/:username/events": [
+    ActivityListEventsForUserEndpoint,
+    ActivityListEventsForUserRequestOptions
+  ];
+  "GET /users/:username/events/orgs/:org": [
+    ActivityListEventsForOrgEndpoint,
+    ActivityListEventsForOrgRequestOptions
+  ];
+  "GET /users/:username/events/public": [
+    ActivityListPublicEventsForUserEndpoint,
+    ActivityListPublicEventsForUserRequestOptions
+  ];
+  "GET /users/:username/followers": [
+    UsersListFollowersForUserEndpoint,
+    UsersListFollowersForUserRequestOptions
+  ];
+  "GET /users/:username/following": [
+    UsersListFollowingForUserEndpoint,
+    UsersListFollowingForUserRequestOptions
+  ];
+  "GET /users/:username/following/:target_user": [
+    UsersCheckFollowingForUserEndpoint,
+    UsersCheckFollowingForUserRequestOptions
+  ];
+  "GET /users/:username/gists": [
+    GistsListPublicForUserEndpoint,
+    GistsListPublicForUserRequestOptions
+  ];
+  "GET /users/:username/gpg_keys": [
+    UsersListGpgKeysForUserEndpoint,
+    UsersListGpgKeysForUserRequestOptions
+  ];
+  "GET /users/:username/hovercard": [
+    UsersGetContextForUserEndpoint,
+    UsersGetContextForUserRequestOptions
+  ];
+  "GET /users/:username/installation": [
+    AppsGetUserInstallationEndpoint | AppsFindUserInstallationEndpoint,
+
+      | AppsGetUserInstallationRequestOptions
+      | AppsFindUserInstallationRequestOptions
+  ];
+  "GET /users/:username/keys": [
+    UsersListPublicKeysForUserEndpoint,
+    UsersListPublicKeysForUserRequestOptions
+  ];
+  "GET /users/:username/orgs": [
+    OrgsListForUserEndpoint,
+    OrgsListForUserRequestOptions
+  ];
+  "GET /users/:username/projects": [
+    ProjectsListForUserEndpoint,
+    ProjectsListForUserRequestOptions
+  ];
+  "GET /users/:username/received_events": [
+    ActivityListReceivedEventsForUserEndpoint,
+    ActivityListReceivedEventsForUserRequestOptions
+  ];
+  "GET /users/:username/received_events/public": [
+    ActivityListReceivedPublicEventsForUserEndpoint,
+    ActivityListReceivedPublicEventsForUserRequestOptions
+  ];
+  "GET /users/:username/repos": [
+    ReposListForUserEndpoint,
+    ReposListForUserRequestOptions
+  ];
+  "GET /users/:username/starred": [
+    ActivityListReposStarredByUserEndpoint,
+    ActivityListReposStarredByUserRequestOptions
+  ];
+  "GET /users/:username/subscriptions": [
+    ActivityListReposWatchedByUserEndpoint,
+    ActivityListReposWatchedByUserRequestOptions
+  ];
+  "PATCH /authorizations/:authorization_id": [
+    OauthAuthorizationsUpdateAuthorizationEndpoint,
+    OauthAuthorizationsUpdateAuthorizationRequestOptions
+  ];
+  "PATCH /gists/:gist_id": [GistsUpdateEndpoint, GistsUpdateRequestOptions];
+  "PATCH /gists/:gist_id/comments/:comment_id": [
+    GistsUpdateCommentEndpoint,
+    GistsUpdateCommentRequestOptions
+  ];
+  "PATCH /notifications/threads/:thread_id": [
+    ActivityMarkThreadAsReadEndpoint,
+    ActivityMarkThreadAsReadRequestOptions
+  ];
+  "PATCH /orgs/:org": [OrgsUpdateEndpoint, OrgsUpdateRequestOptions];
+  "PATCH /orgs/:org/hooks/:hook_id": [
+    OrgsUpdateHookEndpoint,
+    OrgsUpdateHookRequestOptions
+  ];
+  "PATCH /projects/:project_id": [
+    ProjectsUpdateEndpoint,
+    ProjectsUpdateRequestOptions
+  ];
+  "PATCH /projects/columns/:column_id": [
+    ProjectsUpdateColumnEndpoint,
+    ProjectsUpdateColumnRequestOptions
+  ];
+  "PATCH /projects/columns/cards/:card_id": [
+    ProjectsUpdateCardEndpoint,
+    ProjectsUpdateCardRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo": [ReposUpdateEndpoint, ReposUpdateRequestOptions];
+  "PATCH /repos/:owner/:repo/branches/:branch/protection/required_pull_request_reviews": [
+    ReposUpdateProtectedBranchPullRequestReviewEnforcementEndpoint,
+    ReposUpdateProtectedBranchPullRequestReviewEnforcementRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/branches/:branch/protection/required_status_checks": [
+    ReposUpdateProtectedBranchRequiredStatusChecksEndpoint,
+    ReposUpdateProtectedBranchRequiredStatusChecksRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/check-runs/:check_run_id": [
+    ChecksUpdateEndpoint,
+    ChecksUpdateRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/check-suites/preferences": [
+    ChecksSetSuitesPreferencesEndpoint,
+    ChecksSetSuitesPreferencesRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/comments/:comment_id": [
+    ReposUpdateCommitCommentEndpoint,
+    ReposUpdateCommitCommentRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/git/refs/:ref": [
+    GitUpdateRefEndpoint,
+    GitUpdateRefRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/hooks/:hook_id": [
+    ReposUpdateHookEndpoint,
+    ReposUpdateHookRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/import": [
+    MigrationsUpdateImportEndpoint,
+    MigrationsUpdateImportRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/import/authors/:author_id": [
+    MigrationsMapCommitAuthorEndpoint,
+    MigrationsMapCommitAuthorRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/import/lfs": [
+    MigrationsSetLfsPreferenceEndpoint,
+    MigrationsSetLfsPreferenceRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/invitations/:invitation_id": [
+    ReposUpdateInvitationEndpoint,
+    ReposUpdateInvitationRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/issues/:issue_number": [
+    IssuesUpdateEndpoint,
+    IssuesUpdateRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/issues/comments/:comment_id": [
+    IssuesUpdateCommentEndpoint,
+    IssuesUpdateCommentRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/labels/:current_name": [
+    IssuesUpdateLabelEndpoint,
+    IssuesUpdateLabelRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/milestones/:milestone_number": [
+    IssuesUpdateMilestoneEndpoint,
+    IssuesUpdateMilestoneRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/pulls/:pull_number": [
+    PullsUpdateEndpoint,
+    PullsUpdateRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/pulls/comments/:comment_id": [
+    PullsUpdateCommentEndpoint,
+    PullsUpdateCommentRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/releases/:release_id": [
+    ReposUpdateReleaseEndpoint,
+    ReposUpdateReleaseRequestOptions
+  ];
+  "PATCH /repos/:owner/:repo/releases/assets/:asset_id": [
+    ReposUpdateReleaseAssetEndpoint,
+    ReposUpdateReleaseAssetRequestOptions
+  ];
+  "PATCH /scim/v2/organizations/:org/Users/:scim_user_id": [
+    ScimUpdateUserAttributeEndpoint,
+    ScimUpdateUserAttributeRequestOptions
+  ];
+  "PATCH /teams/:team_id": [TeamsUpdateEndpoint, TeamsUpdateRequestOptions];
+  "PATCH /teams/:team_id/discussions/:discussion_number": [
+    TeamsUpdateDiscussionEndpoint,
+    TeamsUpdateDiscussionRequestOptions
+  ];
+  "PATCH /teams/:team_id/discussions/:discussion_number/comments/:comment_number": [
+    TeamsUpdateDiscussionCommentEndpoint,
+    TeamsUpdateDiscussionCommentRequestOptions
+  ];
+  "PATCH /teams/:team_id/team-sync/group-mappings": [
+    TeamsCreateOrUpdateIdPGroupConnectionsEndpoint,
+    TeamsCreateOrUpdateIdPGroupConnectionsRequestOptions
+  ];
+  "PATCH /user": [
+    UsersUpdateAuthenticatedEndpoint,
+    UsersUpdateAuthenticatedRequestOptions
+  ];
+  "PATCH /user/email/visibility": [
+    UsersTogglePrimaryEmailVisibilityEndpoint,
+    UsersTogglePrimaryEmailVisibilityRequestOptions
+  ];
+  "PATCH /user/memberships/orgs/:org": [
+    OrgsUpdateMembershipEndpoint,
+    OrgsUpdateMembershipRequestOptions
+  ];
+  "PATCH /user/repository_invitations/:invitation_id": [
+    ReposAcceptInvitationEndpoint,
+    ReposAcceptInvitationRequestOptions
+  ];
+  "POST /app-manifests/:code/conversions": [
+    AppsCreateFromManifestEndpoint,
+    AppsCreateFromManifestRequestOptions
+  ];
+  "POST /app/installations/:installation_id/access_tokens": [
+    AppsCreateInstallationTokenEndpoint,
+    AppsCreateInstallationTokenRequestOptions
+  ];
+  "POST /applications/:client_id/tokens/:access_token": [
+    OauthAuthorizationsResetAuthorizationEndpoint,
+    OauthAuthorizationsResetAuthorizationRequestOptions
+  ];
+  "POST /authorizations": [
+    OauthAuthorizationsCreateAuthorizationEndpoint,
+    OauthAuthorizationsCreateAuthorizationRequestOptions
+  ];
+  "POST /content_references/:content_reference_id/attachments": [
+    AppsCreateContentAttachmentEndpoint,
+    AppsCreateContentAttachmentRequestOptions
+  ];
+  "POST /gists": [GistsCreateEndpoint, GistsCreateRequestOptions];
+  "POST /gists/:gist_id/comments": [
+    GistsCreateCommentEndpoint,
+    GistsCreateCommentRequestOptions
+  ];
+  "POST /gists/:gist_id/forks": [GistsForkEndpoint, GistsForkRequestOptions];
+  "POST /markdown": [MarkdownRenderEndpoint, MarkdownRenderRequestOptions];
+  "POST /markdown/raw": [
+    MarkdownRenderRawEndpoint,
+    MarkdownRenderRawRequestOptions
+  ];
+  "POST /orgs/:org/hooks": [
+    OrgsCreateHookEndpoint,
+    OrgsCreateHookRequestOptions
+  ];
+  "POST /orgs/:org/hooks/:hook_id/pings": [
+    OrgsPingHookEndpoint,
+    OrgsPingHookRequestOptions
+  ];
+  "POST /orgs/:org/invitations": [
+    OrgsCreateInvitationEndpoint,
+    OrgsCreateInvitationRequestOptions
+  ];
+  "POST /orgs/:org/migrations": [
+    MigrationsStartForOrgEndpoint,
+    MigrationsStartForOrgRequestOptions
+  ];
+  "POST /orgs/:org/projects": [
+    ProjectsCreateForOrgEndpoint,
+    ProjectsCreateForOrgRequestOptions
+  ];
+  "POST /orgs/:org/repos": [
+    ReposCreateInOrgEndpoint,
+    ReposCreateInOrgRequestOptions
+  ];
+  "POST /orgs/:org/teams": [TeamsCreateEndpoint, TeamsCreateRequestOptions];
+  "POST /projects/:project_id/columns": [
+    ProjectsCreateColumnEndpoint,
+    ProjectsCreateColumnRequestOptions
+  ];
+  "POST /projects/columns/:column_id/cards": [
+    ProjectsCreateCardEndpoint,
+    ProjectsCreateCardRequestOptions
+  ];
+  "POST /projects/columns/:column_id/moves": [
+    ProjectsMoveColumnEndpoint,
+    ProjectsMoveColumnRequestOptions
+  ];
+  "POST /projects/columns/cards/:card_id/moves": [
+    ProjectsMoveCardEndpoint,
+    ProjectsMoveCardRequestOptions
+  ];
+  "POST /repos/:owner/:repo/branches/:branch/protection/enforce_admins": [
+    ReposAddProtectedBranchAdminEnforcementEndpoint,
+    ReposAddProtectedBranchAdminEnforcementRequestOptions
+  ];
+  "POST /repos/:owner/:repo/branches/:branch/protection/required_signatures": [
+    ReposAddProtectedBranchRequiredSignaturesEndpoint,
+    ReposAddProtectedBranchRequiredSignaturesRequestOptions
+  ];
+  "POST /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
+    ReposAddProtectedBranchRequiredStatusChecksContextsEndpoint,
+    ReposAddProtectedBranchRequiredStatusChecksContextsRequestOptions
+  ];
+  "POST /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
+    ReposAddProtectedBranchTeamRestrictionsEndpoint,
+    ReposAddProtectedBranchTeamRestrictionsRequestOptions
+  ];
+  "POST /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
+    ReposAddProtectedBranchUserRestrictionsEndpoint,
+    ReposAddProtectedBranchUserRestrictionsRequestOptions
+  ];
+  "POST /repos/:owner/:repo/check-runs": [
+    ChecksCreateEndpoint,
+    ChecksCreateRequestOptions
+  ];
+  "POST /repos/:owner/:repo/check-suites": [
+    ChecksCreateSuiteEndpoint,
+    ChecksCreateSuiteRequestOptions
+  ];
+  "POST /repos/:owner/:repo/check-suites/:check_suite_id/rerequest": [
+    ChecksRerequestSuiteEndpoint,
+    ChecksRerequestSuiteRequestOptions
+  ];
+  "POST /repos/:owner/:repo/comments/:comment_id/reactions": [
+    ReactionsCreateForCommitCommentEndpoint,
+    ReactionsCreateForCommitCommentRequestOptions
+  ];
+  "POST /repos/:owner/:repo/commits/:commit_sha/comments": [
+    ReposCreateCommitCommentEndpoint,
+    ReposCreateCommitCommentRequestOptions
+  ];
+  "POST /repos/:owner/:repo/deployments": [
+    ReposCreateDeploymentEndpoint,
+    ReposCreateDeploymentRequestOptions
+  ];
+  "POST /repos/:owner/:repo/deployments/:deployment_id/statuses": [
+    ReposCreateDeploymentStatusEndpoint,
+    ReposCreateDeploymentStatusRequestOptions
+  ];
+  "POST /repos/:owner/:repo/forks": [
+    ReposCreateForkEndpoint,
+    ReposCreateForkRequestOptions
+  ];
+  "POST /repos/:owner/:repo/git/blobs": [
+    GitCreateBlobEndpoint,
+    GitCreateBlobRequestOptions
+  ];
+  "POST /repos/:owner/:repo/git/commits": [
+    GitCreateCommitEndpoint,
+    GitCreateCommitRequestOptions
+  ];
+  "POST /repos/:owner/:repo/git/refs": [
+    GitCreateRefEndpoint,
+    GitCreateRefRequestOptions
+  ];
+  "POST /repos/:owner/:repo/git/tags": [
+    GitCreateTagEndpoint,
+    GitCreateTagRequestOptions
+  ];
+  "POST /repos/:owner/:repo/git/trees": [
+    GitCreateTreeEndpoint,
+    GitCreateTreeRequestOptions
+  ];
+  "POST /repos/:owner/:repo/hooks": [
+    ReposCreateHookEndpoint,
+    ReposCreateHookRequestOptions
+  ];
+  "POST /repos/:owner/:repo/hooks/:hook_id/pings": [
+    ReposPingHookEndpoint,
+    ReposPingHookRequestOptions
+  ];
+  "POST /repos/:owner/:repo/hooks/:hook_id/tests": [
+    ReposTestPushHookEndpoint,
+    ReposTestPushHookRequestOptions
+  ];
+  "POST /repos/:owner/:repo/issues": [
+    IssuesCreateEndpoint,
+    IssuesCreateRequestOptions
+  ];
+  "POST /repos/:owner/:repo/issues/:issue_number/assignees": [
+    IssuesAddAssigneesEndpoint,
+    IssuesAddAssigneesRequestOptions
+  ];
+  "POST /repos/:owner/:repo/issues/:issue_number/comments": [
+    IssuesCreateCommentEndpoint,
+    IssuesCreateCommentRequestOptions
+  ];
+  "POST /repos/:owner/:repo/issues/:issue_number/labels": [
+    IssuesAddLabelsEndpoint,
+    IssuesAddLabelsRequestOptions
+  ];
+  "POST /repos/:owner/:repo/issues/:issue_number/reactions": [
+    ReactionsCreateForIssueEndpoint,
+    ReactionsCreateForIssueRequestOptions
+  ];
+  "POST /repos/:owner/:repo/issues/comments/:comment_id/reactions": [
+    ReactionsCreateForIssueCommentEndpoint,
+    ReactionsCreateForIssueCommentRequestOptions
+  ];
+  "POST /repos/:owner/:repo/keys": [
+    ReposAddDeployKeyEndpoint,
+    ReposAddDeployKeyRequestOptions
+  ];
+  "POST /repos/:owner/:repo/labels": [
+    IssuesCreateLabelEndpoint,
+    IssuesCreateLabelRequestOptions
+  ];
+  "POST /repos/:owner/:repo/merges": [
+    ReposMergeEndpoint,
+    ReposMergeRequestOptions
+  ];
+  "POST /repos/:owner/:repo/milestones": [
+    IssuesCreateMilestoneEndpoint,
+    IssuesCreateMilestoneRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pages": [
+    ReposEnablePagesSiteEndpoint,
+    ReposEnablePagesSiteRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pages/builds": [
+    ReposRequestPageBuildEndpoint,
+    ReposRequestPageBuildRequestOptions
+  ];
+  "POST /repos/:owner/:repo/projects": [
+    ProjectsCreateForRepoEndpoint,
+    ProjectsCreateForRepoRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pulls": [
+    PullsCreateEndpoint | PullsCreateFromIssueEndpoint,
+    PullsCreateRequestOptions | PullsCreateFromIssueRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pulls/:pull_number/comments": [
+    PullsCreateCommentEndpoint | PullsCreateCommentReplyEndpoint,
+    PullsCreateCommentRequestOptions | PullsCreateCommentReplyRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pulls/:pull_number/requested_reviewers": [
+    PullsCreateReviewRequestEndpoint,
+    PullsCreateReviewRequestRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pulls/:pull_number/reviews": [
+    PullsCreateReviewEndpoint,
+    PullsCreateReviewRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/events": [
+    PullsSubmitReviewEndpoint,
+    PullsSubmitReviewRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pulls/comments/:comment_id/reactions": [
+    ReactionsCreateForPullRequestReviewCommentEndpoint,
+    ReactionsCreateForPullRequestReviewCommentRequestOptions
+  ];
+  "POST /repos/:owner/:repo/releases": [
+    ReposCreateReleaseEndpoint,
+    ReposCreateReleaseRequestOptions
+  ];
+  "POST /repos/:owner/:repo/statuses/:sha": [
+    ReposCreateStatusEndpoint,
+    ReposCreateStatusRequestOptions
+  ];
+  "POST /repos/:owner/:repo/transfer": [
+    ReposTransferEndpoint,
+    ReposTransferRequestOptions
+  ];
+  "POST /repos/:template_owner/:template_repo/generate": [
+    ReposCreateUsingTemplateEndpoint,
+    ReposCreateUsingTemplateRequestOptions
+  ];
+  "POST /scim/v2/organizations/:org/Users": [
+    ScimProvisionAndInviteUsersEndpoint | ScimProvisionInviteUsersEndpoint,
+
+      | ScimProvisionAndInviteUsersRequestOptions
+      | ScimProvisionInviteUsersRequestOptions
+  ];
+  "POST /teams/:team_id/discussions": [
+    TeamsCreateDiscussionEndpoint,
+    TeamsCreateDiscussionRequestOptions
+  ];
+  "POST /teams/:team_id/discussions/:discussion_number/comments": [
+    TeamsCreateDiscussionCommentEndpoint,
+    TeamsCreateDiscussionCommentRequestOptions
+  ];
+  "POST /teams/:team_id/discussions/:discussion_number/comments/:comment_number/reactions": [
+    ReactionsCreateForTeamDiscussionCommentEndpoint,
+    ReactionsCreateForTeamDiscussionCommentRequestOptions
+  ];
+  "POST /teams/:team_id/discussions/:discussion_number/reactions": [
+    ReactionsCreateForTeamDiscussionEndpoint,
+    ReactionsCreateForTeamDiscussionRequestOptions
+  ];
+  "POST /user/emails": [UsersAddEmailsEndpoint, UsersAddEmailsRequestOptions];
+  "POST /user/gpg_keys": [
+    UsersCreateGpgKeyEndpoint,
+    UsersCreateGpgKeyRequestOptions
+  ];
+  "POST /user/keys": [
+    UsersCreatePublicKeyEndpoint,
+    UsersCreatePublicKeyRequestOptions
+  ];
+  "POST /user/migrations": [
+    MigrationsStartForAuthenticatedUserEndpoint,
+    MigrationsStartForAuthenticatedUserRequestOptions
+  ];
+  "POST /user/projects": [
+    ProjectsCreateForAuthenticatedUserEndpoint,
+    ProjectsCreateForAuthenticatedUserRequestOptions
+  ];
+  "POST /user/repos": [
+    ReposCreateForAuthenticatedUserEndpoint,
+    ReposCreateForAuthenticatedUserRequestOptions
+  ];
+  "POST :url": [
+    ReposUploadReleaseAssetEndpoint,
+    ReposUploadReleaseAssetRequestOptions
+  ];
+  "PUT /authorizations/clients/:client_id": [
+    OauthAuthorizationsGetOrCreateAuthorizationForAppEndpoint,
+    OauthAuthorizationsGetOrCreateAuthorizationForAppRequestOptions
+  ];
+  "PUT /authorizations/clients/:client_id/:fingerprint": [
+
+      | OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintEndpoint
+      | OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintEndpoint,
+
+      | OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintRequestOptions
+      | OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintRequestOptions
+  ];
+  "PUT /gists/:gist_id/star": [GistsStarEndpoint, GistsStarRequestOptions];
+  "PUT /notifications": [
+    ActivityMarkAsReadEndpoint,
+    ActivityMarkAsReadRequestOptions
+  ];
+  "PUT /notifications/threads/:thread_id/subscription": [
+    ActivitySetThreadSubscriptionEndpoint,
+    ActivitySetThreadSubscriptionRequestOptions
+  ];
+  "PUT /orgs/:org/blocks/:username": [
+    OrgsBlockUserEndpoint,
+    OrgsBlockUserRequestOptions
+  ];
+  "PUT /orgs/:org/interaction-limits": [
+    InteractionsAddOrUpdateRestrictionsForOrgEndpoint,
+    InteractionsAddOrUpdateRestrictionsForOrgRequestOptions
+  ];
+  "PUT /orgs/:org/memberships/:username": [
+    OrgsAddOrUpdateMembershipEndpoint,
+    OrgsAddOrUpdateMembershipRequestOptions
+  ];
+  "PUT /orgs/:org/outside_collaborators/:username": [
+    OrgsConvertMemberToOutsideCollaboratorEndpoint,
+    OrgsConvertMemberToOutsideCollaboratorRequestOptions
+  ];
+  "PUT /orgs/:org/public_members/:username": [
+    OrgsPublicizeMembershipEndpoint,
+    OrgsPublicizeMembershipRequestOptions
+  ];
+  "PUT /projects/:project_id/collaborators/:username": [
+    ProjectsAddCollaboratorEndpoint,
+    ProjectsAddCollaboratorRequestOptions
+  ];
+  "PUT /repos/:owner/:repo/automated-security-fixes": [
+    ReposEnableAutomatedSecurityFixesEndpoint,
+    ReposEnableAutomatedSecurityFixesRequestOptions
+  ];
+  "PUT /repos/:owner/:repo/branches/:branch/protection": [
+    ReposUpdateBranchProtectionEndpoint,
+    ReposUpdateBranchProtectionRequestOptions
+  ];
+  "PUT /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
+    ReposReplaceProtectedBranchRequiredStatusChecksContextsEndpoint,
+    ReposReplaceProtectedBranchRequiredStatusChecksContextsRequestOptions
+  ];
+  "PUT /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
+    ReposReplaceProtectedBranchTeamRestrictionsEndpoint,
+    ReposReplaceProtectedBranchTeamRestrictionsRequestOptions
+  ];
+  "PUT /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
+    ReposReplaceProtectedBranchUserRestrictionsEndpoint,
+    ReposReplaceProtectedBranchUserRestrictionsRequestOptions
+  ];
+  "PUT /repos/:owner/:repo/collaborators/:username": [
+    ReposAddCollaboratorEndpoint,
+    ReposAddCollaboratorRequestOptions
   ];
   "PUT /repos/:owner/:repo/contents/:path": [
 
@@ -1406,271 +1870,57 @@ export interface Routes {
       | ReposCreateFileRequestOptions
       | ReposUpdateFileRequestOptions
   ];
-  "DELETE /repos/:owner/:repo/contents/:path": [
-    ReposDeleteFileEndpoint,
-    ReposDeleteFileRequestOptions
+  "PUT /repos/:owner/:repo/import": [
+    MigrationsStartImportEndpoint,
+    MigrationsStartImportRequestOptions
   ];
-  "GET /repos/:owner/:repo/:archive_format/:ref": [
-    ReposGetArchiveLinkEndpoint,
-    ReposGetArchiveLinkRequestOptions
+  "PUT /repos/:owner/:repo/interaction-limits": [
+    InteractionsAddOrUpdateRestrictionsForRepoEndpoint,
+    InteractionsAddOrUpdateRestrictionsForRepoRequestOptions
   ];
-  "GET /repos/:owner/:repo/deployments": [
-    ReposListDeploymentsEndpoint,
-    ReposListDeploymentsRequestOptions
+  "PUT /repos/:owner/:repo/issues/:issue_number/labels": [
+    IssuesReplaceLabelsEndpoint,
+    IssuesReplaceLabelsRequestOptions
   ];
-  "GET /repos/:owner/:repo/deployments/:deployment_id": [
-    ReposGetDeploymentEndpoint,
-    ReposGetDeploymentRequestOptions
+  "PUT /repos/:owner/:repo/issues/:issue_number/lock": [
+    IssuesLockEndpoint,
+    IssuesLockRequestOptions
   ];
-  "POST /repos/:owner/:repo/deployments": [
-    ReposCreateDeploymentEndpoint,
-    ReposCreateDeploymentRequestOptions
-  ];
-  "GET /repos/:owner/:repo/deployments/:deployment_id/statuses": [
-    ReposListDeploymentStatusesEndpoint,
-    ReposListDeploymentStatusesRequestOptions
-  ];
-  "GET /repos/:owner/:repo/deployments/:deployment_id/statuses/:status_id": [
-    ReposGetDeploymentStatusEndpoint,
-    ReposGetDeploymentStatusRequestOptions
-  ];
-  "POST /repos/:owner/:repo/deployments/:deployment_id/statuses": [
-    ReposCreateDeploymentStatusEndpoint,
-    ReposCreateDeploymentStatusRequestOptions
-  ];
-  "GET /repos/:owner/:repo/downloads": [
-    ReposListDownloadsEndpoint,
-    ReposListDownloadsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/downloads/:download_id": [
-    ReposGetDownloadEndpoint,
-    ReposGetDownloadRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/downloads/:download_id": [
-    ReposDeleteDownloadEndpoint,
-    ReposDeleteDownloadRequestOptions
-  ];
-  "GET /repos/:owner/:repo/forks": [
-    ReposListForksEndpoint,
-    ReposListForksRequestOptions
-  ];
-  "POST /repos/:owner/:repo/forks": [
-    ReposCreateForkEndpoint,
-    ReposCreateForkRequestOptions
-  ];
-  "GET /repos/:owner/:repo/hooks": [
-    ReposListHooksEndpoint,
-    ReposListHooksRequestOptions
-  ];
-  "GET /repos/:owner/:repo/hooks/:hook_id": [
-    ReposGetHookEndpoint,
-    ReposGetHookRequestOptions
-  ];
-  "POST /repos/:owner/:repo/hooks": [
-    ReposCreateHookEndpoint,
-    ReposCreateHookRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/hooks/:hook_id": [
-    ReposUpdateHookEndpoint,
-    ReposUpdateHookRequestOptions
-  ];
-  "POST /repos/:owner/:repo/hooks/:hook_id/tests": [
-    ReposTestPushHookEndpoint,
-    ReposTestPushHookRequestOptions
-  ];
-  "POST /repos/:owner/:repo/hooks/:hook_id/pings": [
-    ReposPingHookEndpoint,
-    ReposPingHookRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/hooks/:hook_id": [
-    ReposDeleteHookEndpoint,
-    ReposDeleteHookRequestOptions
-  ];
-  "GET /repos/:owner/:repo/invitations": [
-    ReposListInvitationsEndpoint,
-    ReposListInvitationsRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/invitations/:invitation_id": [
-    ReposDeleteInvitationEndpoint,
-    ReposDeleteInvitationRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/invitations/:invitation_id": [
-    ReposUpdateInvitationEndpoint,
-    ReposUpdateInvitationRequestOptions
-  ];
-  "GET /user/repository_invitations": [
-    ReposListInvitationsForAuthenticatedUserEndpoint,
-    ReposListInvitationsForAuthenticatedUserRequestOptions
-  ];
-  "PATCH /user/repository_invitations/:invitation_id": [
-    ReposAcceptInvitationEndpoint,
-    ReposAcceptInvitationRequestOptions
-  ];
-  "DELETE /user/repository_invitations/:invitation_id": [
-    ReposDeclineInvitationEndpoint,
-    ReposDeclineInvitationRequestOptions
-  ];
-  "GET /repos/:owner/:repo/keys": [
-    ReposListDeployKeysEndpoint,
-    ReposListDeployKeysRequestOptions
-  ];
-  "GET /repos/:owner/:repo/keys/:key_id": [
-    ReposGetDeployKeyEndpoint,
-    ReposGetDeployKeyRequestOptions
-  ];
-  "POST /repos/:owner/:repo/keys": [
-    ReposAddDeployKeyEndpoint,
-    ReposAddDeployKeyRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/keys/:key_id": [
-    ReposRemoveDeployKeyEndpoint,
-    ReposRemoveDeployKeyRequestOptions
-  ];
-  "POST /repos/:owner/:repo/merges": [
-    ReposMergeEndpoint,
-    ReposMergeRequestOptions
-  ];
-  "GET /repos/:owner/:repo/pages": [
-    ReposGetPagesEndpoint,
-    ReposGetPagesRequestOptions
-  ];
-  "POST /repos/:owner/:repo/pages": [
-    ReposEnablePagesSiteEndpoint,
-    ReposEnablePagesSiteRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/pages": [
-    ReposDisablePagesSiteEndpoint,
-    ReposDisablePagesSiteRequestOptions
+  "PUT /repos/:owner/:repo/notifications": [
+    ActivityMarkNotificationsAsReadForRepoEndpoint,
+    ActivityMarkNotificationsAsReadForRepoRequestOptions
   ];
   "PUT /repos/:owner/:repo/pages": [
     ReposUpdateInformationAboutPagesSiteEndpoint,
     ReposUpdateInformationAboutPagesSiteRequestOptions
   ];
-  "POST /repos/:owner/:repo/pages/builds": [
-    ReposRequestPageBuildEndpoint,
-    ReposRequestPageBuildRequestOptions
+  "PUT /repos/:owner/:repo/pulls/:pull_number/merge": [
+    PullsMergeEndpoint,
+    PullsMergeRequestOptions
   ];
-  "GET /repos/:owner/:repo/pages/builds": [
-    ReposListPagesBuildsEndpoint,
-    ReposListPagesBuildsRequestOptions
+  "PUT /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id": [
+    PullsUpdateReviewEndpoint,
+    PullsUpdateReviewRequestOptions
   ];
-  "GET /repos/:owner/:repo/pages/builds/latest": [
-    ReposGetLatestPagesBuildEndpoint,
-    ReposGetLatestPagesBuildRequestOptions
+  "PUT /repos/:owner/:repo/pulls/:pull_number/reviews/:review_id/dismissals": [
+    PullsDismissReviewEndpoint,
+    PullsDismissReviewRequestOptions
   ];
-  "GET /repos/:owner/:repo/pages/builds/:build_id": [
-    ReposGetPagesBuildEndpoint,
-    ReposGetPagesBuildRequestOptions
+  "PUT /repos/:owner/:repo/pulls/:pull_number/update-branch": [
+    PullsUpdateBranchEndpoint,
+    PullsUpdateBranchRequestOptions
   ];
-  "GET /repos/:owner/:repo/releases": [
-    ReposListReleasesEndpoint,
-    ReposListReleasesRequestOptions
+  "PUT /repos/:owner/:repo/subscription": [
+    ActivitySetRepoSubscriptionEndpoint,
+    ActivitySetRepoSubscriptionRequestOptions
   ];
-  "GET /repos/:owner/:repo/releases/:release_id": [
-    ReposGetReleaseEndpoint,
-    ReposGetReleaseRequestOptions
+  "PUT /repos/:owner/:repo/topics": [
+    ReposReplaceTopicsEndpoint,
+    ReposReplaceTopicsRequestOptions
   ];
-  "GET /repos/:owner/:repo/releases/latest": [
-    ReposGetLatestReleaseEndpoint,
-    ReposGetLatestReleaseRequestOptions
-  ];
-  "GET /repos/:owner/:repo/releases/tags/:tag": [
-    ReposGetReleaseByTagEndpoint,
-    ReposGetReleaseByTagRequestOptions
-  ];
-  "POST /repos/:owner/:repo/releases": [
-    ReposCreateReleaseEndpoint,
-    ReposCreateReleaseRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/releases/:release_id": [
-    ReposUpdateReleaseEndpoint,
-    ReposUpdateReleaseRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/releases/:release_id": [
-    ReposDeleteReleaseEndpoint,
-    ReposDeleteReleaseRequestOptions
-  ];
-  "GET /repos/:owner/:repo/releases/:release_id/assets": [
-    ReposListAssetsForReleaseEndpoint,
-    ReposListAssetsForReleaseRequestOptions
-  ];
-  "POST :url": [
-    ReposUploadReleaseAssetEndpoint,
-    ReposUploadReleaseAssetRequestOptions
-  ];
-  "GET /repos/:owner/:repo/releases/assets/:asset_id": [
-    ReposGetReleaseAssetEndpoint,
-    ReposGetReleaseAssetRequestOptions
-  ];
-  "PATCH /repos/:owner/:repo/releases/assets/:asset_id": [
-    ReposUpdateReleaseAssetEndpoint,
-    ReposUpdateReleaseAssetRequestOptions
-  ];
-  "DELETE /repos/:owner/:repo/releases/assets/:asset_id": [
-    ReposDeleteReleaseAssetEndpoint,
-    ReposDeleteReleaseAssetRequestOptions
-  ];
-  "GET /repos/:owner/:repo/stats/contributors": [
-    ReposGetContributorsStatsEndpoint,
-    ReposGetContributorsStatsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/stats/commit_activity": [
-    ReposGetCommitActivityStatsEndpoint,
-    ReposGetCommitActivityStatsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/stats/code_frequency": [
-    ReposGetCodeFrequencyStatsEndpoint,
-    ReposGetCodeFrequencyStatsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/stats/participation": [
-    ReposGetParticipationStatsEndpoint,
-    ReposGetParticipationStatsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/stats/punch_card": [
-    ReposGetPunchCardStatsEndpoint,
-    ReposGetPunchCardStatsRequestOptions
-  ];
-  "POST /repos/:owner/:repo/statuses/:sha": [
-    ReposCreateStatusEndpoint,
-    ReposCreateStatusRequestOptions
-  ];
-  "GET /repos/:owner/:repo/commits/:ref/statuses": [
-    ReposListStatusesForRefEndpoint,
-    ReposListStatusesForRefRequestOptions
-  ];
-  "GET /repos/:owner/:repo/commits/:ref/status": [
-    ReposGetCombinedStatusForRefEndpoint,
-    ReposGetCombinedStatusForRefRequestOptions
-  ];
-  "GET /repos/:owner/:repo/traffic/popular/referrers": [
-    ReposGetTopReferrersEndpoint,
-    ReposGetTopReferrersRequestOptions
-  ];
-  "GET /repos/:owner/:repo/traffic/popular/paths": [
-    ReposGetTopPathsEndpoint,
-    ReposGetTopPathsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/traffic/views": [
-    ReposGetViewsEndpoint,
-    ReposGetViewsRequestOptions
-  ];
-  "GET /repos/:owner/:repo/traffic/clones": [
-    ReposGetClonesEndpoint,
-    ReposGetClonesRequestOptions
-  ];
-  "GET /scim/v2/organizations/:org/Users": [
-    ScimListProvisionedIdentitiesEndpoint,
-    ScimListProvisionedIdentitiesRequestOptions
-  ];
-  "GET /scim/v2/organizations/:org/Users/:scim_user_id": [
-    ScimGetProvisioningDetailsForUserEndpoint,
-    ScimGetProvisioningDetailsForUserRequestOptions
-  ];
-  "POST /scim/v2/organizations/:org/Users": [
-    ScimProvisionAndInviteUsersEndpoint | ScimProvisionInviteUsersEndpoint,
-
-      | ScimProvisionAndInviteUsersRequestOptions
-      | ScimProvisionInviteUsersRequestOptions
+  "PUT /repos/:owner/:repo/vulnerability-alerts": [
+    ReposEnableVulnerabilityAlertsEndpoint,
+    ReposEnableVulnerabilityAlertsRequestOptions
   ];
   "PUT /scim/v2/organizations/:org/Users/:scim_user_id": [
 
@@ -1680,288 +1930,38 @@ export interface Routes {
       | ScimReplaceProvisionedUserInformationRequestOptions
       | ScimUpdateProvisionedOrgMembershipRequestOptions
   ];
-  "PATCH /scim/v2/organizations/:org/Users/:scim_user_id": [
-    ScimUpdateUserAttributeEndpoint,
-    ScimUpdateUserAttributeRequestOptions
-  ];
-  "DELETE /scim/v2/organizations/:org/Users/:scim_user_id": [
-    ScimRemoveUserFromOrgEndpoint,
-    ScimRemoveUserFromOrgRequestOptions
-  ];
-  "GET /search/repositories": [SearchReposEndpoint, SearchReposRequestOptions];
-  "GET /search/commits": [SearchCommitsEndpoint, SearchCommitsRequestOptions];
-  "GET /search/code": [SearchCodeEndpoint, SearchCodeRequestOptions];
-  "GET /search/issues": [
-    SearchIssuesAndPullRequestsEndpoint | SearchIssuesEndpoint,
-    SearchIssuesAndPullRequestsRequestOptions | SearchIssuesRequestOptions
-  ];
-  "GET /search/users": [SearchUsersEndpoint, SearchUsersRequestOptions];
-  "GET /search/topics": [SearchTopicsEndpoint, SearchTopicsRequestOptions];
-  "GET /search/labels": [SearchLabelsEndpoint, SearchLabelsRequestOptions];
-  "GET /legacy/issues/search/:owner/:repository/:state/:keyword": [
-    SearchIssuesLegacyEndpoint,
-    SearchIssuesLegacyRequestOptions
-  ];
-  "GET /legacy/repos/search/:keyword": [
-    SearchReposLegacyEndpoint,
-    SearchReposLegacyRequestOptions
-  ];
-  "GET /legacy/user/search/:keyword": [
-    SearchUsersLegacyEndpoint,
-    SearchUsersLegacyRequestOptions
-  ];
-  "GET /legacy/user/email/:email": [
-    SearchEmailLegacyEndpoint,
-    SearchEmailLegacyRequestOptions
-  ];
-  "GET /orgs/:org/teams": [TeamsListEndpoint, TeamsListRequestOptions];
-  "GET /teams/:team_id": [TeamsGetEndpoint, TeamsGetRequestOptions];
-  "GET /orgs/:org/teams/:team_slug": [
-    TeamsGetByNameEndpoint,
-    TeamsGetByNameRequestOptions
-  ];
-  "POST /orgs/:org/teams": [TeamsCreateEndpoint, TeamsCreateRequestOptions];
-  "PATCH /teams/:team_id": [TeamsUpdateEndpoint, TeamsUpdateRequestOptions];
-  "DELETE /teams/:team_id": [TeamsDeleteEndpoint, TeamsDeleteRequestOptions];
-  "GET /teams/:team_id/teams": [
-    TeamsListChildEndpoint,
-    TeamsListChildRequestOptions
-  ];
-  "GET /teams/:team_id/repos": [
-    TeamsListReposEndpoint,
-    TeamsListReposRequestOptions
-  ];
-  "GET /teams/:team_id/repos/:owner/:repo": [
-    TeamsCheckManagesRepoEndpoint,
-    TeamsCheckManagesRepoRequestOptions
-  ];
-  "PUT /teams/:team_id/repos/:owner/:repo": [
-    TeamsAddOrUpdateRepoEndpoint,
-    TeamsAddOrUpdateRepoRequestOptions
-  ];
-  "DELETE /teams/:team_id/repos/:owner/:repo": [
-    TeamsRemoveRepoEndpoint,
-    TeamsRemoveRepoRequestOptions
-  ];
-  "GET /user/teams": [
-    TeamsListForAuthenticatedUserEndpoint,
-    TeamsListForAuthenticatedUserRequestOptions
-  ];
-  "GET /teams/:team_id/projects": [
-    TeamsListProjectsEndpoint,
-    TeamsListProjectsRequestOptions
-  ];
-  "GET /teams/:team_id/projects/:project_id": [
-    TeamsReviewProjectEndpoint,
-    TeamsReviewProjectRequestOptions
-  ];
-  "PUT /teams/:team_id/projects/:project_id": [
-    TeamsAddOrUpdateProjectEndpoint,
-    TeamsAddOrUpdateProjectRequestOptions
-  ];
-  "DELETE /teams/:team_id/projects/:project_id": [
-    TeamsRemoveProjectEndpoint,
-    TeamsRemoveProjectRequestOptions
-  ];
-  "GET /teams/:team_id/discussions/:discussion_number/comments": [
-    TeamsListDiscussionCommentsEndpoint,
-    TeamsListDiscussionCommentsRequestOptions
-  ];
-  "GET /teams/:team_id/discussions/:discussion_number/comments/:comment_number": [
-    TeamsGetDiscussionCommentEndpoint,
-    TeamsGetDiscussionCommentRequestOptions
-  ];
-  "POST /teams/:team_id/discussions/:discussion_number/comments": [
-    TeamsCreateDiscussionCommentEndpoint,
-    TeamsCreateDiscussionCommentRequestOptions
-  ];
-  "PATCH /teams/:team_id/discussions/:discussion_number/comments/:comment_number": [
-    TeamsUpdateDiscussionCommentEndpoint,
-    TeamsUpdateDiscussionCommentRequestOptions
-  ];
-  "DELETE /teams/:team_id/discussions/:discussion_number/comments/:comment_number": [
-    TeamsDeleteDiscussionCommentEndpoint,
-    TeamsDeleteDiscussionCommentRequestOptions
-  ];
-  "GET /teams/:team_id/discussions": [
-    TeamsListDiscussionsEndpoint,
-    TeamsListDiscussionsRequestOptions
-  ];
-  "GET /teams/:team_id/discussions/:discussion_number": [
-    TeamsGetDiscussionEndpoint,
-    TeamsGetDiscussionRequestOptions
-  ];
-  "POST /teams/:team_id/discussions": [
-    TeamsCreateDiscussionEndpoint,
-    TeamsCreateDiscussionRequestOptions
-  ];
-  "PATCH /teams/:team_id/discussions/:discussion_number": [
-    TeamsUpdateDiscussionEndpoint,
-    TeamsUpdateDiscussionRequestOptions
-  ];
-  "DELETE /teams/:team_id/discussions/:discussion_number": [
-    TeamsDeleteDiscussionEndpoint,
-    TeamsDeleteDiscussionRequestOptions
-  ];
-  "GET /teams/:team_id/members": [
-    TeamsListMembersEndpoint,
-    TeamsListMembersRequestOptions
-  ];
-  "GET /teams/:team_id/members/:username": [
-    TeamsGetMemberEndpoint,
-    TeamsGetMemberRequestOptions
-  ];
   "PUT /teams/:team_id/members/:username": [
     TeamsAddMemberEndpoint,
     TeamsAddMemberRequestOptions
-  ];
-  "DELETE /teams/:team_id/members/:username": [
-    TeamsRemoveMemberEndpoint,
-    TeamsRemoveMemberRequestOptions
-  ];
-  "GET /teams/:team_id/memberships/:username": [
-    TeamsGetMembershipEndpoint,
-    TeamsGetMembershipRequestOptions
   ];
   "PUT /teams/:team_id/memberships/:username": [
     TeamsAddOrUpdateMembershipEndpoint,
     TeamsAddOrUpdateMembershipRequestOptions
   ];
-  "DELETE /teams/:team_id/memberships/:username": [
-    TeamsRemoveMembershipEndpoint,
-    TeamsRemoveMembershipRequestOptions
+  "PUT /teams/:team_id/projects/:project_id": [
+    TeamsAddOrUpdateProjectEndpoint,
+    TeamsAddOrUpdateProjectRequestOptions
   ];
-  "GET /teams/:team_id/invitations": [
-    TeamsListPendingInvitationsEndpoint,
-    TeamsListPendingInvitationsRequestOptions
-  ];
-  "GET /orgs/:org/team-sync/groups": [
-    TeamsListIdPGroupsForOrgEndpoint,
-    TeamsListIdPGroupsForOrgRequestOptions
-  ];
-  "GET /teams/:team_id/team-sync/group-mappings": [
-    TeamsListIdPGroupsEndpoint,
-    TeamsListIdPGroupsRequestOptions
-  ];
-  "PATCH /teams/:team_id/team-sync/group-mappings": [
-    TeamsCreateOrUpdateIdPGroupConnectionsEndpoint,
-    TeamsCreateOrUpdateIdPGroupConnectionsRequestOptions
-  ];
-  "GET /users/:username": [
-    UsersGetByUsernameEndpoint,
-    UsersGetByUsernameRequestOptions
-  ];
-  "GET /user": [
-    UsersGetAuthenticatedEndpoint,
-    UsersGetAuthenticatedRequestOptions
-  ];
-  "PATCH /user": [
-    UsersUpdateAuthenticatedEndpoint,
-    UsersUpdateAuthenticatedRequestOptions
-  ];
-  "GET /users/:username/hovercard": [
-    UsersGetContextForUserEndpoint,
-    UsersGetContextForUserRequestOptions
-  ];
-  "GET /users": [UsersListEndpoint, UsersListRequestOptions];
-  "GET /user/blocks": [
-    UsersListBlockedEndpoint,
-    UsersListBlockedRequestOptions
-  ];
-  "GET /user/blocks/:username": [
-    UsersCheckBlockedEndpoint,
-    UsersCheckBlockedRequestOptions
+  "PUT /teams/:team_id/repos/:owner/:repo": [
+    TeamsAddOrUpdateRepoEndpoint,
+    TeamsAddOrUpdateRepoRequestOptions
   ];
   "PUT /user/blocks/:username": [UsersBlockEndpoint, UsersBlockRequestOptions];
-  "DELETE /user/blocks/:username": [
-    UsersUnblockEndpoint,
-    UsersUnblockRequestOptions
-  ];
-  "GET /user/emails": [UsersListEmailsEndpoint, UsersListEmailsRequestOptions];
-  "GET /user/public_emails": [
-    UsersListPublicEmailsEndpoint,
-    UsersListPublicEmailsRequestOptions
-  ];
-  "POST /user/emails": [UsersAddEmailsEndpoint, UsersAddEmailsRequestOptions];
-  "DELETE /user/emails": [
-    UsersDeleteEmailsEndpoint,
-    UsersDeleteEmailsRequestOptions
-  ];
-  "PATCH /user/email/visibility": [
-    UsersTogglePrimaryEmailVisibilityEndpoint,
-    UsersTogglePrimaryEmailVisibilityRequestOptions
-  ];
-  "GET /users/:username/followers": [
-    UsersListFollowersForUserEndpoint,
-    UsersListFollowersForUserRequestOptions
-  ];
-  "GET /user/followers": [
-    UsersListFollowersForAuthenticatedUserEndpoint,
-    UsersListFollowersForAuthenticatedUserRequestOptions
-  ];
-  "GET /users/:username/following": [
-    UsersListFollowingForUserEndpoint,
-    UsersListFollowingForUserRequestOptions
-  ];
-  "GET /user/following": [
-    UsersListFollowingForAuthenticatedUserEndpoint,
-    UsersListFollowingForAuthenticatedUserRequestOptions
-  ];
-  "GET /user/following/:username": [
-    UsersCheckFollowingEndpoint,
-    UsersCheckFollowingRequestOptions
-  ];
-  "GET /users/:username/following/:target_user": [
-    UsersCheckFollowingForUserEndpoint,
-    UsersCheckFollowingForUserRequestOptions
-  ];
   "PUT /user/following/:username": [
     UsersFollowEndpoint,
     UsersFollowRequestOptions
   ];
-  "DELETE /user/following/:username": [
-    UsersUnfollowEndpoint,
-    UsersUnfollowRequestOptions
+  "PUT /user/installations/:installation_id/repositories/:repository_id": [
+    AppsAddRepoToInstallationEndpoint,
+    AppsAddRepoToInstallationRequestOptions
   ];
-  "GET /users/:username/gpg_keys": [
-    UsersListGpgKeysForUserEndpoint,
-    UsersListGpgKeysForUserRequestOptions
+  "PUT /user/starred/:owner/:repo": [
+    ActivityStarRepoEndpoint,
+    ActivityStarRepoRequestOptions
   ];
-  "GET /user/gpg_keys": [
-    UsersListGpgKeysEndpoint,
-    UsersListGpgKeysRequestOptions
-  ];
-  "GET /user/gpg_keys/:gpg_key_id": [
-    UsersGetGpgKeyEndpoint,
-    UsersGetGpgKeyRequestOptions
-  ];
-  "POST /user/gpg_keys": [
-    UsersCreateGpgKeyEndpoint,
-    UsersCreateGpgKeyRequestOptions
-  ];
-  "DELETE /user/gpg_keys/:gpg_key_id": [
-    UsersDeleteGpgKeyEndpoint,
-    UsersDeleteGpgKeyRequestOptions
-  ];
-  "GET /users/:username/keys": [
-    UsersListPublicKeysForUserEndpoint,
-    UsersListPublicKeysForUserRequestOptions
-  ];
-  "GET /user/keys": [
-    UsersListPublicKeysEndpoint,
-    UsersListPublicKeysRequestOptions
-  ];
-  "GET /user/keys/:key_id": [
-    UsersGetPublicKeyEndpoint,
-    UsersGetPublicKeyRequestOptions
-  ];
-  "POST /user/keys": [
-    UsersCreatePublicKeyEndpoint,
-    UsersCreatePublicKeyRequestOptions
-  ];
-  "DELETE /user/keys/:key_id": [
-    UsersDeletePublicKeyEndpoint,
-    UsersDeletePublicKeyRequestOptions
+  "PUT /user/subscriptions/:owner/:repo": [
+    ActivityWatchRepoLegacyEndpoint,
+    ActivityWatchRepoLegacyRequestOptions
   ];
 }
 
