@@ -131,6 +131,10 @@ export interface Routes {
     ReposRemoveProtectedBranchRestrictionsEndpoint,
     ReposRemoveProtectedBranchRestrictionsRequestOptions
   ];
+  "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions/apps": [
+    ReposRemoveProtectedBranchAppRestrictionsEndpoint,
+    ReposRemoveProtectedBranchAppRestrictionsRequestOptions
+  ];
   "DELETE /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
     ReposRemoveProtectedBranchTeamRestrictionsEndpoint,
     ReposRemoveProtectedBranchTeamRestrictionsRequestOptions
@@ -636,13 +640,33 @@ export interface Routes {
     ReposGetProtectedBranchRestrictionsEndpoint,
     ReposGetProtectedBranchRestrictionsRequestOptions
   ];
+  "GET /repos/:owner/:repo/branches/:branch/protection/restrictions/apps": [
+
+      | ReposGetAppsWithAccessToProtectedBranchEndpoint
+      | ReposListAppsWithAccessToProtectedBranchEndpoint,
+
+      | ReposGetAppsWithAccessToProtectedBranchRequestOptions
+      | ReposListAppsWithAccessToProtectedBranchRequestOptions
+  ];
   "GET /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
-    ReposListProtectedBranchTeamRestrictionsEndpoint,
-    ReposListProtectedBranchTeamRestrictionsRequestOptions
+
+      | ReposGetTeamsWithAccessToProtectedBranchEndpoint
+      | ReposListProtectedBranchTeamRestrictionsEndpoint
+      | ReposListTeamsWithAccessToProtectedBranchEndpoint,
+
+      | ReposGetTeamsWithAccessToProtectedBranchRequestOptions
+      | ReposListProtectedBranchTeamRestrictionsRequestOptions
+      | ReposListTeamsWithAccessToProtectedBranchRequestOptions
   ];
   "GET /repos/:owner/:repo/branches/:branch/protection/restrictions/users": [
-    ReposListProtectedBranchUserRestrictionsEndpoint,
-    ReposListProtectedBranchUserRestrictionsRequestOptions
+
+      | ReposGetUsersWithAccessToProtectedBranchEndpoint
+      | ReposListProtectedBranchUserRestrictionsEndpoint
+      | ReposListUsersWithAccessToProtectedBranchEndpoint,
+
+      | ReposGetUsersWithAccessToProtectedBranchRequestOptions
+      | ReposListProtectedBranchUserRestrictionsRequestOptions
+      | ReposListUsersWithAccessToProtectedBranchRequestOptions
   ];
   "GET /repos/:owner/:repo/check-runs/:check_run_id": [
     ChecksGetEndpoint,
@@ -701,8 +725,8 @@ export interface Routes {
     ReposListPullRequestsAssociatedWithCommitRequestOptions
   ];
   "GET /repos/:owner/:repo/commits/:ref": [
-    ReposGetCommitEndpoint | ReposGetCommitRefShaEndpoint,
-    ReposGetCommitRequestOptions | ReposGetCommitRefShaRequestOptions
+    ReposGetCommitEndpoint,
+    ReposGetCommitRequestOptions
   ];
   "GET /repos/:owner/:repo/commits/:ref/check-runs": [
     ChecksListForRefEndpoint,
@@ -780,11 +804,11 @@ export interface Routes {
     GitGetCommitEndpoint,
     GitGetCommitRequestOptions
   ];
-  "GET /repos/:owner/:repo/git/refs/:namespace": [
-    GitListRefsEndpoint,
-    GitListRefsRequestOptions
+  "GET /repos/:owner/:repo/git/matching-refs/:ref": [
+    GitListMatchingRefsEndpoint,
+    GitListMatchingRefsRequestOptions
   ];
-  "GET /repos/:owner/:repo/git/refs/:ref": [
+  "GET /repos/:owner/:repo/git/ref/:ref": [
     GitGetRefEndpoint,
     GitGetRefRequestOptions
   ];
@@ -1439,7 +1463,7 @@ export interface Routes {
     IssuesUpdateCommentEndpoint,
     IssuesUpdateCommentRequestOptions
   ];
-  "PATCH /repos/:owner/:repo/labels/:current_name": [
+  "PATCH /repos/:owner/:repo/labels/:name": [
     IssuesUpdateLabelEndpoint,
     IssuesUpdateLabelRequestOptions
   ];
@@ -1580,6 +1604,10 @@ export interface Routes {
     ReposAddProtectedBranchRequiredStatusChecksContextsEndpoint,
     ReposAddProtectedBranchRequiredStatusChecksContextsRequestOptions
   ];
+  "POST /repos/:owner/:repo/branches/:branch/protection/restrictions/apps": [
+    ReposAddProtectedBranchAppRestrictionsEndpoint,
+    ReposAddProtectedBranchAppRestrictionsRequestOptions
+  ];
   "POST /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
     ReposAddProtectedBranchTeamRestrictionsEndpoint,
     ReposAddProtectedBranchTeamRestrictionsRequestOptions
@@ -1615,6 +1643,10 @@ export interface Routes {
   "POST /repos/:owner/:repo/deployments/:deployment_id/statuses": [
     ReposCreateDeploymentStatusEndpoint,
     ReposCreateDeploymentStatusRequestOptions
+  ];
+  "POST /repos/:owner/:repo/dispatches": [
+    ReposCreateDispatchEventEndpoint,
+    ReposCreateDispatchEventRequestOptions
   ];
   "POST /repos/:owner/:repo/forks": [
     ReposCreateForkEndpoint,
@@ -1705,12 +1737,16 @@ export interface Routes {
     ProjectsCreateForRepoRequestOptions
   ];
   "POST /repos/:owner/:repo/pulls": [
-    PullsCreateEndpoint | PullsCreateFromIssueEndpoint,
-    PullsCreateRequestOptions | PullsCreateFromIssueRequestOptions
+    PullsCreateEndpoint,
+    PullsCreateRequestOptions
   ];
   "POST /repos/:owner/:repo/pulls/:pull_number/comments": [
     PullsCreateCommentEndpoint | PullsCreateCommentReplyEndpoint,
     PullsCreateCommentRequestOptions | PullsCreateCommentReplyRequestOptions
+  ];
+  "POST /repos/:owner/:repo/pulls/:pull_number/comments/:comment_id/replies": [
+    PullsCreateReviewCommentReplyEndpoint,
+    PullsCreateReviewCommentReplyRequestOptions
   ];
   "POST /repos/:owner/:repo/pulls/:pull_number/requested_reviewers": [
     PullsCreateReviewRequestEndpoint,
@@ -1787,10 +1823,6 @@ export interface Routes {
     ReposCreateForAuthenticatedUserEndpoint,
     ReposCreateForAuthenticatedUserRequestOptions
   ];
-  "POST :url": [
-    ReposUploadReleaseAssetEndpoint,
-    ReposUploadReleaseAssetRequestOptions
-  ];
   "PUT /authorizations/clients/:client_id": [
     OauthAuthorizationsGetOrCreateAuthorizationForAppEndpoint,
     OauthAuthorizationsGetOrCreateAuthorizationForAppRequestOptions
@@ -1847,6 +1879,10 @@ export interface Routes {
   "PUT /repos/:owner/:repo/branches/:branch/protection/required_status_checks/contexts": [
     ReposReplaceProtectedBranchRequiredStatusChecksContextsEndpoint,
     ReposReplaceProtectedBranchRequiredStatusChecksContextsRequestOptions
+  ];
+  "PUT /repos/:owner/:repo/branches/:branch/protection/restrictions/apps": [
+    ReposReplaceProtectedBranchAppRestrictionsEndpoint,
+    ReposReplaceProtectedBranchAppRestrictionsRequestOptions
   ];
   "PUT /repos/:owner/:repo/branches/:branch/protection/restrictions/teams": [
     ReposReplaceProtectedBranchTeamRestrictionsEndpoint,
@@ -1965,102 +2001,190 @@ export interface Routes {
   ];
 }
 
-type ActivityListPublicEventsEndpoint = {
-  per_page?: number;
-  page?: number;
+type AppsGetAuthenticatedEndpoint = {};
+type AppsGetAuthenticatedRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type AppsCreateFromManifestEndpoint = {};
+type AppsCreateFromManifestRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsListInstallationsEndpoint = {};
+type AppsListInstallationsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsGetInstallationEndpoint = {};
+type AppsGetInstallationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsDeleteInstallationEndpoint = {};
+type AppsDeleteInstallationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsCreateInstallationTokenEndpoint = {};
+type AppsCreateInstallationTokenRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsListGrantsEndpoint = {};
+type OauthAuthorizationsListGrantsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsGetGrantEndpoint = {};
+type OauthAuthorizationsGetGrantRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsDeleteGrantEndpoint = {};
+type OauthAuthorizationsDeleteGrantRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsRevokeGrantForApplicationEndpoint = {};
+type OauthAuthorizationsRevokeGrantForApplicationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsCheckAuthorizationEndpoint = {};
+type OauthAuthorizationsCheckAuthorizationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsResetAuthorizationEndpoint = {};
+type OauthAuthorizationsResetAuthorizationRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsRevokeAuthorizationForApplicationEndpoint = {};
+type OauthAuthorizationsRevokeAuthorizationForApplicationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsGetBySlugEndpoint = {};
+type AppsGetBySlugRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsListAuthorizationsEndpoint = {};
+type OauthAuthorizationsListAuthorizationsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsCreateAuthorizationEndpoint = {};
+type OauthAuthorizationsCreateAuthorizationRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsGetOrCreateAuthorizationForAppEndpoint = {};
+type OauthAuthorizationsGetOrCreateAuthorizationForAppRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintEndpoint = {};
+type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintEndpoint = {};
+type OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsGetAuthorizationEndpoint = {};
+type OauthAuthorizationsGetAuthorizationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsUpdateAuthorizationEndpoint = {};
+type OauthAuthorizationsUpdateAuthorizationRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OauthAuthorizationsDeleteAuthorizationEndpoint = {};
+type OauthAuthorizationsDeleteAuthorizationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type CodesOfConductListConductCodesEndpoint = {};
+type CodesOfConductListConductCodesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type CodesOfConductGetConductCodeEndpoint = {};
+type CodesOfConductGetConductCodeRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsCreateContentAttachmentEndpoint = {};
+type AppsCreateContentAttachmentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type EmojisGetEndpoint = {};
+type EmojisGetRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListPublicEventsEndpoint = {};
 type ActivityListPublicEventsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListRepoEventsEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListRepoEventsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListPublicEventsForRepoNetworkEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListPublicEventsForRepoNetworkRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListPublicEventsForOrgEndpoint = {
-  org: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListPublicEventsForOrgRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListReceivedEventsForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListReceivedEventsForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListReceivedPublicEventsForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListReceivedPublicEventsForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListEventsForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListEventsForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListPublicEventsForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListPublicEventsForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListEventsForOrgEndpoint = {
-  username: string;
-  org: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListEventsForOrgRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
@@ -2073,1142 +2197,135 @@ type ActivityListFeedsRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ActivityListNotificationsEndpoint = {
-  all?: boolean;
-  participating?: boolean;
-  since?: string;
-  before?: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListNotificationsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListNotificationsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  all?: boolean;
-  participating?: boolean;
-  since?: string;
-  before?: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListNotificationsForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityMarkAsReadEndpoint = {
-  last_read_at?: string;
-};
-type ActivityMarkAsReadRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityMarkNotificationsAsReadForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  last_read_at?: string;
-};
-type ActivityMarkNotificationsAsReadForRepoRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityGetThreadEndpoint = {
-  thread_id: number;
-};
-type ActivityGetThreadRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityMarkThreadAsReadEndpoint = {
-  thread_id: number;
-};
-type ActivityMarkThreadAsReadRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityGetThreadSubscriptionEndpoint = {
-  thread_id: number;
-};
-type ActivityGetThreadSubscriptionRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivitySetThreadSubscriptionEndpoint = {
-  thread_id: number;
-  ignored?: boolean;
-};
-type ActivitySetThreadSubscriptionRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityDeleteThreadSubscriptionEndpoint = {
-  thread_id: number;
-};
-type ActivityDeleteThreadSubscriptionRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListStargazersForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListStargazersForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListReposStarredByUserEndpoint = {
-  username: string;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListReposStarredByUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListReposStarredByAuthenticatedUserEndpoint = {
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListReposStarredByAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityCheckStarringRepoEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityCheckStarringRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityStarRepoEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityStarRepoRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityUnstarRepoEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityUnstarRepoRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListWatchersForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListWatchersForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListReposWatchedByUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type ActivityListReposWatchedByUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityListWatchedReposForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type ActivityListWatchedReposForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityGetRepoSubscriptionEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityGetRepoSubscriptionRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivitySetRepoSubscriptionEndpoint = {
-  owner: string;
-  repo: string;
-  subscribed?: boolean;
-  ignored?: boolean;
-};
-type ActivitySetRepoSubscriptionRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityDeleteRepoSubscriptionEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityDeleteRepoSubscriptionRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityCheckWatchingRepoLegacyEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityCheckWatchingRepoLegacyRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityWatchRepoLegacyEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityWatchRepoLegacyRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ActivityStopWatchingRepoLegacyEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ActivityStopWatchingRepoLegacyRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsGetBySlugEndpoint = {
-  app_slug: string;
-};
-type AppsGetBySlugRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsGetAuthenticatedEndpoint = {};
-type AppsGetAuthenticatedRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListInstallationsEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type AppsListInstallationsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsGetInstallationEndpoint = {
-  installation_id: number;
-};
-type AppsGetInstallationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsDeleteInstallationEndpoint = {
-  installation_id: number;
-};
-type AppsDeleteInstallationRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsCreateInstallationTokenEndpoint = {
-  installation_id: number;
-  repository_ids?: number[];
-  permissions?: object;
-};
-type AppsCreateInstallationTokenRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsGetOrgInstallationEndpoint = {
-  org: string;
-};
-type AppsGetOrgInstallationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsFindOrgInstallationEndpoint = {
-  org: string;
-};
-type AppsFindOrgInstallationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsGetRepoInstallationEndpoint = {
-  owner: string;
-  repo: string;
-};
-type AppsGetRepoInstallationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsFindRepoInstallationEndpoint = {
-  owner: string;
-  repo: string;
-};
-type AppsFindRepoInstallationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsGetUserInstallationEndpoint = {
-  username: string;
-};
-type AppsGetUserInstallationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsFindUserInstallationEndpoint = {
-  username: string;
-};
-type AppsFindUserInstallationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsCreateFromManifestEndpoint = {
-  code: string;
-};
-type AppsCreateFromManifestRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListReposEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type AppsListReposRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListInstallationsForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type AppsListInstallationsForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListInstallationReposForAuthenticatedUserEndpoint = {
-  installation_id: number;
-  per_page?: number;
-  page?: number;
-};
-type AppsListInstallationReposForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsAddRepoToInstallationEndpoint = {
-  installation_id: number;
-  repository_id: number;
-};
-type AppsAddRepoToInstallationRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsRemoveRepoFromInstallationEndpoint = {
-  installation_id: number;
-  repository_id: number;
-};
-type AppsRemoveRepoFromInstallationRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsCreateContentAttachmentEndpoint = {
-  content_reference_id: number;
-  title: string;
-  body: string;
-};
-type AppsCreateContentAttachmentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListPlansEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type AppsListPlansRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListPlansStubbedEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type AppsListPlansStubbedRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListAccountsUserOrOrgOnPlanEndpoint = {
-  plan_id: number;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type AppsListAccountsUserOrOrgOnPlanRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListAccountsUserOrOrgOnPlanStubbedEndpoint = {
-  plan_id: number;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type AppsListAccountsUserOrOrgOnPlanStubbedRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsCheckAccountIsAssociatedWithAnyEndpoint = {
-  account_id: number;
-  per_page?: number;
-  page?: number;
-};
-type AppsCheckAccountIsAssociatedWithAnyRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsCheckAccountIsAssociatedWithAnyStubbedEndpoint = {
-  account_id: number;
-  per_page?: number;
-  page?: number;
-};
-type AppsCheckAccountIsAssociatedWithAnyStubbedRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListMarketplacePurchasesForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type AppsListMarketplacePurchasesForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type AppsListMarketplacePurchasesForAuthenticatedUserStubbedEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type AppsListMarketplacePurchasesForAuthenticatedUserStubbedRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksCreateEndpoint = {
-  owner: string;
-  repo: string;
-  name: string;
-  head_sha: string;
-  details_url?: string;
-  external_id?: string;
-  status?: string;
-  started_at?: string;
-  conclusion?: string;
-  completed_at?: string;
-  output?: object;
-  "output.title": string;
-  "output.summary": string;
-  "output.text"?: string;
-  "output.annotations"?: object[];
-  "output.annotations[].path": string;
-  "output.annotations[].start_line": number;
-  "output.annotations[].end_line": number;
-  "output.annotations[].start_column"?: number;
-  "output.annotations[].end_column"?: number;
-  "output.annotations[].annotation_level": string;
-  "output.annotations[].message": string;
-  "output.annotations[].title"?: string;
-  "output.annotations[].raw_details"?: string;
-  "output.images"?: object[];
-  "output.images[].alt": string;
-  "output.images[].image_url": string;
-  "output.images[].caption"?: string;
-  actions?: object[];
-  "actions[].label": string;
-  "actions[].description": string;
-  "actions[].identifier": string;
-};
-type ChecksCreateRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksUpdateEndpoint = {
-  owner: string;
-  repo: string;
-  check_run_id: number;
-  name?: string;
-  details_url?: string;
-  external_id?: string;
-  started_at?: string;
-  status?: string;
-  conclusion?: string;
-  completed_at?: string;
-  output?: object;
-  "output.title"?: string;
-  "output.summary": string;
-  "output.text"?: string;
-  "output.annotations"?: object[];
-  "output.annotations[].path": string;
-  "output.annotations[].start_line": number;
-  "output.annotations[].end_line": number;
-  "output.annotations[].start_column"?: number;
-  "output.annotations[].end_column"?: number;
-  "output.annotations[].annotation_level": string;
-  "output.annotations[].message": string;
-  "output.annotations[].title"?: string;
-  "output.annotations[].raw_details"?: string;
-  "output.images"?: object[];
-  "output.images[].alt": string;
-  "output.images[].image_url": string;
-  "output.images[].caption"?: string;
-  actions?: object[];
-  "actions[].label": string;
-  "actions[].description": string;
-  "actions[].identifier": string;
-};
-type ChecksUpdateRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksListForRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-  check_name?: string;
-  status?: string;
-  filter?: string;
-  per_page?: number;
-  page?: number;
-};
-type ChecksListForRefRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksListForSuiteEndpoint = {
-  owner: string;
-  repo: string;
-  check_suite_id: number;
-  check_name?: string;
-  status?: string;
-  filter?: string;
-  per_page?: number;
-  page?: number;
-};
-type ChecksListForSuiteRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksGetEndpoint = {
-  owner: string;
-  repo: string;
-  check_run_id: number;
-};
-type ChecksGetRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksListAnnotationsEndpoint = {
-  owner: string;
-  repo: string;
-  check_run_id: number;
-  per_page?: number;
-  page?: number;
-};
-type ChecksListAnnotationsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksGetSuiteEndpoint = {
-  owner: string;
-  repo: string;
-  check_suite_id: number;
-};
-type ChecksGetSuiteRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksListSuitesForRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-  app_id?: number;
-  check_name?: string;
-  per_page?: number;
-  page?: number;
-};
-type ChecksListSuitesForRefRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksSetSuitesPreferencesEndpoint = {
-  owner: string;
-  repo: string;
-  auto_trigger_checks?: object[];
-  "auto_trigger_checks[].app_id": number;
-  "auto_trigger_checks[].setting": boolean;
-};
-type ChecksSetSuitesPreferencesRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksCreateSuiteEndpoint = {
-  owner: string;
-  repo: string;
-  head_sha: string;
-};
-type ChecksCreateSuiteRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ChecksRerequestSuiteEndpoint = {
-  owner: string;
-  repo: string;
-  check_suite_id: number;
-};
-type ChecksRerequestSuiteRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type CodesOfConductListConductCodesEndpoint = {};
-type CodesOfConductListConductCodesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type CodesOfConductGetConductCodeEndpoint = {
-  key: string;
-};
-type CodesOfConductGetConductCodeRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type CodesOfConductGetForRepoEndpoint = {
-  owner: string;
-  repo: string;
-};
-type CodesOfConductGetForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type EmojisGetEndpoint = {};
-type EmojisGetRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsListPublicForUserEndpoint = {
-  username: string;
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type GistsListPublicForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsListEndpoint = {
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
+type GistsListEndpoint = {};
 type GistsListRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GistsListPublicEndpoint = {
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type GistsListPublicRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsListStarredEndpoint = {
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type GistsListStarredRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsGetEndpoint = {
-  gist_id: string;
-};
-type GistsGetRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsGetRevisionEndpoint = {
-  gist_id: string;
-  sha: string;
-};
-type GistsGetRevisionRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsCreateEndpoint = {
-  files: object;
-  "files.content"?: string;
-  description?: string;
-  public?: boolean;
-};
+type GistsCreateEndpoint = {};
 type GistsCreateRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GistsUpdateEndpoint = {
-  gist_id: string;
-  description?: string;
-  files?: object;
-  "files.content"?: string;
-  "files.filename"?: string;
+type GistsListPublicEndpoint = {};
+type GistsListPublicRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type GistsListStarredEndpoint = {};
+type GistsListStarredRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GistsGetEndpoint = {};
+type GistsGetRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GistsUpdateEndpoint = {};
 type GistsUpdateRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GistsListCommitsEndpoint = {
-  gist_id: string;
-  per_page?: number;
-  page?: number;
-};
-type GistsListCommitsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsStarEndpoint = {
-  gist_id: string;
-};
-type GistsStarRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsUnstarEndpoint = {
-  gist_id: string;
-};
-type GistsUnstarRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsCheckIsStarredEndpoint = {
-  gist_id: string;
-};
-type GistsCheckIsStarredRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsForkEndpoint = {
-  gist_id: string;
-};
-type GistsForkRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsListForksEndpoint = {
-  gist_id: string;
-  per_page?: number;
-  page?: number;
-};
-type GistsListForksRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsDeleteEndpoint = {
-  gist_id: string;
-};
+type GistsDeleteEndpoint = {};
 type GistsDeleteRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GistsListCommentsEndpoint = {
-  gist_id: string;
-  per_page?: number;
-  page?: number;
-};
+type GistsListCommentsEndpoint = {};
 type GistsListCommentsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GistsGetCommentEndpoint = {
-  gist_id: string;
-  comment_id: number;
-};
-type GistsGetCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GistsCreateCommentEndpoint = {
-  gist_id: string;
-  body: string;
-};
+type GistsCreateCommentEndpoint = {};
 type GistsCreateCommentRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GistsUpdateCommentEndpoint = {
-  gist_id: string;
-  comment_id: number;
-  body: string;
+type GistsGetCommentEndpoint = {};
+type GistsGetCommentRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type GistsUpdateCommentEndpoint = {};
 type GistsUpdateCommentRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GistsDeleteCommentEndpoint = {
-  gist_id: string;
-  comment_id: number;
-};
+type GistsDeleteCommentEndpoint = {};
 type GistsDeleteCommentRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitGetBlobEndpoint = {
-  owner: string;
-  repo: string;
-  file_sha: string;
-};
-type GitGetBlobRequestOptions = {
+type GistsListCommitsEndpoint = {};
+type GistsListCommitsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitCreateBlobEndpoint = {
-  owner: string;
-  repo: string;
-  content: string;
-  encoding?: string;
-};
-type GitCreateBlobRequestOptions = {
+type GistsForkEndpoint = {};
+type GistsForkRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitGetCommitEndpoint = {
-  owner: string;
-  repo: string;
-  commit_sha: string;
-};
-type GitGetCommitRequestOptions = {
+type GistsListForksEndpoint = {};
+type GistsListForksRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitCreateCommitEndpoint = {
-  owner: string;
-  repo: string;
-  message: string;
-  tree: string;
-  parents: string[];
-  author?: object;
-  "author.name"?: string;
-  "author.email"?: string;
-  "author.date"?: string;
-  committer?: object;
-  "committer.name"?: string;
-  "committer.email"?: string;
-  "committer.date"?: string;
-  signature?: string;
-};
-type GitCreateCommitRequestOptions = {
-  method: "POST";
+type GistsStarEndpoint = {};
+type GistsStarRequestOptions = {
+  method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitGetRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-};
-type GitGetRefRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GitListRefsEndpoint = {
-  owner: string;
-  repo: string;
-  namespace?: string;
-  per_page?: number;
-  page?: number;
-};
-type GitListRefsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GitCreateRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-  sha: string;
-};
-type GitCreateRefRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GitUpdateRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-  sha: string;
-  force?: boolean;
-};
-type GitUpdateRefRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GitDeleteRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-};
-type GitDeleteRefRequestOptions = {
+type GistsUnstarEndpoint = {};
+type GistsUnstarRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitGetTagEndpoint = {
-  owner: string;
-  repo: string;
-  tag_sha: string;
-};
-type GitGetTagRequestOptions = {
+type GistsCheckIsStarredEndpoint = {};
+type GistsCheckIsStarredRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitCreateTagEndpoint = {
-  owner: string;
-  repo: string;
-  tag: string;
-  message: string;
-  object: string;
-  type: string;
-  tagger?: object;
-  "tagger.name"?: string;
-  "tagger.email"?: string;
-  "tagger.date"?: string;
-};
-type GitCreateTagRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GitGetTreeEndpoint = {
-  owner: string;
-  repo: string;
-  tree_sha: string;
-  recursive?: number;
-};
-type GitGetTreeRequestOptions = {
+type GistsGetRevisionEndpoint = {};
+type GistsGetRevisionRequestOptions = {
   method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type GitCreateTreeEndpoint = {
-  owner: string;
-  repo: string;
-  tree: object[];
-  "tree[].path"?: string;
-  "tree[].mode"?: string;
-  "tree[].type"?: string;
-  "tree[].sha"?: string;
-  "tree[].content"?: string;
-  base_tree?: string;
-};
-type GitCreateTreeRequestOptions = {
-  method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
@@ -3220,597 +2337,50 @@ type GitignoreListTemplatesRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type GitignoreGetTemplateEndpoint = {
-  name: string;
-};
+type GitignoreGetTemplateEndpoint = {};
 type GitignoreGetTemplateRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type InteractionsGetRestrictionsForOrgEndpoint = {
-  org: string;
-};
-type InteractionsGetRestrictionsForOrgRequestOptions = {
+type AppsListReposEndpoint = {};
+type AppsListReposRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type InteractionsAddOrUpdateRestrictionsForOrgEndpoint = {
-  org: string;
-  limit: string;
-};
-type InteractionsAddOrUpdateRestrictionsForOrgRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type InteractionsRemoveRestrictionsForOrgEndpoint = {
-  org: string;
-};
-type InteractionsRemoveRestrictionsForOrgRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type InteractionsGetRestrictionsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-};
-type InteractionsGetRestrictionsForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type InteractionsAddOrUpdateRestrictionsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  limit: string;
-};
-type InteractionsAddOrUpdateRestrictionsForRepoRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type InteractionsRemoveRestrictionsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-};
-type InteractionsRemoveRestrictionsForRepoRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListEndpoint = {
-  filter?: string;
-  state?: string;
-  labels?: string;
-  sort?: string;
-  direction?: string;
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
+type IssuesListEndpoint = {};
 type IssuesListRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type IssuesListForAuthenticatedUserEndpoint = {
-  filter?: string;
-  state?: string;
-  labels?: string;
-  sort?: string;
-  direction?: string;
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type IssuesListForAuthenticatedUserRequestOptions = {
+type SearchIssuesLegacyEndpoint = {};
+type SearchIssuesLegacyRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type IssuesListForOrgEndpoint = {
-  org: string;
-  filter?: string;
-  state?: string;
-  labels?: string;
-  sort?: string;
-  direction?: string;
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type IssuesListForOrgRequestOptions = {
+type SearchReposLegacyEndpoint = {};
+type SearchReposLegacyRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type IssuesListForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  milestone?: string;
-  state?: string;
-  assignee?: string;
-  creator?: string;
-  mentioned?: string;
-  labels?: string;
-  sort?: string;
-  direction?: string;
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type IssuesListForRepoRequestOptions = {
+type SearchEmailLegacyEndpoint = {};
+type SearchEmailLegacyRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type IssuesGetEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  number?: number;
-};
-type IssuesGetRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesCreateEndpoint = {
-  owner: string;
-  repo: string;
-  title: string;
-  body?: string;
-  assignee?: string;
-  milestone?: number;
-  labels?: string[];
-  assignees?: string[];
-};
-type IssuesCreateRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesUpdateEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  title?: string;
-  body?: string;
-  assignee?: string;
-  state?: string;
-  milestone?: number | null;
-  labels?: string[];
-  assignees?: string[];
-  number?: number;
-};
-type IssuesUpdateRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesLockEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  lock_reason?: string;
-  number?: number;
-};
-type IssuesLockRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesUnlockEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  number?: number;
-};
-type IssuesUnlockRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListAssigneesEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type IssuesListAssigneesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesCheckAssigneeEndpoint = {
-  owner: string;
-  repo: string;
-  assignee: string;
-};
-type IssuesCheckAssigneeRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesAddAssigneesEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  assignees?: string[];
-  number?: number;
-};
-type IssuesAddAssigneesRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesRemoveAssigneesEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  assignees?: string[];
-  number?: number;
-};
-type IssuesRemoveAssigneesRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListCommentsEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  since?: string;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type IssuesListCommentsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListCommentsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  sort?: string;
-  direction?: string;
-  since?: string;
-};
-type IssuesListCommentsForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesGetCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  per_page?: number;
-  page?: number;
-};
-type IssuesGetCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesCreateCommentEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  body: string;
-  number?: number;
-};
-type IssuesCreateCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesUpdateCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  body: string;
-};
-type IssuesUpdateCommentRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesDeleteCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-};
-type IssuesDeleteCommentRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListEventsEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type IssuesListEventsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListEventsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type IssuesListEventsForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesGetEventEndpoint = {
-  owner: string;
-  repo: string;
-  event_id: number;
-};
-type IssuesGetEventRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListLabelsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type IssuesListLabelsForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesGetLabelEndpoint = {
-  owner: string;
-  repo: string;
-  name: string;
-};
-type IssuesGetLabelRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesCreateLabelEndpoint = {
-  owner: string;
-  repo: string;
-  name: string;
-  color: string;
-  description?: string;
-};
-type IssuesCreateLabelRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesUpdateLabelEndpoint = {
-  owner: string;
-  repo: string;
-  current_name: string;
-  name?: string;
-  color?: string;
-  description?: string;
-};
-type IssuesUpdateLabelRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesDeleteLabelEndpoint = {
-  owner: string;
-  repo: string;
-  name: string;
-};
-type IssuesDeleteLabelRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListLabelsOnIssueEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type IssuesListLabelsOnIssueRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesAddLabelsEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  labels: string[];
-  number?: number;
-};
-type IssuesAddLabelsRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesRemoveLabelEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  name: string;
-  number?: number;
-};
-type IssuesRemoveLabelRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesReplaceLabelsEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  labels?: string[];
-  number?: number;
-};
-type IssuesReplaceLabelsRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesRemoveLabelsEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  number?: number;
-};
-type IssuesRemoveLabelsRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListLabelsForMilestoneEndpoint = {
-  owner: string;
-  repo: string;
-  milestone_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type IssuesListLabelsForMilestoneRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListMilestonesForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  state?: string;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type IssuesListMilestonesForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesGetMilestoneEndpoint = {
-  owner: string;
-  repo: string;
-  milestone_number: number;
-  number?: number;
-};
-type IssuesGetMilestoneRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesCreateMilestoneEndpoint = {
-  owner: string;
-  repo: string;
-  title: string;
-  state?: string;
-  description?: string;
-  due_on?: string;
-};
-type IssuesCreateMilestoneRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesUpdateMilestoneEndpoint = {
-  owner: string;
-  repo: string;
-  milestone_number: number;
-  title?: string;
-  state?: string;
-  description?: string;
-  due_on?: string;
-  number?: number;
-};
-type IssuesUpdateMilestoneRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesDeleteMilestoneEndpoint = {
-  owner: string;
-  repo: string;
-  milestone_number: number;
-  number?: number;
-};
-type IssuesDeleteMilestoneRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type IssuesListEventsForTimelineEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type IssuesListEventsForTimelineRequestOptions = {
+type SearchUsersLegacyEndpoint = {};
+type SearchUsersLegacyRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
@@ -3830,41 +2400,65 @@ type LicensesListRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type LicensesGetEndpoint = {
-  license: string;
-};
+type LicensesGetEndpoint = {};
 type LicensesGetRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type LicensesGetForRepoEndpoint = {
-  owner: string;
-  repo: string;
-};
-type LicensesGetForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MarkdownRenderEndpoint = {
-  text: string;
-  mode?: string;
-  context?: string;
-};
+type MarkdownRenderEndpoint = {};
 type MarkdownRenderRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MarkdownRenderRawEndpoint = {
-  data: string;
-};
+type MarkdownRenderRawEndpoint = {};
 type MarkdownRenderRawRequestOptions = {
   method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsCheckAccountIsAssociatedWithAnyEndpoint = {};
+type AppsCheckAccountIsAssociatedWithAnyRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsListPlansEndpoint = {};
+type AppsListPlansRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsListAccountsUserOrOrgOnPlanEndpoint = {};
+type AppsListAccountsUserOrOrgOnPlanRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsCheckAccountIsAssociatedWithAnyStubbedEndpoint = {};
+type AppsCheckAccountIsAssociatedWithAnyStubbedRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsListPlansStubbedEndpoint = {};
+type AppsListPlansStubbedRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsListAccountsUserOrOrgOnPlanStubbedEndpoint = {};
+type AppsListAccountsUserOrOrgOnPlanStubbedRequestOptions = {
+  method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
@@ -3876,1458 +2470,555 @@ type MetaGetRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MigrationsStartForOrgEndpoint = {
-  org: string;
-  repositories: string[];
-  lock_repositories?: boolean;
-  exclude_attachments?: boolean;
-};
-type MigrationsStartForOrgRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsListForOrgEndpoint = {
-  org: string;
-  per_page?: number;
-  page?: number;
-};
-type MigrationsListForOrgRequestOptions = {
+type ActivityListPublicEventsForRepoNetworkEndpoint = {};
+type ActivityListPublicEventsForRepoNetworkRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MigrationsGetStatusForOrgEndpoint = {
-  org: string;
-  migration_id: number;
-};
-type MigrationsGetStatusForOrgRequestOptions = {
+type ActivityListNotificationsEndpoint = {};
+type ActivityListNotificationsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MigrationsGetArchiveForOrgEndpoint = {
-  org: string;
-  migration_id: number;
-};
-type MigrationsGetArchiveForOrgRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsDeleteArchiveForOrgEndpoint = {
-  org: string;
-  migration_id: number;
-};
-type MigrationsDeleteArchiveForOrgRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsUnlockRepoForOrgEndpoint = {
-  org: string;
-  migration_id: number;
-  repo_name: string;
-};
-type MigrationsUnlockRepoForOrgRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsStartImportEndpoint = {
-  owner: string;
-  repo: string;
-  vcs_url: string;
-  vcs?: string;
-  vcs_username?: string;
-  vcs_password?: string;
-  tfvc_project?: string;
-};
-type MigrationsStartImportRequestOptions = {
+type ActivityMarkAsReadEndpoint = {};
+type ActivityMarkAsReadRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MigrationsGetImportProgressEndpoint = {
-  owner: string;
-  repo: string;
-};
-type MigrationsGetImportProgressRequestOptions = {
+type ActivityGetThreadEndpoint = {};
+type ActivityGetThreadRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MigrationsUpdateImportEndpoint = {
-  owner: string;
-  repo: string;
-  vcs_username?: string;
-  vcs_password?: string;
-};
-type MigrationsUpdateImportRequestOptions = {
+type ActivityMarkThreadAsReadEndpoint = {};
+type ActivityMarkThreadAsReadRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MigrationsGetCommitAuthorsEndpoint = {
-  owner: string;
-  repo: string;
-  since?: string;
-};
-type MigrationsGetCommitAuthorsRequestOptions = {
+type ActivityGetThreadSubscriptionEndpoint = {};
+type ActivityGetThreadSubscriptionRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type MigrationsMapCommitAuthorEndpoint = {
-  owner: string;
-  repo: string;
-  author_id: number;
-  email?: string;
-  name?: string;
-};
-type MigrationsMapCommitAuthorRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsSetLfsPreferenceEndpoint = {
-  owner: string;
-  repo: string;
-  use_lfs: string;
-};
-type MigrationsSetLfsPreferenceRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsGetLargeFilesEndpoint = {
-  owner: string;
-  repo: string;
-};
-type MigrationsGetLargeFilesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsCancelImportEndpoint = {
-  owner: string;
-  repo: string;
-};
-type MigrationsCancelImportRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsStartForAuthenticatedUserEndpoint = {
-  repositories: string[];
-  lock_repositories?: boolean;
-  exclude_attachments?: boolean;
-};
-type MigrationsStartForAuthenticatedUserRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsListForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type MigrationsListForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsGetStatusForAuthenticatedUserEndpoint = {
-  migration_id: number;
-};
-type MigrationsGetStatusForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsGetArchiveForAuthenticatedUserEndpoint = {
-  migration_id: number;
-};
-type MigrationsGetArchiveForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsDeleteArchiveForAuthenticatedUserEndpoint = {
-  migration_id: number;
-};
-type MigrationsDeleteArchiveForAuthenticatedUserRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type MigrationsUnlockRepoForAuthenticatedUserEndpoint = {
-  migration_id: number;
-  repo_name: string;
-};
-type MigrationsUnlockRepoForAuthenticatedUserRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsListGrantsEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type OauthAuthorizationsListGrantsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsGetGrantEndpoint = {
-  grant_id: number;
-};
-type OauthAuthorizationsGetGrantRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsDeleteGrantEndpoint = {
-  grant_id: number;
-};
-type OauthAuthorizationsDeleteGrantRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsListAuthorizationsEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type OauthAuthorizationsListAuthorizationsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsGetAuthorizationEndpoint = {
-  authorization_id: number;
-};
-type OauthAuthorizationsGetAuthorizationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsCreateAuthorizationEndpoint = {
-  scopes?: string[];
-  note: string;
-  note_url?: string;
-  client_id?: string;
-  client_secret?: string;
-  fingerprint?: string;
-};
-type OauthAuthorizationsCreateAuthorizationRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsGetOrCreateAuthorizationForAppEndpoint = {
-  client_id: string;
-  client_secret: string;
-  scopes?: string[];
-  note?: string;
-  note_url?: string;
-  fingerprint?: string;
-};
-type OauthAuthorizationsGetOrCreateAuthorizationForAppRequestOptions = {
+type ActivitySetThreadSubscriptionEndpoint = {};
+type ActivitySetThreadSubscriptionRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintEndpoint = {
-  client_id: string;
-  fingerprint: string;
-  client_secret: string;
-  scopes?: string[];
-  note?: string;
-  note_url?: string;
-};
-type OauthAuthorizationsGetOrCreateAuthorizationForAppAndFingerprintRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintEndpoint = {
-  client_id: string;
-  fingerprint: string;
-  client_secret: string;
-  scopes?: string[];
-  note?: string;
-  note_url?: string;
-};
-type OauthAuthorizationsGetOrCreateAuthorizationForAppFingerprintRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsUpdateAuthorizationEndpoint = {
-  authorization_id: number;
-  scopes?: string[];
-  add_scopes?: string[];
-  remove_scopes?: string[];
-  note?: string;
-  note_url?: string;
-  fingerprint?: string;
-};
-type OauthAuthorizationsUpdateAuthorizationRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsDeleteAuthorizationEndpoint = {
-  authorization_id: number;
-};
-type OauthAuthorizationsDeleteAuthorizationRequestOptions = {
+type ActivityDeleteThreadSubscriptionEndpoint = {};
+type ActivityDeleteThreadSubscriptionRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OauthAuthorizationsCheckAuthorizationEndpoint = {
-  client_id: string;
-  access_token: string;
-};
-type OauthAuthorizationsCheckAuthorizationRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsResetAuthorizationEndpoint = {
-  client_id: string;
-  access_token: string;
-};
-type OauthAuthorizationsResetAuthorizationRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsRevokeAuthorizationForApplicationEndpoint = {
-  client_id: string;
-  access_token: string;
-};
-type OauthAuthorizationsRevokeAuthorizationForApplicationRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OauthAuthorizationsRevokeGrantForApplicationEndpoint = {
-  client_id: string;
-  access_token: string;
-};
-type OauthAuthorizationsRevokeGrantForApplicationRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsListForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type OrgsListForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsListEndpoint = {
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
+type OrgsListEndpoint = {};
 type OrgsListRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsListForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type OrgsListForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsGetEndpoint = {
-  org: string;
-};
+type OrgsGetEndpoint = {};
 type OrgsGetRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsUpdateEndpoint = {
-  org: string;
-  billing_email?: string;
-  company?: string;
-  email?: string;
-  location?: string;
-  name?: string;
-  description?: string;
-  has_organization_projects?: boolean;
-  has_repository_projects?: boolean;
-  default_repository_permission?: string;
-  members_can_create_repositories?: boolean;
-  members_allowed_repository_creation_type?: string;
-};
+type OrgsUpdateEndpoint = {};
 type OrgsUpdateRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsListCredentialAuthorizationsEndpoint = {
-  org: string;
-};
-type OrgsListCredentialAuthorizationsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsRemoveCredentialAuthorizationEndpoint = {
-  org: string;
-  credential_id: number;
-};
-type OrgsRemoveCredentialAuthorizationRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsListBlockedUsersEndpoint = {
-  org: string;
-};
+type OrgsListBlockedUsersEndpoint = {};
 type OrgsListBlockedUsersRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsCheckBlockedUserEndpoint = {
-  org: string;
-  username: string;
-};
+type OrgsCheckBlockedUserEndpoint = {};
 type OrgsCheckBlockedUserRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsBlockUserEndpoint = {
-  org: string;
-  username: string;
-};
+type OrgsBlockUserEndpoint = {};
 type OrgsBlockUserRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsUnblockUserEndpoint = {
-  org: string;
-  username: string;
-};
+type OrgsUnblockUserEndpoint = {};
 type OrgsUnblockUserRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsListHooksEndpoint = {
-  org: string;
-  per_page?: number;
-  page?: number;
+type OrgsListCredentialAuthorizationsEndpoint = {};
+type OrgsListCredentialAuthorizationsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type OrgsRemoveCredentialAuthorizationEndpoint = {};
+type OrgsRemoveCredentialAuthorizationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListPublicEventsForOrgEndpoint = {};
+type ActivityListPublicEventsForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsListHooksEndpoint = {};
 type OrgsListHooksRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsGetHookEndpoint = {
-  org: string;
-  hook_id: number;
-};
-type OrgsGetHookRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsCreateHookEndpoint = {
-  org: string;
-  name: string;
-  config: object;
-  "config.url": string;
-  "config.content_type"?: string;
-  "config.secret"?: string;
-  "config.insecure_ssl"?: string;
-  events?: string[];
-  active?: boolean;
-};
+type OrgsCreateHookEndpoint = {};
 type OrgsCreateHookRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsUpdateHookEndpoint = {
-  org: string;
-  hook_id: number;
-  config?: object;
-  "config.url": string;
-  "config.content_type"?: string;
-  "config.secret"?: string;
-  "config.insecure_ssl"?: string;
-  events?: string[];
-  active?: boolean;
+type OrgsGetHookEndpoint = {};
+type OrgsGetHookRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type OrgsUpdateHookEndpoint = {};
 type OrgsUpdateHookRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsPingHookEndpoint = {
-  org: string;
-  hook_id: number;
-};
-type OrgsPingHookRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsDeleteHookEndpoint = {
-  org: string;
-  hook_id: number;
-};
+type OrgsDeleteHookEndpoint = {};
 type OrgsDeleteHookRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsListMembersEndpoint = {
-  org: string;
-  filter?: string;
-  role?: string;
-  per_page?: number;
-  page?: number;
+type OrgsPingHookEndpoint = {};
+type OrgsPingHookRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
-type OrgsListMembersRequestOptions = {
+type AppsGetOrgInstallationEndpoint = {};
+type AppsGetOrgInstallationRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsCheckMembershipEndpoint = {
-  org: string;
-  username: string;
-};
-type OrgsCheckMembershipRequestOptions = {
+type AppsFindOrgInstallationEndpoint = {};
+type AppsFindOrgInstallationRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsRemoveMemberEndpoint = {
-  org: string;
-  username: string;
-};
-type OrgsRemoveMemberRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsListPublicMembersEndpoint = {
-  org: string;
-  per_page?: number;
-  page?: number;
-};
-type OrgsListPublicMembersRequestOptions = {
+type InteractionsGetRestrictionsForOrgEndpoint = {};
+type InteractionsGetRestrictionsForOrgRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsCheckPublicMembershipEndpoint = {
-  org: string;
-  username: string;
-};
-type OrgsCheckPublicMembershipRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsPublicizeMembershipEndpoint = {
-  org: string;
-  username: string;
-};
-type OrgsPublicizeMembershipRequestOptions = {
+type InteractionsAddOrUpdateRestrictionsForOrgEndpoint = {};
+type InteractionsAddOrUpdateRestrictionsForOrgRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsConcealMembershipEndpoint = {
-  org: string;
-  username: string;
-};
-type OrgsConcealMembershipRequestOptions = {
+type InteractionsRemoveRestrictionsForOrgEndpoint = {};
+type InteractionsRemoveRestrictionsForOrgRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsGetMembershipEndpoint = {
-  org: string;
-  username: string;
-};
-type OrgsGetMembershipRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsAddOrUpdateMembershipEndpoint = {
-  org: string;
-  username: string;
-  role?: string;
-};
-type OrgsAddOrUpdateMembershipRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsRemoveMembershipEndpoint = {
-  org: string;
-  username: string;
-};
-type OrgsRemoveMembershipRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsListInvitationTeamsEndpoint = {
-  org: string;
-  invitation_id: number;
-  per_page?: number;
-  page?: number;
-};
-type OrgsListInvitationTeamsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type OrgsListPendingInvitationsEndpoint = {
-  org: string;
-  per_page?: number;
-  page?: number;
-};
+type OrgsListPendingInvitationsEndpoint = {};
 type OrgsListPendingInvitationsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsCreateInvitationEndpoint = {
-  org: string;
-  invitee_id?: number;
-  email?: string;
-  role?: string;
-  team_ids?: number[];
-};
+type OrgsCreateInvitationEndpoint = {};
 type OrgsCreateInvitationRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsListMembershipsEndpoint = {
-  state?: string;
-  per_page?: number;
-  page?: number;
-};
-type OrgsListMembershipsRequestOptions = {
+type OrgsListInvitationTeamsEndpoint = {};
+type OrgsListInvitationTeamsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsGetMembershipForAuthenticatedUserEndpoint = {
-  org: string;
-};
-type OrgsGetMembershipForAuthenticatedUserRequestOptions = {
+type IssuesListForOrgEndpoint = {};
+type IssuesListForOrgRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsUpdateMembershipEndpoint = {
-  org: string;
-  state: string;
-};
-type OrgsUpdateMembershipRequestOptions = {
-  method: "PATCH";
+type OrgsListMembersEndpoint = {};
+type OrgsListMembersRequestOptions = {
+  method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsListOutsideCollaboratorsEndpoint = {
-  org: string;
-  filter?: string;
-  per_page?: number;
-  page?: number;
+type OrgsCheckMembershipEndpoint = {};
+type OrgsCheckMembershipRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type OrgsRemoveMemberEndpoint = {};
+type OrgsRemoveMemberRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsGetMembershipEndpoint = {};
+type OrgsGetMembershipRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsAddOrUpdateMembershipEndpoint = {};
+type OrgsAddOrUpdateMembershipRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsRemoveMembershipEndpoint = {};
+type OrgsRemoveMembershipRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsStartForOrgEndpoint = {};
+type MigrationsStartForOrgRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsListForOrgEndpoint = {};
+type MigrationsListForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsGetStatusForOrgEndpoint = {};
+type MigrationsGetStatusForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsGetArchiveForOrgEndpoint = {};
+type MigrationsGetArchiveForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsDeleteArchiveForOrgEndpoint = {};
+type MigrationsDeleteArchiveForOrgRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsUnlockRepoForOrgEndpoint = {};
+type MigrationsUnlockRepoForOrgRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsListOutsideCollaboratorsEndpoint = {};
 type OrgsListOutsideCollaboratorsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsRemoveOutsideCollaboratorEndpoint = {
-  org: string;
-  username: string;
-};
+type OrgsRemoveOutsideCollaboratorEndpoint = {};
 type OrgsRemoveOutsideCollaboratorRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type OrgsConvertMemberToOutsideCollaboratorEndpoint = {
-  org: string;
-  username: string;
-};
+type OrgsConvertMemberToOutsideCollaboratorEndpoint = {};
 type OrgsConvertMemberToOutsideCollaboratorRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsListForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  state?: string;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsListForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsListForOrgEndpoint = {
-  org: string;
-  state?: string;
-  per_page?: number;
-  page?: number;
-};
+type ProjectsListForOrgEndpoint = {};
 type ProjectsListForOrgRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsListForUserEndpoint = {
-  username: string;
-  state?: string;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsListForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsGetEndpoint = {
-  project_id: number;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsGetRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsCreateForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  name: string;
-  body?: string;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsCreateForRepoRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsCreateForOrgEndpoint = {
-  org: string;
-  name: string;
-  body?: string;
-  per_page?: number;
-  page?: number;
-};
+type ProjectsCreateForOrgEndpoint = {};
 type ProjectsCreateForOrgRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsCreateForAuthenticatedUserEndpoint = {
-  name: string;
-  body?: string;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsCreateForAuthenticatedUserRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsUpdateEndpoint = {
-  project_id: number;
-  name?: string;
-  body?: string;
-  state?: string;
-  organization_permission?: string;
-  private?: boolean;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsUpdateRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsDeleteEndpoint = {
-  project_id: number;
-};
-type ProjectsDeleteRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsListCardsEndpoint = {
-  column_id: number;
-  archived_state?: string;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsListCardsRequestOptions = {
+type OrgsListPublicMembersEndpoint = {};
+type OrgsListPublicMembersRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsGetCardEndpoint = {
-  card_id: number;
+type OrgsCheckPublicMembershipEndpoint = {};
+type OrgsCheckPublicMembershipRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type OrgsPublicizeMembershipEndpoint = {};
+type OrgsPublicizeMembershipRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsConcealMembershipEndpoint = {};
+type OrgsConcealMembershipRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListForOrgEndpoint = {};
+type ReposListForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateInOrgEndpoint = {};
+type ReposCreateInOrgRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListIdPGroupsForOrgEndpoint = {};
+type TeamsListIdPGroupsForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListEndpoint = {};
+type TeamsListRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsCreateEndpoint = {};
+type TeamsCreateRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsGetByNameEndpoint = {};
+type TeamsGetByNameRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ProjectsGetCardEndpoint = {};
 type ProjectsGetCardRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsCreateCardEndpoint = {
-  column_id: number;
-  note?: string;
-  content_id?: number;
-  content_type?: string;
-};
-type ProjectsCreateCardRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsUpdateCardEndpoint = {
-  card_id: number;
-  note?: string;
-  archived?: boolean;
-};
+type ProjectsUpdateCardEndpoint = {};
 type ProjectsUpdateCardRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsDeleteCardEndpoint = {
-  card_id: number;
-};
+type ProjectsDeleteCardEndpoint = {};
 type ProjectsDeleteCardRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsMoveCardEndpoint = {
-  card_id: number;
-  position: string;
-  column_id?: number;
-};
+type ProjectsMoveCardEndpoint = {};
 type ProjectsMoveCardRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsListCollaboratorsEndpoint = {
-  project_id: number;
-  affiliation?: string;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsListCollaboratorsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsReviewUserPermissionLevelEndpoint = {
-  project_id: number;
-  username: string;
-};
-type ProjectsReviewUserPermissionLevelRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsAddCollaboratorEndpoint = {
-  project_id: number;
-  username: string;
-  permission?: string;
-};
-type ProjectsAddCollaboratorRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsRemoveCollaboratorEndpoint = {
-  project_id: number;
-  username: string;
-};
-type ProjectsRemoveCollaboratorRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsListColumnsEndpoint = {
-  project_id: number;
-  per_page?: number;
-  page?: number;
-};
-type ProjectsListColumnsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsGetColumnEndpoint = {
-  column_id: number;
-};
+type ProjectsGetColumnEndpoint = {};
 type ProjectsGetColumnRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsCreateColumnEndpoint = {
-  project_id: number;
-  name: string;
-};
-type ProjectsCreateColumnRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ProjectsUpdateColumnEndpoint = {
-  column_id: number;
-  name: string;
-};
+type ProjectsUpdateColumnEndpoint = {};
 type ProjectsUpdateColumnRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsDeleteColumnEndpoint = {
-  column_id: number;
-};
+type ProjectsDeleteColumnEndpoint = {};
 type ProjectsDeleteColumnRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ProjectsMoveColumnEndpoint = {
-  column_id: number;
-  position: string;
+type ProjectsListCardsEndpoint = {};
+type ProjectsListCardsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ProjectsCreateCardEndpoint = {};
+type ProjectsCreateCardRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ProjectsMoveColumnEndpoint = {};
 type ProjectsMoveColumnRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type PullsListEndpoint = {
-  owner: string;
-  repo: string;
-  state?: string;
-  head?: string;
-  base?: string;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type PullsListRequestOptions = {
+type ProjectsGetEndpoint = {};
+type ProjectsGetRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type PullsGetEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  number?: number;
-};
-type PullsGetRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsCreateEndpoint = {
-  owner: string;
-  repo: string;
-  title: string;
-  head: string;
-  base: string;
-  body?: string;
-  maintainer_can_modify?: boolean;
-  draft?: boolean;
-};
-type PullsCreateRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsCreateFromIssueEndpoint = {
-  owner: string;
-  repo: string;
-  issue: number;
-  head: string;
-  base: string;
-  maintainer_can_modify?: boolean;
-  draft?: boolean;
-};
-type PullsCreateFromIssueRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsUpdateBranchEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  expected_head_sha?: string;
-};
-type PullsUpdateBranchRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsUpdateEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  title?: string;
-  body?: string;
-  state?: string;
-  base?: string;
-  maintainer_can_modify?: boolean;
-  number?: number;
-};
-type PullsUpdateRequestOptions = {
+type ProjectsUpdateEndpoint = {};
+type ProjectsUpdateRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type PullsListCommitsEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type PullsListCommitsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsListFilesEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type PullsListFilesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsCheckIfMergedEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  number?: number;
-};
-type PullsCheckIfMergedRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsMergeEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  commit_title?: string;
-  commit_message?: string;
-  sha?: string;
-  merge_method?: string;
-  number?: number;
-};
-type PullsMergeRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsListCommentsEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  sort?: string;
-  direction?: string;
-  since?: string;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type PullsListCommentsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsListCommentsForRepoEndpoint = {
-  owner: string;
-  repo: string;
-  sort?: string;
-  direction?: string;
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type PullsListCommentsForRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsGetCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-};
-type PullsGetCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsCreateCommentEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  body: string;
-  commit_id: string;
-  path: string;
-  position: number;
-  number?: number;
-};
-type PullsCreateCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsCreateCommentReplyEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  body: string;
-  in_reply_to: number;
-  number?: number;
-};
-type PullsCreateCommentReplyRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsUpdateCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  body: string;
-};
-type PullsUpdateCommentRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsDeleteCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-};
-type PullsDeleteCommentRequestOptions = {
+type ProjectsDeleteEndpoint = {};
+type ProjectsDeleteRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type PullsListReviewRequestsEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type PullsListReviewRequestsRequestOptions = {
+type ProjectsListCollaboratorsEndpoint = {};
+type ProjectsListCollaboratorsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type PullsCreateReviewRequestEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  reviewers?: string[];
-  team_reviewers?: string[];
-  number?: number;
-};
-type PullsCreateReviewRequestRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsDeleteReviewRequestEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  reviewers?: string[];
-  team_reviewers?: string[];
-  number?: number;
-};
-type PullsDeleteReviewRequestRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsListReviewsEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type PullsListReviewsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsGetReviewEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  review_id: number;
-  number?: number;
-};
-type PullsGetReviewRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsDeletePendingReviewEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  review_id: number;
-  number?: number;
-};
-type PullsDeletePendingReviewRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsGetCommentsForReviewEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  review_id: number;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type PullsGetCommentsForReviewRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsCreateReviewEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  commit_id?: string;
-  body?: string;
-  event?: string;
-  comments?: object[];
-  "comments[].path": string;
-  "comments[].position": number;
-  "comments[].body": string;
-  number?: number;
-};
-type PullsCreateReviewRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type PullsUpdateReviewEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  review_id: number;
-  body: string;
-  number?: number;
-};
-type PullsUpdateReviewRequestOptions = {
+type ProjectsAddCollaboratorEndpoint = {};
+type ProjectsAddCollaboratorRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type PullsSubmitReviewEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  review_id: number;
-  body?: string;
-  event: string;
-  number?: number;
-};
-type PullsSubmitReviewRequestOptions = {
-  method: "POST";
+type ProjectsRemoveCollaboratorEndpoint = {};
+type ProjectsRemoveCollaboratorRequestOptions = {
+  method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type PullsDismissReviewEndpoint = {
-  owner: string;
-  repo: string;
-  pull_number: number;
-  review_id: number;
-  message: string;
-  number?: number;
+type ProjectsReviewUserPermissionLevelEndpoint = {};
+type ProjectsReviewUserPermissionLevelRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
-type PullsDismissReviewRequestOptions = {
-  method: "PUT";
+type ProjectsListColumnsEndpoint = {};
+type ProjectsListColumnsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ProjectsCreateColumnEndpoint = {};
+type ProjectsCreateColumnRequestOptions = {
+  method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
@@ -5339,2550 +3030,2192 @@ type RateLimitGetRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReactionsListForCommitCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  content?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReactionsListForCommitCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsCreateForCommitCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  content: string;
-};
-type ReactionsCreateForCommitCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsListForIssueEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  content?: string;
-  per_page?: number;
-  page?: number;
-  number?: number;
-};
-type ReactionsListForIssueRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsCreateForIssueEndpoint = {
-  owner: string;
-  repo: string;
-  issue_number: number;
-  content: string;
-  number?: number;
-};
-type ReactionsCreateForIssueRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsListForIssueCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  content?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReactionsListForIssueCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsCreateForIssueCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  content: string;
-};
-type ReactionsCreateForIssueCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsListForPullRequestReviewCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  content?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReactionsListForPullRequestReviewCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsCreateForPullRequestReviewCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  content: string;
-};
-type ReactionsCreateForPullRequestReviewCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsListForTeamDiscussionEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  content?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReactionsListForTeamDiscussionRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsCreateForTeamDiscussionEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  content: string;
-};
-type ReactionsCreateForTeamDiscussionRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsListForTeamDiscussionCommentEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  comment_number: number;
-  content?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReactionsListForTeamDiscussionCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsCreateForTeamDiscussionCommentEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  comment_number: number;
-  content: string;
-};
-type ReactionsCreateForTeamDiscussionCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReactionsDeleteEndpoint = {
-  reaction_id: number;
-};
+type ReactionsDeleteEndpoint = {};
 type ReactionsDeleteRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListEndpoint = {
-  visibility?: string;
-  affiliation?: string;
-  type?: string;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListForUserEndpoint = {
-  username: string;
-  type?: string;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListForOrgEndpoint = {
-  org: string;
-  type?: string;
-  sort?: string;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListForOrgRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListPublicEndpoint = {
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListPublicRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateForAuthenticatedUserEndpoint = {
-  name: string;
-  description?: string;
-  homepage?: string;
-  private?: boolean;
-  has_issues?: boolean;
-  has_projects?: boolean;
-  has_wiki?: boolean;
-  is_template?: boolean;
-  team_id?: number;
-  auto_init?: boolean;
-  gitignore_template?: string;
-  license_template?: string;
-  allow_squash_merge?: boolean;
-  allow_merge_commit?: boolean;
-  allow_rebase_merge?: boolean;
-};
-type ReposCreateForAuthenticatedUserRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateInOrgEndpoint = {
-  org: string;
-  name: string;
-  description?: string;
-  homepage?: string;
-  private?: boolean;
-  has_issues?: boolean;
-  has_projects?: boolean;
-  has_wiki?: boolean;
-  is_template?: boolean;
-  team_id?: number;
-  auto_init?: boolean;
-  gitignore_template?: string;
-  license_template?: string;
-  allow_squash_merge?: boolean;
-  allow_merge_commit?: boolean;
-  allow_rebase_merge?: boolean;
-};
-type ReposCreateInOrgRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateUsingTemplateEndpoint = {
-  template_owner: string;
-  template_repo: string;
-  owner?: string;
-  name: string;
-  description?: string;
-  private?: boolean;
-};
-type ReposCreateUsingTemplateRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetEndpoint = {
-  owner: string;
-  repo: string;
-};
+type ReposGetEndpoint = {};
 type ReposGetRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposUpdateEndpoint = {
-  owner: string;
-  repo: string;
-  name?: string;
-  description?: string;
-  homepage?: string;
-  private?: boolean;
-  has_issues?: boolean;
-  has_projects?: boolean;
-  has_wiki?: boolean;
-  is_template?: boolean;
-  default_branch?: string;
-  allow_squash_merge?: boolean;
-  allow_merge_commit?: boolean;
-  allow_rebase_merge?: boolean;
-  archived?: boolean;
-};
+type ReposUpdateEndpoint = {};
 type ReposUpdateRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListTopicsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposListTopicsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposReplaceTopicsEndpoint = {
-  owner: string;
-  repo: string;
-  names: string[];
-};
-type ReposReplaceTopicsRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCheckVulnerabilityAlertsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposCheckVulnerabilityAlertsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposEnableVulnerabilityAlertsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposEnableVulnerabilityAlertsRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDisableVulnerabilityAlertsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposDisableVulnerabilityAlertsRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposEnableAutomatedSecurityFixesEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposEnableAutomatedSecurityFixesRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDisableAutomatedSecurityFixesEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposDisableAutomatedSecurityFixesRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListContributorsEndpoint = {
-  owner: string;
-  repo: string;
-  anon?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListContributorsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListLanguagesEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposListLanguagesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListTeamsEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListTeamsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListTagsEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListTagsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeleteEndpoint = {
-  owner: string;
-  repo: string;
-};
+type ReposDeleteEndpoint = {};
 type ReposDeleteRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposTransferEndpoint = {
-  owner: string;
-  repo: string;
-  new_owner?: string;
-  team_ids?: number[];
-};
-type ReposTransferRequestOptions = {
-  method: "POST";
+type IssuesListAssigneesEndpoint = {};
+type IssuesListAssigneesRequestOptions = {
+  method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListBranchesEndpoint = {
-  owner: string;
-  repo: string;
-  protected?: boolean;
-  per_page?: number;
-  page?: number;
+type IssuesCheckAssigneeEndpoint = {};
+type IssuesCheckAssigneeRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposEnableAutomatedSecurityFixesEndpoint = {};
+type ReposEnableAutomatedSecurityFixesRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDisableAutomatedSecurityFixesEndpoint = {};
+type ReposDisableAutomatedSecurityFixesRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListBranchesEndpoint = {};
 type ReposListBranchesRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetBranchEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+type ReposGetBranchEndpoint = {};
 type ReposGetBranchRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetBranchProtectionEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+type ReposGetBranchProtectionEndpoint = {};
 type ReposGetBranchProtectionRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposUpdateBranchProtectionEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  required_status_checks: object | null;
-  "required_status_checks.strict": boolean;
-  "required_status_checks.contexts": string[];
-  enforce_admins: boolean | null;
-  required_pull_request_reviews: object | null;
-  "required_pull_request_reviews.dismissal_restrictions"?: object;
-  "required_pull_request_reviews.dismissal_restrictions.users"?: string[];
-  "required_pull_request_reviews.dismissal_restrictions.teams"?: string[];
-  "required_pull_request_reviews.dismiss_stale_reviews"?: boolean;
-  "required_pull_request_reviews.require_code_owner_reviews"?: boolean;
-  "required_pull_request_reviews.required_approving_review_count"?: number;
-  restrictions: object | null;
-  "restrictions.users"?: string[];
-  "restrictions.teams"?: string[];
-};
+type ReposUpdateBranchProtectionEndpoint = {};
 type ReposUpdateBranchProtectionRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposRemoveBranchProtectionEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+type ReposRemoveBranchProtectionEndpoint = {};
 type ReposRemoveBranchProtectionRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetProtectedBranchRequiredStatusChecksEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposGetProtectedBranchRequiredStatusChecksRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateProtectedBranchRequiredStatusChecksEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  strict?: boolean;
-  contexts?: string[];
-};
-type ReposUpdateProtectedBranchRequiredStatusChecksRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposRemoveProtectedBranchRequiredStatusChecksEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposRemoveProtectedBranchRequiredStatusChecksRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListProtectedBranchRequiredStatusChecksContextsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposListProtectedBranchRequiredStatusChecksContextsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposReplaceProtectedBranchRequiredStatusChecksContextsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  contexts: string[];
-};
-type ReposReplaceProtectedBranchRequiredStatusChecksContextsRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposAddProtectedBranchRequiredStatusChecksContextsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  contexts: string[];
-};
-type ReposAddProtectedBranchRequiredStatusChecksContextsRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposRemoveProtectedBranchRequiredStatusChecksContextsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  contexts: string[];
-};
-type ReposRemoveProtectedBranchRequiredStatusChecksContextsRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetProtectedBranchPullRequestReviewEnforcementEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposGetProtectedBranchPullRequestReviewEnforcementRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateProtectedBranchPullRequestReviewEnforcementEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  dismissal_restrictions?: object;
-  "dismissal_restrictions.users"?: string[];
-  "dismissal_restrictions.teams"?: string[];
-  dismiss_stale_reviews?: boolean;
-  require_code_owner_reviews?: boolean;
-  required_approving_review_count?: number;
-};
-type ReposUpdateProtectedBranchPullRequestReviewEnforcementRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposRemoveProtectedBranchPullRequestReviewEnforcementEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposRemoveProtectedBranchPullRequestReviewEnforcementRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetProtectedBranchRequiredSignaturesEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposGetProtectedBranchRequiredSignaturesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposAddProtectedBranchRequiredSignaturesEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposAddProtectedBranchRequiredSignaturesRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposRemoveProtectedBranchRequiredSignaturesEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
-type ReposRemoveProtectedBranchRequiredSignaturesRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetProtectedBranchAdminEnforcementEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+type ReposGetProtectedBranchAdminEnforcementEndpoint = {};
 type ReposGetProtectedBranchAdminEnforcementRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposAddProtectedBranchAdminEnforcementEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+type ReposAddProtectedBranchAdminEnforcementEndpoint = {};
 type ReposAddProtectedBranchAdminEnforcementRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposRemoveProtectedBranchAdminEnforcementEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+type ReposRemoveProtectedBranchAdminEnforcementEndpoint = {};
 type ReposRemoveProtectedBranchAdminEnforcementRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetProtectedBranchRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
+type ReposGetProtectedBranchPullRequestReviewEnforcementEndpoint = {};
+type ReposGetProtectedBranchPullRequestReviewEnforcementRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposUpdateProtectedBranchPullRequestReviewEnforcementEndpoint = {};
+type ReposUpdateProtectedBranchPullRequestReviewEnforcementRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposRemoveProtectedBranchPullRequestReviewEnforcementEndpoint = {};
+type ReposRemoveProtectedBranchPullRequestReviewEnforcementRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetProtectedBranchRequiredSignaturesEndpoint = {};
+type ReposGetProtectedBranchRequiredSignaturesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposAddProtectedBranchRequiredSignaturesEndpoint = {};
+type ReposAddProtectedBranchRequiredSignaturesRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposRemoveProtectedBranchRequiredSignaturesEndpoint = {};
+type ReposRemoveProtectedBranchRequiredSignaturesRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetProtectedBranchRequiredStatusChecksEndpoint = {};
+type ReposGetProtectedBranchRequiredStatusChecksRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposUpdateProtectedBranchRequiredStatusChecksEndpoint = {};
+type ReposUpdateProtectedBranchRequiredStatusChecksRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposRemoveProtectedBranchRequiredStatusChecksEndpoint = {};
+type ReposRemoveProtectedBranchRequiredStatusChecksRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListProtectedBranchRequiredStatusChecksContextsEndpoint = {};
+type ReposListProtectedBranchRequiredStatusChecksContextsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposReplaceProtectedBranchRequiredStatusChecksContextsEndpoint = {};
+type ReposReplaceProtectedBranchRequiredStatusChecksContextsRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposAddProtectedBranchRequiredStatusChecksContextsEndpoint = {};
+type ReposAddProtectedBranchRequiredStatusChecksContextsRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposRemoveProtectedBranchRequiredStatusChecksContextsEndpoint = {};
+type ReposRemoveProtectedBranchRequiredStatusChecksContextsRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetProtectedBranchRestrictionsEndpoint = {};
 type ReposGetProtectedBranchRestrictionsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposRemoveProtectedBranchRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-};
+type ReposRemoveProtectedBranchRestrictionsEndpoint = {};
 type ReposRemoveProtectedBranchRestrictionsRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListProtectedBranchTeamRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  per_page?: number;
-  page?: number;
+type ReposGetAppsWithAccessToProtectedBranchEndpoint = {};
+type ReposGetAppsWithAccessToProtectedBranchRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposListAppsWithAccessToProtectedBranchEndpoint = {};
+type ReposListAppsWithAccessToProtectedBranchRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposReplaceProtectedBranchAppRestrictionsEndpoint = {};
+type ReposReplaceProtectedBranchAppRestrictionsRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposAddProtectedBranchAppRestrictionsEndpoint = {};
+type ReposAddProtectedBranchAppRestrictionsRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposRemoveProtectedBranchAppRestrictionsEndpoint = {};
+type ReposRemoveProtectedBranchAppRestrictionsRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetTeamsWithAccessToProtectedBranchEndpoint = {};
+type ReposGetTeamsWithAccessToProtectedBranchRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListProtectedBranchTeamRestrictionsEndpoint = {};
 type ReposListProtectedBranchTeamRestrictionsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposReplaceProtectedBranchTeamRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  teams: string[];
+type ReposListTeamsWithAccessToProtectedBranchEndpoint = {};
+type ReposListTeamsWithAccessToProtectedBranchRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposReplaceProtectedBranchTeamRestrictionsEndpoint = {};
 type ReposReplaceProtectedBranchTeamRestrictionsRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposAddProtectedBranchTeamRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  teams: string[];
-};
+type ReposAddProtectedBranchTeamRestrictionsEndpoint = {};
 type ReposAddProtectedBranchTeamRestrictionsRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposRemoveProtectedBranchTeamRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  teams: string[];
-};
+type ReposRemoveProtectedBranchTeamRestrictionsEndpoint = {};
 type ReposRemoveProtectedBranchTeamRestrictionsRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListProtectedBranchUserRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
+type ReposGetUsersWithAccessToProtectedBranchEndpoint = {};
+type ReposGetUsersWithAccessToProtectedBranchRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposListProtectedBranchUserRestrictionsEndpoint = {};
 type ReposListProtectedBranchUserRestrictionsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposReplaceProtectedBranchUserRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  users: string[];
+type ReposListUsersWithAccessToProtectedBranchEndpoint = {};
+type ReposListUsersWithAccessToProtectedBranchRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposReplaceProtectedBranchUserRestrictionsEndpoint = {};
 type ReposReplaceProtectedBranchUserRestrictionsRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposAddProtectedBranchUserRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  users: string[];
-};
+type ReposAddProtectedBranchUserRestrictionsEndpoint = {};
 type ReposAddProtectedBranchUserRestrictionsRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposRemoveProtectedBranchUserRestrictionsEndpoint = {
-  owner: string;
-  repo: string;
-  branch: string;
-  users: string[];
-};
+type ReposRemoveProtectedBranchUserRestrictionsEndpoint = {};
 type ReposRemoveProtectedBranchUserRestrictionsRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListCollaboratorsEndpoint = {
-  owner: string;
-  repo: string;
-  affiliation?: string;
-  per_page?: number;
-  page?: number;
+type ChecksCreateEndpoint = {};
+type ChecksCreateRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ChecksUpdateEndpoint = {};
+type ChecksUpdateRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ChecksGetEndpoint = {};
+type ChecksGetRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ChecksListAnnotationsEndpoint = {};
+type ChecksListAnnotationsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ChecksCreateSuiteEndpoint = {};
+type ChecksCreateSuiteRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ChecksSetSuitesPreferencesEndpoint = {};
+type ChecksSetSuitesPreferencesRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ChecksGetSuiteEndpoint = {};
+type ChecksGetSuiteRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ChecksListForSuiteEndpoint = {};
+type ChecksListForSuiteRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ChecksRerequestSuiteEndpoint = {};
+type ChecksRerequestSuiteRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListCollaboratorsEndpoint = {};
 type ReposListCollaboratorsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposCheckCollaboratorEndpoint = {
-  owner: string;
-  repo: string;
-  username: string;
-};
+type ReposCheckCollaboratorEndpoint = {};
 type ReposCheckCollaboratorRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetCollaboratorPermissionLevelEndpoint = {
-  owner: string;
-  repo: string;
-  username: string;
-};
-type ReposGetCollaboratorPermissionLevelRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposAddCollaboratorEndpoint = {
-  owner: string;
-  repo: string;
-  username: string;
-  permission?: string;
-};
+type ReposAddCollaboratorEndpoint = {};
 type ReposAddCollaboratorRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposRemoveCollaboratorEndpoint = {
-  owner: string;
-  repo: string;
-  username: string;
-};
+type ReposRemoveCollaboratorEndpoint = {};
 type ReposRemoveCollaboratorRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListCommitCommentsEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
+type ReposGetCollaboratorPermissionLevelEndpoint = {};
+type ReposGetCollaboratorPermissionLevelRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposListCommitCommentsEndpoint = {};
 type ReposListCommitCommentsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListCommentsForCommitEndpoint = {
-  owner: string;
-  repo: string;
-  commit_sha: string;
-  per_page?: number;
-  page?: number;
-  ref?: string;
-};
-type ReposListCommentsForCommitRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateCommitCommentEndpoint = {
-  owner: string;
-  repo: string;
-  commit_sha: string;
-  body: string;
-  path?: string;
-  position?: number;
-  line?: number;
-  sha?: string;
-};
-type ReposCreateCommitCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetCommitCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-};
+type ReposGetCommitCommentEndpoint = {};
 type ReposGetCommitCommentRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposUpdateCommitCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-  body: string;
-};
+type ReposUpdateCommitCommentEndpoint = {};
 type ReposUpdateCommitCommentRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposDeleteCommitCommentEndpoint = {
-  owner: string;
-  repo: string;
-  comment_id: number;
-};
+type ReposDeleteCommitCommentEndpoint = {};
 type ReposDeleteCommitCommentRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListCommitsEndpoint = {
-  owner: string;
-  repo: string;
-  sha?: string;
-  path?: string;
-  author?: string;
-  since?: string;
-  until?: string;
-  per_page?: number;
-  page?: number;
+type ReactionsListForCommitCommentEndpoint = {};
+type ReactionsListForCommitCommentRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReactionsCreateForCommitCommentEndpoint = {};
+type ReactionsCreateForCommitCommentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListCommitsEndpoint = {};
 type ReposListCommitsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetCommitEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-  sha?: string;
-  commit_sha?: string;
-};
-type ReposGetCommitRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetCommitRefShaEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-};
-type ReposGetCommitRefShaRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCompareCommitsEndpoint = {
-  owner: string;
-  repo: string;
-  base: string;
-  head: string;
-};
-type ReposCompareCommitsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListBranchesForHeadCommitEndpoint = {
-  owner: string;
-  repo: string;
-  commit_sha: string;
-};
+type ReposListBranchesForHeadCommitEndpoint = {};
 type ReposListBranchesForHeadCommitRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposListPullRequestsAssociatedWithCommitEndpoint = {
-  owner: string;
-  repo: string;
-  commit_sha: string;
-  per_page?: number;
-  page?: number;
+type ReposListCommentsForCommitEndpoint = {};
+type ReposListCommentsForCommitRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposCreateCommitCommentEndpoint = {};
+type ReposCreateCommitCommentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListPullRequestsAssociatedWithCommitEndpoint = {};
 type ReposListPullRequestsAssociatedWithCommitRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposRetrieveCommunityProfileMetricsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposRetrieveCommunityProfileMetricsRequestOptions = {
+type ReposGetCommitEndpoint = {};
+type ReposGetCommitRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetReadmeEndpoint = {
-  owner: string;
-  repo: string;
-  ref?: string;
-};
-type ReposGetReadmeRequestOptions = {
+type ChecksListForRefEndpoint = {};
+type ChecksListForRefRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetContentsEndpoint = {
-  owner: string;
-  repo: string;
-  path: string;
-  ref?: string;
-};
-type ReposGetContentsRequestOptions = {
+type ChecksListSuitesForRefEndpoint = {};
+type ChecksListSuitesForRefRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposCreateOrUpdateFileEndpoint = {
-  owner: string;
-  repo: string;
-  path: string;
-  message: string;
-  content: string;
-  sha?: string;
-  branch?: string;
-  committer?: object;
-  "committer.name": string;
-  "committer.email": string;
-  author?: object;
-  "author.name": string;
-  "author.email": string;
-};
-type ReposCreateOrUpdateFileRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateFileEndpoint = {
-  owner: string;
-  repo: string;
-  path: string;
-  message: string;
-  content: string;
-  sha?: string;
-  branch?: string;
-  committer?: object;
-  "committer.name": string;
-  "committer.email": string;
-  author?: object;
-  "author.name": string;
-  "author.email": string;
-};
-type ReposCreateFileRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateFileEndpoint = {
-  owner: string;
-  repo: string;
-  path: string;
-  message: string;
-  content: string;
-  sha?: string;
-  branch?: string;
-  committer?: object;
-  "committer.name": string;
-  "committer.email": string;
-  author?: object;
-  "author.name": string;
-  "author.email": string;
-};
-type ReposUpdateFileRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeleteFileEndpoint = {
-  owner: string;
-  repo: string;
-  path: string;
-  message: string;
-  sha: string;
-  branch?: string;
-  committer?: object;
-  "committer.name"?: string;
-  "committer.email"?: string;
-  author?: object;
-  "author.name"?: string;
-  "author.email"?: string;
-};
-type ReposDeleteFileRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetArchiveLinkEndpoint = {
-  owner: string;
-  repo: string;
-  archive_format: string;
-  ref: string;
-};
-type ReposGetArchiveLinkRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListDeploymentsEndpoint = {
-  owner: string;
-  repo: string;
-  sha?: string;
-  ref?: string;
-  task?: string;
-  environment?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListDeploymentsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetDeploymentEndpoint = {
-  owner: string;
-  repo: string;
-  deployment_id: number;
-};
-type ReposGetDeploymentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateDeploymentEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-  task?: string;
-  auto_merge?: boolean;
-  required_contexts?: string[];
-  payload?: string;
-  environment?: string;
-  description?: string;
-  transient_environment?: boolean;
-  production_environment?: boolean;
-};
-type ReposCreateDeploymentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListDeploymentStatusesEndpoint = {
-  owner: string;
-  repo: string;
-  deployment_id: number;
-  per_page?: number;
-  page?: number;
-};
-type ReposListDeploymentStatusesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetDeploymentStatusEndpoint = {
-  owner: string;
-  repo: string;
-  deployment_id: number;
-  status_id: number;
-};
-type ReposGetDeploymentStatusRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateDeploymentStatusEndpoint = {
-  owner: string;
-  repo: string;
-  deployment_id: number;
-  state: string;
-  target_url?: string;
-  log_url?: string;
-  description?: string;
-  environment?: string;
-  environment_url?: string;
-  auto_inactive?: boolean;
-};
-type ReposCreateDeploymentStatusRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListDownloadsEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListDownloadsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetDownloadEndpoint = {
-  owner: string;
-  repo: string;
-  download_id: number;
-};
-type ReposGetDownloadRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeleteDownloadEndpoint = {
-  owner: string;
-  repo: string;
-  download_id: number;
-};
-type ReposDeleteDownloadRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListForksEndpoint = {
-  owner: string;
-  repo: string;
-  sort?: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListForksRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateForkEndpoint = {
-  owner: string;
-  repo: string;
-  organization?: string;
-};
-type ReposCreateForkRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListHooksEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListHooksRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetHookEndpoint = {
-  owner: string;
-  repo: string;
-  hook_id: number;
-};
-type ReposGetHookRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateHookEndpoint = {
-  owner: string;
-  repo: string;
-  name?: string;
-  config: object;
-  "config.url": string;
-  "config.content_type"?: string;
-  "config.secret"?: string;
-  "config.insecure_ssl"?: string;
-  events?: string[];
-  active?: boolean;
-};
-type ReposCreateHookRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateHookEndpoint = {
-  owner: string;
-  repo: string;
-  hook_id: number;
-  config?: object;
-  "config.url": string;
-  "config.content_type"?: string;
-  "config.secret"?: string;
-  "config.insecure_ssl"?: string;
-  events?: string[];
-  add_events?: string[];
-  remove_events?: string[];
-  active?: boolean;
-};
-type ReposUpdateHookRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposTestPushHookEndpoint = {
-  owner: string;
-  repo: string;
-  hook_id: number;
-};
-type ReposTestPushHookRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposPingHookEndpoint = {
-  owner: string;
-  repo: string;
-  hook_id: number;
-};
-type ReposPingHookRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeleteHookEndpoint = {
-  owner: string;
-  repo: string;
-  hook_id: number;
-};
-type ReposDeleteHookRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListInvitationsEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListInvitationsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeleteInvitationEndpoint = {
-  owner: string;
-  repo: string;
-  invitation_id: number;
-};
-type ReposDeleteInvitationRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateInvitationEndpoint = {
-  owner: string;
-  repo: string;
-  invitation_id: number;
-  permissions?: string;
-};
-type ReposUpdateInvitationRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListInvitationsForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type ReposListInvitationsForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposAcceptInvitationEndpoint = {
-  invitation_id: number;
-};
-type ReposAcceptInvitationRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeclineInvitationEndpoint = {
-  invitation_id: number;
-};
-type ReposDeclineInvitationRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListDeployKeysEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListDeployKeysRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetDeployKeyEndpoint = {
-  owner: string;
-  repo: string;
-  key_id: number;
-};
-type ReposGetDeployKeyRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposAddDeployKeyEndpoint = {
-  owner: string;
-  repo: string;
-  title?: string;
-  key: string;
-  read_only?: boolean;
-};
-type ReposAddDeployKeyRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposRemoveDeployKeyEndpoint = {
-  owner: string;
-  repo: string;
-  key_id: number;
-};
-type ReposRemoveDeployKeyRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposMergeEndpoint = {
-  owner: string;
-  repo: string;
-  base: string;
-  head: string;
-  commit_message?: string;
-};
-type ReposMergeRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetPagesEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetPagesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposEnablePagesSiteEndpoint = {
-  owner: string;
-  repo: string;
-  source?: object;
-  "source.branch"?: string;
-  "source.path"?: string;
-};
-type ReposEnablePagesSiteRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDisablePagesSiteEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposDisablePagesSiteRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateInformationAboutPagesSiteEndpoint = {
-  owner: string;
-  repo: string;
-  cname?: string;
-  source?: string;
-};
-type ReposUpdateInformationAboutPagesSiteRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposRequestPageBuildEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposRequestPageBuildRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListPagesBuildsEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListPagesBuildsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetLatestPagesBuildEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetLatestPagesBuildRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetPagesBuildEndpoint = {
-  owner: string;
-  repo: string;
-  build_id: number;
-};
-type ReposGetPagesBuildRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListReleasesEndpoint = {
-  owner: string;
-  repo: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListReleasesRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetReleaseEndpoint = {
-  owner: string;
-  repo: string;
-  release_id: number;
-};
-type ReposGetReleaseRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetLatestReleaseEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetLatestReleaseRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetReleaseByTagEndpoint = {
-  owner: string;
-  repo: string;
-  tag: string;
-};
-type ReposGetReleaseByTagRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateReleaseEndpoint = {
-  owner: string;
-  repo: string;
-  tag_name: string;
-  target_commitish?: string;
-  name?: string;
-  body?: string;
-  draft?: boolean;
-  prerelease?: boolean;
-};
-type ReposCreateReleaseRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateReleaseEndpoint = {
-  owner: string;
-  repo: string;
-  release_id: number;
-  tag_name?: string;
-  target_commitish?: string;
-  name?: string;
-  body?: string;
-  draft?: boolean;
-  prerelease?: boolean;
-};
-type ReposUpdateReleaseRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeleteReleaseEndpoint = {
-  owner: string;
-  repo: string;
-  release_id: number;
-};
-type ReposDeleteReleaseRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListAssetsForReleaseEndpoint = {
-  owner: string;
-  repo: string;
-  release_id: number;
-  per_page?: number;
-  page?: number;
-};
-type ReposListAssetsForReleaseRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUploadReleaseAssetEndpoint = {
-  url: string;
-  headers: object;
-  "headers.content-length": number;
-  "headers.content-type": string;
-  name: string;
-  label?: string;
-  file: string | object;
-};
-type ReposUploadReleaseAssetRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetReleaseAssetEndpoint = {
-  owner: string;
-  repo: string;
-  asset_id: number;
-};
-type ReposGetReleaseAssetRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposUpdateReleaseAssetEndpoint = {
-  owner: string;
-  repo: string;
-  asset_id: number;
-  name?: string;
-  label?: string;
-};
-type ReposUpdateReleaseAssetRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposDeleteReleaseAssetEndpoint = {
-  owner: string;
-  repo: string;
-  asset_id: number;
-};
-type ReposDeleteReleaseAssetRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetContributorsStatsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetContributorsStatsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetCommitActivityStatsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetCommitActivityStatsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetCodeFrequencyStatsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetCodeFrequencyStatsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetParticipationStatsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetParticipationStatsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetPunchCardStatsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetPunchCardStatsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposCreateStatusEndpoint = {
-  owner: string;
-  repo: string;
-  sha: string;
-  state: string;
-  target_url?: string;
-  description?: string;
-  context?: string;
-};
-type ReposCreateStatusRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposListStatusesForRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-  per_page?: number;
-  page?: number;
-};
-type ReposListStatusesForRefRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ReposGetCombinedStatusForRefEndpoint = {
-  owner: string;
-  repo: string;
-  ref: string;
-};
+type ReposGetCombinedStatusForRefEndpoint = {};
 type ReposGetCombinedStatusForRefRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetTopReferrersEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetTopReferrersRequestOptions = {
+type ReposListStatusesForRefEndpoint = {};
+type ReposListStatusesForRefRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetTopPathsEndpoint = {
-  owner: string;
-  repo: string;
-};
-type ReposGetTopPathsRequestOptions = {
+type CodesOfConductGetForRepoEndpoint = {};
+type CodesOfConductGetForRepoRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetViewsEndpoint = {
-  owner: string;
-  repo: string;
-  per?: string;
-};
-type ReposGetViewsRequestOptions = {
+type ReposRetrieveCommunityProfileMetricsEndpoint = {};
+type ReposRetrieveCommunityProfileMetricsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ReposGetClonesEndpoint = {
-  owner: string;
-  repo: string;
-  per?: string;
+type ReposCompareCommitsEndpoint = {};
+type ReposCompareCommitsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposGetContentsEndpoint = {};
+type ReposGetContentsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateOrUpdateFileEndpoint = {};
+type ReposCreateOrUpdateFileRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateFileEndpoint = {};
+type ReposCreateFileRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposUpdateFileEndpoint = {};
+type ReposUpdateFileRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDeleteFileEndpoint = {};
+type ReposDeleteFileRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListContributorsEndpoint = {};
+type ReposListContributorsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListDeploymentsEndpoint = {};
+type ReposListDeploymentsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateDeploymentEndpoint = {};
+type ReposCreateDeploymentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetDeploymentEndpoint = {};
+type ReposGetDeploymentRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListDeploymentStatusesEndpoint = {};
+type ReposListDeploymentStatusesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateDeploymentStatusEndpoint = {};
+type ReposCreateDeploymentStatusRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetDeploymentStatusEndpoint = {};
+type ReposGetDeploymentStatusRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateDispatchEventEndpoint = {};
+type ReposCreateDispatchEventRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListDownloadsEndpoint = {};
+type ReposListDownloadsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetDownloadEndpoint = {};
+type ReposGetDownloadRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDeleteDownloadEndpoint = {};
+type ReposDeleteDownloadRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListRepoEventsEndpoint = {};
+type ActivityListRepoEventsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListForksEndpoint = {};
+type ReposListForksRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateForkEndpoint = {};
+type ReposCreateForkRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitCreateBlobEndpoint = {};
+type GitCreateBlobRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitGetBlobEndpoint = {};
+type GitGetBlobRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitCreateCommitEndpoint = {};
+type GitCreateCommitRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitGetCommitEndpoint = {};
+type GitGetCommitRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitListMatchingRefsEndpoint = {};
+type GitListMatchingRefsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitGetRefEndpoint = {};
+type GitGetRefRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitCreateRefEndpoint = {};
+type GitCreateRefRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitUpdateRefEndpoint = {};
+type GitUpdateRefRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitDeleteRefEndpoint = {};
+type GitDeleteRefRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitCreateTagEndpoint = {};
+type GitCreateTagRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitGetTagEndpoint = {};
+type GitGetTagRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitCreateTreeEndpoint = {};
+type GitCreateTreeRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GitGetTreeEndpoint = {};
+type GitGetTreeRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListHooksEndpoint = {};
+type ReposListHooksRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateHookEndpoint = {};
+type ReposCreateHookRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetHookEndpoint = {};
+type ReposGetHookRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposUpdateHookEndpoint = {};
+type ReposUpdateHookRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDeleteHookEndpoint = {};
+type ReposDeleteHookRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposPingHookEndpoint = {};
+type ReposPingHookRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposTestPushHookEndpoint = {};
+type ReposTestPushHookRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsStartImportEndpoint = {};
+type MigrationsStartImportRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsGetImportProgressEndpoint = {};
+type MigrationsGetImportProgressRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsUpdateImportEndpoint = {};
+type MigrationsUpdateImportRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsCancelImportEndpoint = {};
+type MigrationsCancelImportRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsGetCommitAuthorsEndpoint = {};
+type MigrationsGetCommitAuthorsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsMapCommitAuthorEndpoint = {};
+type MigrationsMapCommitAuthorRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsGetLargeFilesEndpoint = {};
+type MigrationsGetLargeFilesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsSetLfsPreferenceEndpoint = {};
+type MigrationsSetLfsPreferenceRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsGetRepoInstallationEndpoint = {};
+type AppsGetRepoInstallationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsFindRepoInstallationEndpoint = {};
+type AppsFindRepoInstallationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type InteractionsGetRestrictionsForRepoEndpoint = {};
+type InteractionsGetRestrictionsForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type InteractionsAddOrUpdateRestrictionsForRepoEndpoint = {};
+type InteractionsAddOrUpdateRestrictionsForRepoRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type InteractionsRemoveRestrictionsForRepoEndpoint = {};
+type InteractionsRemoveRestrictionsForRepoRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListInvitationsEndpoint = {};
+type ReposListInvitationsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDeleteInvitationEndpoint = {};
+type ReposDeleteInvitationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposUpdateInvitationEndpoint = {};
+type ReposUpdateInvitationRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListForRepoEndpoint = {};
+type IssuesListForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesCreateEndpoint = {};
+type IssuesCreateRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListCommentsForRepoEndpoint = {};
+type IssuesListCommentsForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesGetCommentEndpoint = {};
+type IssuesGetCommentRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesUpdateCommentEndpoint = {};
+type IssuesUpdateCommentRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesDeleteCommentEndpoint = {};
+type IssuesDeleteCommentRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReactionsListForIssueCommentEndpoint = {};
+type ReactionsListForIssueCommentRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReactionsCreateForIssueCommentEndpoint = {};
+type ReactionsCreateForIssueCommentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListEventsForRepoEndpoint = {};
+type IssuesListEventsForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesGetEventEndpoint = {};
+type IssuesGetEventRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesGetEndpoint = {};
+type IssuesGetRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesUpdateEndpoint = {};
+type IssuesUpdateRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesAddAssigneesEndpoint = {};
+type IssuesAddAssigneesRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesRemoveAssigneesEndpoint = {};
+type IssuesRemoveAssigneesRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListCommentsEndpoint = {};
+type IssuesListCommentsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesCreateCommentEndpoint = {};
+type IssuesCreateCommentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListEventsEndpoint = {};
+type IssuesListEventsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListLabelsOnIssueEndpoint = {};
+type IssuesListLabelsOnIssueRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesAddLabelsEndpoint = {};
+type IssuesAddLabelsRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesReplaceLabelsEndpoint = {};
+type IssuesReplaceLabelsRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesRemoveLabelsEndpoint = {};
+type IssuesRemoveLabelsRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesRemoveLabelEndpoint = {};
+type IssuesRemoveLabelRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesLockEndpoint = {};
+type IssuesLockRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesUnlockEndpoint = {};
+type IssuesUnlockRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReactionsListForIssueEndpoint = {};
+type ReactionsListForIssueRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReactionsCreateForIssueEndpoint = {};
+type ReactionsCreateForIssueRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListEventsForTimelineEndpoint = {};
+type IssuesListEventsForTimelineRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListDeployKeysEndpoint = {};
+type ReposListDeployKeysRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposAddDeployKeyEndpoint = {};
+type ReposAddDeployKeyRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetDeployKeyEndpoint = {};
+type ReposGetDeployKeyRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposRemoveDeployKeyEndpoint = {};
+type ReposRemoveDeployKeyRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListLabelsForRepoEndpoint = {};
+type IssuesListLabelsForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesCreateLabelEndpoint = {};
+type IssuesCreateLabelRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesGetLabelEndpoint = {};
+type IssuesGetLabelRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesUpdateLabelEndpoint = {};
+type IssuesUpdateLabelRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesDeleteLabelEndpoint = {};
+type IssuesDeleteLabelRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListLanguagesEndpoint = {};
+type ReposListLanguagesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type LicensesGetForRepoEndpoint = {};
+type LicensesGetForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposMergeEndpoint = {};
+type ReposMergeRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListMilestonesForRepoEndpoint = {};
+type IssuesListMilestonesForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesCreateMilestoneEndpoint = {};
+type IssuesCreateMilestoneRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesGetMilestoneEndpoint = {};
+type IssuesGetMilestoneRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesUpdateMilestoneEndpoint = {};
+type IssuesUpdateMilestoneRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesDeleteMilestoneEndpoint = {};
+type IssuesDeleteMilestoneRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListLabelsForMilestoneEndpoint = {};
+type IssuesListLabelsForMilestoneRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListNotificationsForRepoEndpoint = {};
+type ActivityListNotificationsForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityMarkNotificationsAsReadForRepoEndpoint = {};
+type ActivityMarkNotificationsAsReadForRepoRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetPagesEndpoint = {};
+type ReposGetPagesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposEnablePagesSiteEndpoint = {};
+type ReposEnablePagesSiteRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDisablePagesSiteEndpoint = {};
+type ReposDisablePagesSiteRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposUpdateInformationAboutPagesSiteEndpoint = {};
+type ReposUpdateInformationAboutPagesSiteRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposRequestPageBuildEndpoint = {};
+type ReposRequestPageBuildRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListPagesBuildsEndpoint = {};
+type ReposListPagesBuildsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetLatestPagesBuildEndpoint = {};
+type ReposGetLatestPagesBuildRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetPagesBuildEndpoint = {};
+type ReposGetPagesBuildRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ProjectsListForRepoEndpoint = {};
+type ProjectsListForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ProjectsCreateForRepoEndpoint = {};
+type ProjectsCreateForRepoRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsListEndpoint = {};
+type PullsListRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsCreateEndpoint = {};
+type PullsCreateRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsListCommentsForRepoEndpoint = {};
+type PullsListCommentsForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsGetCommentEndpoint = {};
+type PullsGetCommentRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsUpdateCommentEndpoint = {};
+type PullsUpdateCommentRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsDeleteCommentEndpoint = {};
+type PullsDeleteCommentRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReactionsListForPullRequestReviewCommentEndpoint = {};
+type ReactionsListForPullRequestReviewCommentRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReactionsCreateForPullRequestReviewCommentEndpoint = {};
+type ReactionsCreateForPullRequestReviewCommentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsGetEndpoint = {};
+type PullsGetRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsUpdateEndpoint = {};
+type PullsUpdateRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsListCommentsEndpoint = {};
+type PullsListCommentsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsCreateCommentEndpoint = {};
+type PullsCreateCommentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsCreateCommentReplyEndpoint = {};
+type PullsCreateCommentReplyRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsCreateReviewCommentReplyEndpoint = {};
+type PullsCreateReviewCommentReplyRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsListCommitsEndpoint = {};
+type PullsListCommitsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsListFilesEndpoint = {};
+type PullsListFilesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsCheckIfMergedEndpoint = {};
+type PullsCheckIfMergedRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsMergeEndpoint = {};
+type PullsMergeRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsListReviewRequestsEndpoint = {};
+type PullsListReviewRequestsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsCreateReviewRequestEndpoint = {};
+type PullsCreateReviewRequestRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsDeleteReviewRequestEndpoint = {};
+type PullsDeleteReviewRequestRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsListReviewsEndpoint = {};
+type PullsListReviewsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsCreateReviewEndpoint = {};
+type PullsCreateReviewRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsGetReviewEndpoint = {};
+type PullsGetReviewRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsDeletePendingReviewEndpoint = {};
+type PullsDeletePendingReviewRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsUpdateReviewEndpoint = {};
+type PullsUpdateReviewRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsGetCommentsForReviewEndpoint = {};
+type PullsGetCommentsForReviewRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsDismissReviewEndpoint = {};
+type PullsDismissReviewRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsSubmitReviewEndpoint = {};
+type PullsSubmitReviewRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type PullsUpdateBranchEndpoint = {};
+type PullsUpdateBranchRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetReadmeEndpoint = {};
+type ReposGetReadmeRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListReleasesEndpoint = {};
+type ReposListReleasesRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateReleaseEndpoint = {};
+type ReposCreateReleaseRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetReleaseAssetEndpoint = {};
+type ReposGetReleaseAssetRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposUpdateReleaseAssetEndpoint = {};
+type ReposUpdateReleaseAssetRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDeleteReleaseAssetEndpoint = {};
+type ReposDeleteReleaseAssetRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetLatestReleaseEndpoint = {};
+type ReposGetLatestReleaseRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetReleaseByTagEndpoint = {};
+type ReposGetReleaseByTagRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetReleaseEndpoint = {};
+type ReposGetReleaseRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposUpdateReleaseEndpoint = {};
+type ReposUpdateReleaseRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDeleteReleaseEndpoint = {};
+type ReposDeleteReleaseRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListAssetsForReleaseEndpoint = {};
+type ReposListAssetsForReleaseRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListStargazersForRepoEndpoint = {};
+type ActivityListStargazersForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetCodeFrequencyStatsEndpoint = {};
+type ReposGetCodeFrequencyStatsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetCommitActivityStatsEndpoint = {};
+type ReposGetCommitActivityStatsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetContributorsStatsEndpoint = {};
+type ReposGetContributorsStatsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetParticipationStatsEndpoint = {};
+type ReposGetParticipationStatsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetPunchCardStatsEndpoint = {};
+type ReposGetPunchCardStatsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateStatusEndpoint = {};
+type ReposCreateStatusRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListWatchersForRepoEndpoint = {};
+type ActivityListWatchersForRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityGetRepoSubscriptionEndpoint = {};
+type ActivityGetRepoSubscriptionRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivitySetRepoSubscriptionEndpoint = {};
+type ActivitySetRepoSubscriptionRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityDeleteRepoSubscriptionEndpoint = {};
+type ActivityDeleteRepoSubscriptionRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListTagsEndpoint = {};
+type ReposListTagsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListTeamsEndpoint = {};
+type ReposListTeamsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListTopicsEndpoint = {};
+type ReposListTopicsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposReplaceTopicsEndpoint = {};
+type ReposReplaceTopicsRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetClonesEndpoint = {};
 type ReposGetClonesRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ScimListProvisionedIdentitiesEndpoint = {
-  org: string;
-  startIndex?: number;
-  count?: number;
-  filter?: string;
+type ReposGetTopPathsEndpoint = {};
+type ReposGetTopPathsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ReposGetTopReferrersEndpoint = {};
+type ReposGetTopReferrersRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetViewsEndpoint = {};
+type ReposGetViewsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposTransferEndpoint = {};
+type ReposTransferRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCheckVulnerabilityAlertsEndpoint = {};
+type ReposCheckVulnerabilityAlertsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposEnableVulnerabilityAlertsEndpoint = {};
+type ReposEnableVulnerabilityAlertsRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDisableVulnerabilityAlertsEndpoint = {};
+type ReposDisableVulnerabilityAlertsRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposGetArchiveLinkEndpoint = {};
+type ReposGetArchiveLinkRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateUsingTemplateEndpoint = {};
+type ReposCreateUsingTemplateRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListPublicEndpoint = {};
+type ReposListPublicRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ScimListProvisionedIdentitiesEndpoint = {};
 type ScimListProvisionedIdentitiesRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ScimGetProvisioningDetailsForUserEndpoint = {
-  org: string;
-  scim_user_id: number;
-  external_identity_guid?: number;
-};
-type ScimGetProvisioningDetailsForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type ScimProvisionAndInviteUsersEndpoint = {
-  org: string;
-};
+type ScimProvisionAndInviteUsersEndpoint = {};
 type ScimProvisionAndInviteUsersRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ScimProvisionInviteUsersEndpoint = {
-  org: string;
-};
+type ScimProvisionInviteUsersEndpoint = {};
 type ScimProvisionInviteUsersRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ScimReplaceProvisionedUserInformationEndpoint = {
-  org: string;
-  scim_user_id: number;
-  external_identity_guid?: number;
+type ScimGetProvisioningDetailsForUserEndpoint = {};
+type ScimGetProvisioningDetailsForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type ScimReplaceProvisionedUserInformationEndpoint = {};
 type ScimReplaceProvisionedUserInformationRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ScimUpdateProvisionedOrgMembershipEndpoint = {
-  org: string;
-  scim_user_id: number;
-  external_identity_guid?: number;
-};
+type ScimUpdateProvisionedOrgMembershipEndpoint = {};
 type ScimUpdateProvisionedOrgMembershipRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ScimUpdateUserAttributeEndpoint = {
-  org: string;
-  scim_user_id: number;
-  external_identity_guid?: number;
-};
+type ScimUpdateUserAttributeEndpoint = {};
 type ScimUpdateUserAttributeRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type ScimRemoveUserFromOrgEndpoint = {
-  org: string;
-  scim_user_id: number;
-  external_identity_guid?: number;
-};
+type ScimRemoveUserFromOrgEndpoint = {};
 type ScimRemoveUserFromOrgRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchReposEndpoint = {
-  q: string;
-  sort?: string;
-  order?: string;
-  per_page?: number;
-  page?: number;
-};
-type SearchReposRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type SearchCommitsEndpoint = {
-  q: string;
-  sort?: string;
-  order?: string;
-  per_page?: number;
-  page?: number;
-};
-type SearchCommitsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type SearchCodeEndpoint = {
-  q: string;
-  sort?: string;
-  order?: string;
-  per_page?: number;
-  page?: number;
-};
+type SearchCodeEndpoint = {};
 type SearchCodeRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchIssuesAndPullRequestsEndpoint = {
-  q: string;
-  sort?: string;
-  order?: string;
-  per_page?: number;
-  page?: number;
+type SearchCommitsEndpoint = {};
+type SearchCommitsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type SearchIssuesAndPullRequestsEndpoint = {};
 type SearchIssuesAndPullRequestsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchIssuesEndpoint = {
-  q: string;
-  sort?: string;
-  order?: string;
-  per_page?: number;
-  page?: number;
-};
+type SearchIssuesEndpoint = {};
 type SearchIssuesRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchUsersEndpoint = {
-  q: string;
-  sort?: string;
-  order?: string;
-  per_page?: number;
-  page?: number;
-};
-type SearchUsersRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type SearchTopicsEndpoint = {
-  q: string;
-};
-type SearchTopicsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type SearchLabelsEndpoint = {
-  repository_id: number;
-  q: string;
-  sort?: string;
-  order?: string;
-};
+type SearchLabelsEndpoint = {};
 type SearchLabelsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchIssuesLegacyEndpoint = {
-  owner: string;
-  repository: string;
-  state: string;
-  keyword: string;
-};
-type SearchIssuesLegacyRequestOptions = {
+type SearchReposEndpoint = {};
+type SearchReposRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchReposLegacyEndpoint = {
-  keyword: string;
-  language?: string;
-  start_page?: string;
-  sort?: string;
-  order?: string;
-};
-type SearchReposLegacyRequestOptions = {
+type SearchTopicsEndpoint = {};
+type SearchTopicsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchUsersLegacyEndpoint = {
-  keyword: string;
-  start_page?: string;
-  sort?: string;
-  order?: string;
-};
-type SearchUsersLegacyRequestOptions = {
+type SearchUsersEndpoint = {};
+type SearchUsersRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type SearchEmailLegacyEndpoint = {
-  email: string;
-};
-type SearchEmailLegacyRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsListEndpoint = {
-  org: string;
-  per_page?: number;
-  page?: number;
-};
-type TeamsListRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsGetEndpoint = {
-  team_id: number;
-};
+type TeamsGetEndpoint = {};
 type TeamsGetRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsGetByNameEndpoint = {
-  org: string;
-  team_slug: string;
-};
-type TeamsGetByNameRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsCreateEndpoint = {
-  org: string;
-  name: string;
-  description?: string;
-  maintainers?: string[];
-  repo_names?: string[];
-  privacy?: string;
-  permission?: string;
-  parent_team_id?: number;
-};
-type TeamsCreateRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsUpdateEndpoint = {
-  team_id: number;
-  name: string;
-  description?: string;
-  privacy?: string;
-  permission?: string;
-  parent_team_id?: number;
-};
+type TeamsUpdateEndpoint = {};
 type TeamsUpdateRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsDeleteEndpoint = {
-  team_id: number;
-};
+type TeamsDeleteEndpoint = {};
 type TeamsDeleteRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsListChildEndpoint = {
-  team_id: number;
-  per_page?: number;
-  page?: number;
-};
-type TeamsListChildRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsListReposEndpoint = {
-  team_id: number;
-  per_page?: number;
-  page?: number;
-};
-type TeamsListReposRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsCheckManagesRepoEndpoint = {
-  team_id: number;
-  owner: string;
-  repo: string;
-};
-type TeamsCheckManagesRepoRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsAddOrUpdateRepoEndpoint = {
-  team_id: number;
-  owner: string;
-  repo: string;
-  permission?: string;
-};
-type TeamsAddOrUpdateRepoRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsRemoveRepoEndpoint = {
-  team_id: number;
-  owner: string;
-  repo: string;
-};
-type TeamsRemoveRepoRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsListForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type TeamsListForAuthenticatedUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsListProjectsEndpoint = {
-  team_id: number;
-  per_page?: number;
-  page?: number;
-};
-type TeamsListProjectsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsReviewProjectEndpoint = {
-  team_id: number;
-  project_id: number;
-};
-type TeamsReviewProjectRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsAddOrUpdateProjectEndpoint = {
-  team_id: number;
-  project_id: number;
-  permission?: string;
-};
-type TeamsAddOrUpdateProjectRequestOptions = {
-  method: "PUT";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsRemoveProjectEndpoint = {
-  team_id: number;
-  project_id: number;
-};
-type TeamsRemoveProjectRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsListDiscussionCommentsEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
-type TeamsListDiscussionCommentsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsGetDiscussionCommentEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  comment_number: number;
-};
-type TeamsGetDiscussionCommentRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsCreateDiscussionCommentEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  body: string;
-};
-type TeamsCreateDiscussionCommentRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsUpdateDiscussionCommentEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  comment_number: number;
-  body: string;
-};
-type TeamsUpdateDiscussionCommentRequestOptions = {
-  method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsDeleteDiscussionCommentEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  comment_number: number;
-};
-type TeamsDeleteDiscussionCommentRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsListDiscussionsEndpoint = {
-  team_id: number;
-  direction?: string;
-  per_page?: number;
-  page?: number;
-};
+type TeamsListDiscussionsEndpoint = {};
 type TeamsListDiscussionsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsGetDiscussionEndpoint = {
-  team_id: number;
-  discussion_number: number;
-};
-type TeamsGetDiscussionRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type TeamsCreateDiscussionEndpoint = {
-  team_id: number;
-  title: string;
-  body: string;
-  private?: boolean;
-};
+type TeamsCreateDiscussionEndpoint = {};
 type TeamsCreateDiscussionRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsUpdateDiscussionEndpoint = {
-  team_id: number;
-  discussion_number: number;
-  title?: string;
-  body?: string;
+type TeamsGetDiscussionEndpoint = {};
+type TeamsGetDiscussionRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type TeamsUpdateDiscussionEndpoint = {};
 type TeamsUpdateDiscussionRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsDeleteDiscussionEndpoint = {
-  team_id: number;
-  discussion_number: number;
-};
+type TeamsDeleteDiscussionEndpoint = {};
 type TeamsDeleteDiscussionRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsListMembersEndpoint = {
-  team_id: number;
-  role?: string;
-  per_page?: number;
-  page?: number;
-};
-type TeamsListMembersRequestOptions = {
+type TeamsListDiscussionCommentsEndpoint = {};
+type TeamsListDiscussionCommentsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsGetMemberEndpoint = {
-  team_id: number;
-  username: string;
+type TeamsCreateDiscussionCommentEndpoint = {};
+type TeamsCreateDiscussionCommentRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
-type TeamsGetMemberRequestOptions = {
+type TeamsGetDiscussionCommentEndpoint = {};
+type TeamsGetDiscussionCommentRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsAddMemberEndpoint = {
-  team_id: number;
-  username: string;
-};
-type TeamsAddMemberRequestOptions = {
-  method: "PUT";
+type TeamsUpdateDiscussionCommentEndpoint = {};
+type TeamsUpdateDiscussionCommentRequestOptions = {
+  method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsRemoveMemberEndpoint = {
-  team_id: number;
-  username: string;
-};
-type TeamsRemoveMemberRequestOptions = {
+type TeamsDeleteDiscussionCommentEndpoint = {};
+type TeamsDeleteDiscussionCommentRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsGetMembershipEndpoint = {
-  team_id: number;
-  username: string;
-};
-type TeamsGetMembershipRequestOptions = {
+type ReactionsListForTeamDiscussionCommentEndpoint = {};
+type ReactionsListForTeamDiscussionCommentRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsAddOrUpdateMembershipEndpoint = {
-  team_id: number;
-  username: string;
-  role?: string;
-};
-type TeamsAddOrUpdateMembershipRequestOptions = {
-  method: "PUT";
+type ReactionsCreateForTeamDiscussionCommentEndpoint = {};
+type ReactionsCreateForTeamDiscussionCommentRequestOptions = {
+  method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsRemoveMembershipEndpoint = {
-  team_id: number;
-  username: string;
-};
-type TeamsRemoveMembershipRequestOptions = {
-  method: "DELETE";
+type ReactionsListForTeamDiscussionEndpoint = {};
+type ReactionsListForTeamDiscussionRequestOptions = {
+  method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsListPendingInvitationsEndpoint = {
-  team_id: number;
-  per_page?: number;
-  page?: number;
+type ReactionsCreateForTeamDiscussionEndpoint = {};
+type ReactionsCreateForTeamDiscussionRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type TeamsListPendingInvitationsEndpoint = {};
 type TeamsListPendingInvitationsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsListIdPGroupsForOrgEndpoint = {
-  org: string;
-  per_page?: number;
-  page?: number;
-};
-type TeamsListIdPGroupsForOrgRequestOptions = {
+type TeamsListMembersEndpoint = {};
+type TeamsListMembersRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsListIdPGroupsEndpoint = {
-  team_id: number;
+type TeamsGetMemberEndpoint = {};
+type TeamsGetMemberRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type TeamsAddMemberEndpoint = {};
+type TeamsAddMemberRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsRemoveMemberEndpoint = {};
+type TeamsRemoveMemberRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsGetMembershipEndpoint = {};
+type TeamsGetMembershipRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsAddOrUpdateMembershipEndpoint = {};
+type TeamsAddOrUpdateMembershipRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsRemoveMembershipEndpoint = {};
+type TeamsRemoveMembershipRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListProjectsEndpoint = {};
+type TeamsListProjectsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsReviewProjectEndpoint = {};
+type TeamsReviewProjectRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsAddOrUpdateProjectEndpoint = {};
+type TeamsAddOrUpdateProjectRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsRemoveProjectEndpoint = {};
+type TeamsRemoveProjectRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListReposEndpoint = {};
+type TeamsListReposRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsCheckManagesRepoEndpoint = {};
+type TeamsCheckManagesRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsAddOrUpdateRepoEndpoint = {};
+type TeamsAddOrUpdateRepoRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsRemoveRepoEndpoint = {};
+type TeamsRemoveRepoRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListIdPGroupsEndpoint = {};
 type TeamsListIdPGroupsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type TeamsCreateOrUpdateIdPGroupConnectionsEndpoint = {
-  team_id: number;
-  groups: object[];
-  "groups[].group_id": string;
-  "groups[].group_name": string;
-  "groups[].group_description": string;
-};
+type TeamsCreateOrUpdateIdPGroupConnectionsEndpoint = {};
 type TeamsCreateOrUpdateIdPGroupConnectionsRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersGetByUsernameEndpoint = {
-  username: string;
-};
-type UsersGetByUsernameRequestOptions = {
+type TeamsListChildEndpoint = {};
+type TeamsListChildRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
@@ -7895,39 +5228,9 @@ type UsersGetAuthenticatedRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersUpdateAuthenticatedEndpoint = {
-  name?: string;
-  email?: string;
-  blog?: string;
-  company?: string;
-  location?: string;
-  hireable?: boolean;
-  bio?: string;
-};
+type UsersUpdateAuthenticatedEndpoint = {};
 type UsersUpdateAuthenticatedRequestOptions = {
   method: "PATCH";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersGetContextForUserEndpoint = {
-  username: string;
-  subject_type?: string;
-  subject_id?: string;
-};
-type UsersGetContextForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersListEndpoint = {
-  since?: string;
-  per_page?: number;
-  page?: number;
-};
-type UsersListRequestOptions = {
-  method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
@@ -7939,253 +5242,520 @@ type UsersListBlockedRequestOptions = {
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersCheckBlockedEndpoint = {
-  username: string;
-};
+type UsersCheckBlockedEndpoint = {};
 type UsersCheckBlockedRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersBlockEndpoint = {
-  username: string;
-};
+type UsersBlockEndpoint = {};
 type UsersBlockRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersUnblockEndpoint = {
-  username: string;
-};
+type UsersUnblockEndpoint = {};
 type UsersUnblockRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersListEmailsEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type UsersListEmailsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersListPublicEmailsEndpoint = {
-  per_page?: number;
-  page?: number;
-};
-type UsersListPublicEmailsRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersAddEmailsEndpoint = {
-  emails: string[];
-};
-type UsersAddEmailsRequestOptions = {
-  method: "POST";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersDeleteEmailsEndpoint = {
-  emails: string[];
-};
-type UsersDeleteEmailsRequestOptions = {
-  method: "DELETE";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersTogglePrimaryEmailVisibilityEndpoint = {
-  email: string;
-  visibility: string;
-};
+type UsersTogglePrimaryEmailVisibilityEndpoint = {};
 type UsersTogglePrimaryEmailVisibilityRequestOptions = {
   method: "PATCH";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersListFollowersForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type UsersListFollowersForUserRequestOptions = {
+type UsersListEmailsEndpoint = {};
+type UsersListEmailsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersListFollowersForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
+type UsersAddEmailsEndpoint = {};
+type UsersAddEmailsRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type UsersDeleteEmailsEndpoint = {};
+type UsersDeleteEmailsRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListFollowersForAuthenticatedUserEndpoint = {};
 type UsersListFollowersForAuthenticatedUserRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersListFollowingForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type UsersListFollowingForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersListFollowingForAuthenticatedUserEndpoint = {
-  per_page?: number;
-  page?: number;
-};
+type UsersListFollowingForAuthenticatedUserEndpoint = {};
 type UsersListFollowingForAuthenticatedUserRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersCheckFollowingEndpoint = {
-  username: string;
-};
+type UsersCheckFollowingEndpoint = {};
 type UsersCheckFollowingRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersCheckFollowingForUserEndpoint = {
-  username: string;
-  target_user: string;
-};
-type UsersCheckFollowingForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersFollowEndpoint = {
-  username: string;
-};
+type UsersFollowEndpoint = {};
 type UsersFollowRequestOptions = {
   method: "PUT";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersUnfollowEndpoint = {
-  username: string;
-};
+type UsersUnfollowEndpoint = {};
 type UsersUnfollowRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersListGpgKeysForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type UsersListGpgKeysForUserRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersListGpgKeysEndpoint = {
-  per_page?: number;
-  page?: number;
-};
+type UsersListGpgKeysEndpoint = {};
 type UsersListGpgKeysRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersGetGpgKeyEndpoint = {
-  gpg_key_id: number;
-};
-type UsersGetGpgKeyRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersCreateGpgKeyEndpoint = {
-  armored_public_key?: string;
-};
+type UsersCreateGpgKeyEndpoint = {};
 type UsersCreateGpgKeyRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersDeleteGpgKeyEndpoint = {
-  gpg_key_id: number;
+type UsersGetGpgKeyEndpoint = {};
+type UsersGetGpgKeyRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type UsersDeleteGpgKeyEndpoint = {};
 type UsersDeleteGpgKeyRequestOptions = {
   method: "DELETE";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersListPublicKeysForUserEndpoint = {
-  username: string;
-  per_page?: number;
-  page?: number;
-};
-type UsersListPublicKeysForUserRequestOptions = {
+type AppsListInstallationsForAuthenticatedUserEndpoint = {};
+type AppsListInstallationsForAuthenticatedUserRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersListPublicKeysEndpoint = {
-  per_page?: number;
-  page?: number;
+type AppsListInstallationReposForAuthenticatedUserEndpoint = {};
+type AppsListInstallationReposForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type AppsAddRepoToInstallationEndpoint = {};
+type AppsAddRepoToInstallationRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsRemoveRepoFromInstallationEndpoint = {};
+type AppsRemoveRepoFromInstallationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type IssuesListForAuthenticatedUserEndpoint = {};
+type IssuesListForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListPublicKeysEndpoint = {};
 type UsersListPublicKeysRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersGetPublicKeyEndpoint = {
-  key_id: number;
-};
-type UsersGetPublicKeyRequestOptions = {
-  method: "GET";
-  url: Url;
-  headers: Headers;
-  request: EndpointRequestOptions;
-};
-type UsersCreatePublicKeyEndpoint = {
-  title?: string;
-  key?: string;
-};
+type UsersCreatePublicKeyEndpoint = {};
 type UsersCreatePublicKeyRequestOptions = {
   method: "POST";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
 };
-type UsersDeletePublicKeyEndpoint = {
-  key_id: number;
+type UsersGetPublicKeyEndpoint = {};
+type UsersGetPublicKeyRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
 };
+type UsersDeletePublicKeyEndpoint = {};
 type UsersDeletePublicKeyRequestOptions = {
   method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsListMarketplacePurchasesForAuthenticatedUserEndpoint = {};
+type AppsListMarketplacePurchasesForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsListMarketplacePurchasesForAuthenticatedUserStubbedEndpoint = {};
+type AppsListMarketplacePurchasesForAuthenticatedUserStubbedRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsListMembershipsEndpoint = {};
+type OrgsListMembershipsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsGetMembershipForAuthenticatedUserEndpoint = {};
+type OrgsGetMembershipForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsUpdateMembershipEndpoint = {};
+type OrgsUpdateMembershipRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsStartForAuthenticatedUserEndpoint = {};
+type MigrationsStartForAuthenticatedUserRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsListForAuthenticatedUserEndpoint = {};
+type MigrationsListForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsGetStatusForAuthenticatedUserEndpoint = {};
+type MigrationsGetStatusForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsGetArchiveForAuthenticatedUserEndpoint = {};
+type MigrationsGetArchiveForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsDeleteArchiveForAuthenticatedUserEndpoint = {};
+type MigrationsDeleteArchiveForAuthenticatedUserRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type MigrationsUnlockRepoForAuthenticatedUserEndpoint = {};
+type MigrationsUnlockRepoForAuthenticatedUserRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsListForAuthenticatedUserEndpoint = {};
+type OrgsListForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ProjectsCreateForAuthenticatedUserEndpoint = {};
+type ProjectsCreateForAuthenticatedUserRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListPublicEmailsEndpoint = {};
+type UsersListPublicEmailsRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListEndpoint = {};
+type ReposListRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposCreateForAuthenticatedUserEndpoint = {};
+type ReposCreateForAuthenticatedUserRequestOptions = {
+  method: "POST";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListInvitationsForAuthenticatedUserEndpoint = {};
+type ReposListInvitationsForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposAcceptInvitationEndpoint = {};
+type ReposAcceptInvitationRequestOptions = {
+  method: "PATCH";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposDeclineInvitationEndpoint = {};
+type ReposDeclineInvitationRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListReposStarredByAuthenticatedUserEndpoint = {};
+type ActivityListReposStarredByAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityCheckStarringRepoEndpoint = {};
+type ActivityCheckStarringRepoRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityStarRepoEndpoint = {};
+type ActivityStarRepoRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityUnstarRepoEndpoint = {};
+type ActivityUnstarRepoRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListWatchedReposForAuthenticatedUserEndpoint = {};
+type ActivityListWatchedReposForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityCheckWatchingRepoLegacyEndpoint = {};
+type ActivityCheckWatchingRepoLegacyRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityWatchRepoLegacyEndpoint = {};
+type ActivityWatchRepoLegacyRequestOptions = {
+  method: "PUT";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityStopWatchingRepoLegacyEndpoint = {};
+type ActivityStopWatchingRepoLegacyRequestOptions = {
+  method: "DELETE";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type TeamsListForAuthenticatedUserEndpoint = {};
+type TeamsListForAuthenticatedUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListEndpoint = {};
+type UsersListRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersGetByUsernameEndpoint = {};
+type UsersGetByUsernameRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListEventsForUserEndpoint = {};
+type ActivityListEventsForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListEventsForOrgEndpoint = {};
+type ActivityListEventsForOrgRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListPublicEventsForUserEndpoint = {};
+type ActivityListPublicEventsForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListFollowersForUserEndpoint = {};
+type UsersListFollowersForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListFollowingForUserEndpoint = {};
+type UsersListFollowingForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersCheckFollowingForUserEndpoint = {};
+type UsersCheckFollowingForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type GistsListPublicForUserEndpoint = {};
+type GistsListPublicForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListGpgKeysForUserEndpoint = {};
+type UsersListGpgKeysForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersGetContextForUserEndpoint = {};
+type UsersGetContextForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsGetUserInstallationEndpoint = {};
+type AppsGetUserInstallationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type AppsFindUserInstallationEndpoint = {};
+type AppsFindUserInstallationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type UsersListPublicKeysForUserEndpoint = {};
+type UsersListPublicKeysForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsListForUserEndpoint = {};
+type OrgsListForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ProjectsListForUserEndpoint = {};
+type ProjectsListForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListReceivedEventsForUserEndpoint = {};
+type ActivityListReceivedEventsForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListReceivedPublicEventsForUserEndpoint = {};
+type ActivityListReceivedPublicEventsForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ReposListForUserEndpoint = {};
+type ReposListForUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListReposStarredByUserEndpoint = {};
+type ActivityListReposStarredByUserRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type ActivityListReposWatchedByUserEndpoint = {};
+type ActivityListReposWatchedByUserRequestOptions = {
+  method: "GET";
   url: Url;
   headers: Headers;
   request: EndpointRequestOptions;
