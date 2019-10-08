@@ -82,7 +82,7 @@ The resulting `requestOptions` looks as follows
 }
 ```
 
-You can pass `requestOptions` to commen request libraries
+You can pass `requestOptions` to common request libraries
 
 ```js
 const { url, ...options } = requestOptions;
