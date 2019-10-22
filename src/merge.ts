@@ -1,11 +1,12 @@
-import { Defaults, Route, Parameters } from "./types";
+import { EndpointDefaults, RequestParameters, Route } from "@octokit/types";
+
 import { lowercaseKeys } from "./util/lowercase-keys";
 import { mergeDeep } from "./util/merge-deep";
 
 export function merge(
-  defaults: Defaults | null,
-  route?: Route | Parameters,
-  options?: Parameters
+  defaults: EndpointDefaults | null,
+  route?: Route | RequestParameters,
+  options?: RequestParameters
 ) {
   if (typeof route === "string") {
     let [method, url] = route.split(" ");
@@ -17,7 +18,7 @@ export function merge(
   // lowercase header names before merging with defaults to avoid duplicates
   options.headers = lowercaseKeys(options.headers);
 
-  const mergedOptions = mergeDeep(defaults || {}, options) as Defaults;
+  const mergedOptions = mergeDeep(defaults || {}, options) as EndpointDefaults;
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {

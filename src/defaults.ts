@@ -1,11 +1,13 @@
 import { getUserAgent } from "universal-user-agent";
+import { EndpointDefaults } from "@octokit/types";
 
-import { Defaults } from "./types";
 import { VERSION } from "./version";
 
 const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
-export const DEFAULTS: Defaults = {
+// DEFAULTS has all properties set that EndpointOptions has, except url.
+// So we use RequestParameters and add method as additional required property.
+export const DEFAULTS: EndpointDefaults = {
   method: "GET",
   baseUrl: "https://api.github.com",
   headers: {
