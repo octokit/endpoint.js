@@ -1,12 +1,17 @@
+import {
+  EndpointDefaults,
+  RequestMethod,
+  RequestOptions
+} from "@octokit/types";
+
 import { addQueryParameters } from "./util/add-query-parameters";
 import { extractUrlVariableNames } from "./util/extract-url-variable-names";
 import { omit } from "./util/omit";
-import { Defaults, Method, RequestOptions } from "./types";
 import { parseUrl } from "./util/url-template";
 
-export function parse(options: Defaults): RequestOptions {
+export function parse(options: EndpointDefaults): RequestOptions {
   // https://fetch.spec.whatwg.org/#methods
-  let method = options.method.toUpperCase() as Method;
+  let method = options.method.toUpperCase() as RequestMethod;
 
   // replace :varname with {varname} to make it RFC 6570 compatible
   let url = (options.url || "/").replace(/:([a-z]\w+)/g, "{+$1}");

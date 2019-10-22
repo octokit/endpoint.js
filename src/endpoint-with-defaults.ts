@@ -1,11 +1,13 @@
+import { EndpointOptions, RequestParameters, Route } from "@octokit/types";
+
+import { DEFAULTS } from "./defaults";
 import { merge } from "./merge";
 import { parse } from "./parse";
-import { Defaults, Endpoint, Route, Parameters } from "./types";
 
 export function endpointWithDefaults(
-  defaults: Defaults,
-  route: Route | Endpoint,
-  options?: Parameters
+  defaults: typeof DEFAULTS,
+  route: Route | EndpointOptions,
+  options?: RequestParameters
 ) {
   return parse(merge(defaults, route, options));
 }

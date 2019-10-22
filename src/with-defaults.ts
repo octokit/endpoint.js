@@ -1,12 +1,17 @@
+import {
+  EndpointInterface,
+  RequestParameters,
+  EndpointDefaults
+} from "@octokit/types";
+
 import { endpointWithDefaults } from "./endpoint-with-defaults";
 import { merge } from "./merge";
 import { parse } from "./parse";
-import { Defaults, endpoint, Parameters } from "./types";
 
 export function withDefaults(
-  oldDefaults: Defaults | null,
-  newDefaults: Parameters
-): endpoint {
+  oldDefaults: EndpointDefaults | null,
+  newDefaults: RequestParameters
+): EndpointInterface {
   const DEFAULTS = merge(oldDefaults, newDefaults);
   const endpoint = endpointWithDefaults.bind(null, DEFAULTS);
 
