@@ -1,5 +1,6 @@
+import { EndpointOptions, EndpointDefaults } from "@octokit/types";
+
 import { endpoint } from "../src";
-import { Defaults, Endpoint } from "../src/types";
 
 describe("endpoint.parse()", () => {
   it("is a function", () => {
@@ -7,7 +8,7 @@ describe("endpoint.parse()", () => {
   });
 
   it("README example", () => {
-    const input: Endpoint = {
+    const input: EndpointOptions = {
       method: "GET",
       url: "/orgs/:org/repos",
       org: "octokit",
@@ -34,7 +35,7 @@ describe("endpoint.parse()", () => {
   });
 
   it("does not alter input options", () => {
-    const input: Defaults = {
+    const input: EndpointDefaults = {
       baseUrl: "https://api.github.com/v3",
       method: "GET",
       url: "/",
