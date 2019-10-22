@@ -7,9 +7,6 @@
   "description": "Turns REST API endpoints into generic request options",
   "scripts": {
     "build": "pika build",
-    "update-endpoints": "npm-run-all update-endpoints:*",
-    "update-endpoints:fetch-json": "node scripts/update-endpoints/fetch-json",
-    "update-endpoints:typescript": "node scripts/update-endpoints/typescript",
     "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json !src/generated/*.ts !scripts/routes.ts.template",
     "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json !src/generated/*.ts !scripts/routes.ts.template",
     "pretest": "npm run -s lint",
