@@ -17,6 +17,22 @@ describe("endpoint.parse()", () => {
     expect(endpoint(input)).toEqual(endpoint.parse(endpoint.merge(input)));
   });
 
+  it("defaults url to ''", () => {
+    const { url } = endpoint.parse({
+      method: "GET",
+      baseUrl: "https://example.com",
+      headers: {
+        accept: "foo",
+        "user-agent": "bar"
+      },
+      mediaType: {
+        format: "",
+        previews: []
+      }
+    });
+    expect(url).toEqual("https://example.com/");
+  });
+
   it("does not alter input options", () => {
     const input: Defaults = {
       baseUrl: "https://api.github.com/v3",
