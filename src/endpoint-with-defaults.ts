@@ -1,6 +1,6 @@
 import { merge } from "./merge";
 import { parse } from "./parse";
-import { Defaults, Endpoint, RequestOptions, Route, Parameters } from "./types";
+import { Defaults, Endpoint, Route, Parameters } from "./types";
 
 export function endpointWithDefaults(
   defaults: Defaults,

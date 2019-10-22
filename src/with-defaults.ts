@@ -1,7 +1,7 @@
 import { endpointWithDefaults } from "./endpoint-with-defaults";
 import { merge } from "./merge";
 import { parse } from "./parse";
-import { Endpoint, Defaults, endpoint, Route, Parameters } from "./types";
+import { Defaults, endpoint, Parameters } from "./types";
 
 export function withDefaults(
   oldDefaults: Defaults | null,
