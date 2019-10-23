@@ -3139,6 +3139,45 @@
     ]
   },
   {
+    "name": "List installations for an organization",
+    "scope": "orgs",
+    "id": "listInstallations",
+    "method": "GET",
+    "url": "/orgs/{org}/installations",
+    "parameters": [
+      {
+        "alias": null,
+        "allowNull": false,
+        "deprecated": null,
+        "description": "org parameter",
+        "enum": null,
+        "name": "org",
+        "type": "string",
+        "required": true
+      },
+      {
+        "alias": null,
+        "allowNull": false,
+        "deprecated": null,
+        "description": "Results per page (max 100)",
+        "enum": null,
+        "name": "per_page",
+        "type": "integer",
+        "required": false
+      },
+      {
+        "alias": null,
+        "allowNull": false,
+        "deprecated": null,
+        "description": "Page number of the results to fetch.",
+        "enum": null,
+        "name": "page",
+        "type": "integer",
+        "required": false
+      }
+    ]
+  },
+  {
     "name": "Get interaction restrictions for an organization",
     "scope": "interactions",
     "id": "getRestrictionsForOrg",
@@ -10114,7 +10153,7 @@
         "alias": null,
         "allowNull": false,
         "deprecated": null,
-        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.",
+        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.",
         "enum": null,
         "name": "committer.email",
         "type": "string",
@@ -10144,7 +10183,7 @@
         "alias": null,
         "allowNull": false,
         "deprecated": null,
-        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.",
+        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.",
         "enum": null,
         "name": "author.email",
         "type": "string",
@@ -10253,7 +10292,7 @@
         "alias": null,
         "allowNull": false,
         "deprecated": null,
-        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.",
+        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.",
         "enum": null,
         "name": "committer.email",
         "type": "string",
@@ -10283,7 +10322,7 @@
         "alias": null,
         "allowNull": false,
         "deprecated": null,
-        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.",
+        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.",
         "enum": null,
         "name": "author.email",
         "type": "string",
@@ -10392,7 +10431,7 @@
         "alias": null,
         "allowNull": false,
         "deprecated": null,
-        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.",
+        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.",
         "enum": null,
         "name": "committer.email",
         "type": "string",
@@ -10422,7 +10461,7 @@
         "alias": null,
         "allowNull": false,
         "deprecated": null,
-        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `name` is omitted.",
+        "description": "The email of the author or committer of the commit. You'll receive a `422` status code if `email` is omitted.",
         "enum": null,
         "name": "author.email",
         "type": "string",
@@ -11125,6 +11164,16 @@
         "enum": null,
         "name": "event_type",
         "type": "string",
+        "required": false
+      },
+      {
+        "alias": null,
+        "allowNull": false,
+        "deprecated": null,
+        "description": "JSON payload with extra information about the webhook event that your action or worklow may use.",
+        "enum": null,
+        "name": "client_payload",
+        "type": "object",
         "required": false
       }
     ]
@@ -12141,9 +12190,9 @@
       },
       {
         "alias": null,
-        "allowNull": false,
+        "allowNull": true,
         "deprecated": null,
-        "description": "The SHA1 checksum ID of the object in the tree. Also called `tree.sha`.  \n  \n**Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.",
+        "description": "The SHA1 checksum ID of the object in the tree. Also called `tree.sha`. If the value is `null` then the file will be deleted.  \n  \n**Note:** Use either `tree.sha` or `content` to specify the contents of the entry. Using both `tree.sha` and `content` will return an error.",
         "enum": null,
         "name": "tree[].sha",
         "type": "string",

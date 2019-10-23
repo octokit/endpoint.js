@@ -496,6 +496,10 @@ export interface Routes {
     AppsGetOrgInstallationEndpoint | AppsFindOrgInstallationEndpoint,
     AppsGetOrgInstallationRequestOptions | AppsFindOrgInstallationRequestOptions
   ];
+  "GET /orgs/:org/installations": [
+    OrgsListInstallationsEndpoint,
+    OrgsListInstallationsRequestOptions
+  ];
   "GET /orgs/:org/interaction-limits": [
     InteractionsGetRestrictionsForOrgEndpoint,
     InteractionsGetRestrictionsForOrgRequestOptions
@@ -2647,6 +2651,13 @@ type AppsGetOrgInstallationRequestOptions = {
 };
 type AppsFindOrgInstallationEndpoint = {};
 type AppsFindOrgInstallationRequestOptions = {
+  method: "GET";
+  url: Url;
+  headers: Headers;
+  request: EndpointRequestOptions;
+};
+type OrgsListInstallationsEndpoint = {};
+type OrgsListInstallationsRequestOptions = {
   method: "GET";
   url: Url;
   headers: Headers;
