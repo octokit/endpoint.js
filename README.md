@@ -16,7 +16,7 @@
   - [endpoint()](#endpointroute-options-or-endpointoptions)
   - [endpoint.defaults()](#endpointdefaults)
   - [endpoint.DEFAULTS](#endpointdefaults-1)
-  - [endpoint.merge()](#endpointmergeroute-options-or-endpointmergeoption)
+  - [endpoint.merge()](#endpointmergeroute-options-or-endpointmergeoptions)
   - [endpoint.parse()](#endpointparse)
 - [Special cases](#special-cases)
   - [The `data` parameter – set request body directly](#the-data-parameter--set-request-body-directly)
