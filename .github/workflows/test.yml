@@ -20,6 +20,6 @@ jobs:
       - name: Test with Node.js ${{ matrix.node_version }}
         uses: actions/setup-node@v1
         with:
-          version: ${{ matrix.node_version }}
+          node-version: ${{ matrix.node_version }}
       - run: npm ci
       - run: npm run test
