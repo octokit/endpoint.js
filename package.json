@@ -44,7 +44,7 @@
   "dependencies": {
     "@octokit/types": "^2.0.0",
     "is-plain-object": "^3.0.0",
-    "universal-user-agent": "^4.0.0"
+    "universal-user-agent": "^5.0.0"
   },
   "release": {
     "plugins": [
