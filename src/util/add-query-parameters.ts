@@ -13,14 +13,10 @@ export function addQueryParameters(
     url +
     separator +
     names
-      .map(name => {
+      .map((name) => {
         if (name === "q") {
           return (
-            "q=" +
-            parameters
-              .q!.split("+")
-              .map(encodeURIComponent)
-              .join("+")
+            "q=" + parameters.q!.split("+").map(encodeURIComponent).join("+")
           );
         }
 

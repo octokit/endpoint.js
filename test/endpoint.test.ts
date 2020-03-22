@@ -17,7 +17,7 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/orgs/:org/repos",
       org: "octokit",
-      type: "private"
+      type: "private",
     });
 
     expect(options).toEqual({
@@ -25,15 +25,15 @@ describe("endpoint()", () => {
       url: "https://api.github.com/orgs/octokit/repos?type=private",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
   it("Pass route string as first argument", () => {
     const options = endpoint("GET /orgs/:org/repos", {
       org: "octokit",
-      type: "private"
+      type: "private",
     });
 
     expect(options).toEqual({
@@ -41,8 +41,8 @@ describe("endpoint()", () => {
       url: "https://api.github.com/orgs/octokit/repos?type=private",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -54,8 +54,8 @@ describe("endpoint()", () => {
       url: "https://api.github.com/",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -63,8 +63,8 @@ describe("endpoint()", () => {
     const options = endpoint("GET /", {
       headers: {
         // also test that header keys GET lowercased
-        "User-Agent": "my-app/1.2.3"
-      }
+        "User-Agent": "my-app/1.2.3",
+      },
     });
 
     expect(options).toEqual({
@@ -72,8 +72,8 @@ describe("endpoint()", () => {
       url: "https://api.github.com/",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": "my-app/1.2.3"
-      }
+        "user-agent": "my-app/1.2.3",
+      },
     });
   });
 
@@ -88,8 +88,8 @@ describe("endpoint()", () => {
         "https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -98,13 +98,13 @@ describe("endpoint()", () => {
       owner: "octocat",
       repo: "hello-world",
       headers: {
-        accept: "text/html;charset=utf-8"
+        accept: "text/html;charset=utf-8",
       },
       title: "Found a bug",
       body: "I'm having a problem with this.",
       assignees: ["octocat"],
       milestone: 1,
-      labels: ["bug"]
+      labels: ["bug"],
     });
 
     expect(options).toEqual({
@@ -113,25 +113,25 @@ describe("endpoint()", () => {
       headers: {
         accept: "text/html;charset=utf-8",
         "content-type": "application/json; charset=utf-8",
-        "user-agent": userAgent
+        "user-agent": userAgent,
       },
       body: {
         assignees: ["octocat"],
         body: "I'm having a problem with this.",
         labels: ["bug"],
         milestone: 1,
-        title: "Found a bug"
-      }
+        title: "Found a bug",
+      },
     });
   });
 
   it("Put without request body", () => {
     const options = endpoint("PUT /user/starred/:owner/:repo", {
       headers: {
-        authorization: `token 0000000000000000000000000000000000000001`
+        authorization: `token 0000000000000000000000000000000000000001`,
       },
       owner: "octocat",
-      repo: "hello-world"
+      repo: "hello-world",
     });
 
     expect(options).toEqual({
@@ -141,9 +141,9 @@ describe("endpoint()", () => {
         authorization: `token 0000000000000000000000000000000000000001`,
         accept: "application/vnd.github.v3+json",
         "content-length": 0,
-        "user-agent": userAgent
+        "user-agent": userAgent,
       },
-      body: ""
+      body: "",
     });
   });
 
@@ -156,9 +156,9 @@ describe("endpoint()", () => {
         headers: {
           "content-type": "text/plain",
           "content-length": 14,
-          authorization: `token 0000000000000000000000000000000000000001`
+          authorization: `token 0000000000000000000000000000000000000001`,
         },
-        data: "Hello, world!"
+        data: "Hello, world!",
       }
     );
 
@@ -171,15 +171,15 @@ describe("endpoint()", () => {
         authorization: `token 0000000000000000000000000000000000000001`,
         "content-type": "text/plain",
         "content-length": 14,
-        "user-agent": userAgent
+        "user-agent": userAgent,
       },
-      body: "Hello, world!"
+      body: "Hello, world!",
     });
   });
 
   it("URL with query parameter and aditional options", () => {
     const options = endpoint("GET /orgs/octokit/repos?access_token=abc4567", {
-      type: "private"
+      type: "private",
     });
 
     expect(options).toEqual({
@@ -188,8 +188,8 @@ describe("endpoint()", () => {
         "https://api.github.com/orgs/octokit/repos?access_token=abc4567&type=private",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -198,8 +198,8 @@ describe("endpoint()", () => {
       data: "Hello world github/linguist#1 **cool**, and #1!",
       headers: {
         accept: "text/html;charset=utf-8",
-        "content-type": "text/plain"
-      }
+        "content-type": "text/plain",
+      },
     });
 
     expect(options).toEqual({
@@ -208,15 +208,15 @@ describe("endpoint()", () => {
       headers: {
         accept: "text/html;charset=utf-8",
         "content-type": "text/plain",
-        "user-agent": userAgent
+        "user-agent": userAgent,
       },
-      body: "Hello world github/linguist#1 **cool**, and #1!"
+      body: "Hello world github/linguist#1 **cool**, and #1!",
     });
   });
 
   it("Encode q parameter", () => {
     const options = endpoint("GET /search/issues", {
-      q: "location:Jyväskylä"
+      q: "location:Jyväskylä",
     });
 
     expect(options).toEqual({
@@ -225,16 +225,16 @@ describe("endpoint()", () => {
         "https://api.github.com/search/issues?q=location%3AJyv%C3%A4skyl%C3%A4",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
   it("request parameter", () => {
     const options = endpoint("GET /", {
       request: {
-        timeout: 100
-      }
+        timeout: 100,
+      },
     });
 
     expect(options).toEqual({
@@ -242,19 +242,19 @@ describe("endpoint()", () => {
       url: "https://api.github.com/",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
+        "user-agent": userAgent,
       },
       request: {
-        timeout: 100
-      }
+        timeout: 100,
+      },
     });
   });
 
   it("request.agent", () => {
     const options = endpoint("GET /", {
       request: {
-        agent: new Agent()
-      }
+        agent: new Agent(),
+      },
     });
 
     expect(options.request!.agent).toBeInstanceOf(Agent);
@@ -273,11 +273,11 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
-        format: "raw"
+        format: "raw",
       },
       owner: "octokit",
       repo: "endpoint.js",
-      number: 123
+      number: 123,
     });
 
     expect(options).toEqual({
@@ -285,8 +285,8 @@ describe("endpoint()", () => {
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
         accept: "application/vnd.github.v3.raw",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -295,11 +295,11 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
-        previews: ["symmetra"]
+        previews: ["symmetra"],
       },
       owner: "octokit",
       repo: "endpoint.js",
-      number: 123
+      number: 123,
     });
 
     expect(options).toEqual({
@@ -307,8 +307,8 @@ describe("endpoint()", () => {
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
         accept: "application/vnd.github.symmetra-preview+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -317,11 +317,11 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
-        previews: ["jean-grey-preview", "symmetra-preview"]
+        previews: ["jean-grey-preview", "symmetra-preview"],
       },
       owner: "octokit",
       repo: "endpoint.js",
-      number: 123
+      number: 123,
     });
 
     expect(options).toEqual({
@@ -330,8 +330,8 @@ describe("endpoint()", () => {
       headers: {
         accept:
           "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -341,11 +341,11 @@ describe("endpoint()", () => {
       url: "/repos/:owner/:repo/issues/:number",
       mediaType: {
         format: "raw",
-        previews: ["symmetra"]
+        previews: ["symmetra"],
       },
       owner: "octokit",
       repo: "endpoint.js",
-      number: 123
+      number: 123,
     });
 
     expect(options).toEqual({
@@ -353,8 +353,8 @@ describe("endpoint()", () => {
       url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
       headers: {
         accept: "application/vnd.github.symmetra-preview.raw",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -363,15 +363,15 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/repos/:owner/:repo/issues/:number",
       headers: {
-        accept: "application/vnd.foo-preview,application/vnd.bar-preview"
+        accept: "application/vnd.foo-preview,application/vnd.bar-preview",
       },
       mediaType: {
         format: "raw",
-        previews: ["symmetra"]
+        previews: ["symmetra"],
       },
       owner: "octokit",
       repo: "endpoint.js",
-      number: 123
+      number: 123,
     });
 
     expect(options).toEqual({
@@ -380,8 +380,8 @@ describe("endpoint()", () => {
       headers: {
         accept:
           "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.symmetra-preview.raw",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
@@ -390,14 +390,14 @@ describe("endpoint()", () => {
       method: "GET",
       url: "/repos/:owner/:repo/releases/assets/:asset_id",
       headers: {
-        accept: "application/octet-stream"
+        accept: "application/octet-stream",
       },
       mediaType: {
-        previews: ["symmetra"]
+        previews: ["symmetra"],
       },
       owner: "octokit",
       repo: "endpoint.js",
-      asset_id: 123
+      asset_id: 123,
     });
 
     expect(options).toEqual({
@@ -406,8 +406,8 @@ describe("endpoint()", () => {
         "https://api.github.com/repos/octokit/endpoint.js/releases/assets/123",
       headers: {
         accept: "application/octet-stream",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 });

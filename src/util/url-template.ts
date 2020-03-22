@@ -31,11 +31,9 @@
 function encodeReserved(str: string): string {
   return str
     .split(/(%[0-9A-Fa-f]{2})/g)
-    .map(function(part) {
+    .map(function (part) {
       if (!/%[0-9A-Fa-f]/.test(part)) {
-        part = encodeURI(part)
-          .replace(/%5B/g, "[")
-          .replace(/%5D/g, "]");
+        part = encodeURI(part).replace(/%5B/g, "[").replace(/%5D/g, "]");
       }
       return part;
     })
@@ -43,14 +41,8 @@ function encodeReserved(str: string): string {
 }
 
 function encodeUnreserved(str: string): string {
-  return encodeURIComponent(str).replace(/[!'()*]/g, function(c) {
-    return (
-      "%" +
-      c
-        .charCodeAt(0)
-        .toString(16)
-        .toUpperCase()
-    );
+  return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
+    return "%" + c.charCodeAt(0).toString(16).toUpperCase();
   });
 }
 
@@ -106,13 +98,13 @@ function getValues(
     } else {
       if (modifier === "*") {
         if (Array.isArray(value)) {
-          value.filter(isDefined).forEach(function(value) {
+          value.filter(isDefined).forEach(function (value) {
             result.push(
               encodeValue(operator, value, isKeyOperator(operator) ? key : "")
             );
           });
         } else {
-          Object.keys(value).forEach(function(k) {
+          Object.keys(value).forEach(function (k) {
             if (isDefined(value[k])) {
               result.push(encodeValue(operator, value[k], k));
             }
@@ -122,11 +114,11 @@ function getValues(
         const tmp: string[] = [];
 
         if (Array.isArray(value)) {
-          value.filter(isDefined).forEach(function(value) {
+          value.filter(isDefined).forEach(function (value) {
             tmp.push(encodeValue(operator, value));
           });
         } else {
-          Object.keys(value).forEach(function(k) {
+          Object.keys(value).forEach(function (k) {
             if (isDefined(value[k])) {
               tmp.push(encodeUnreserved(k));
               tmp.push(encodeValue(operator, value[k].toString()));
@@ -157,14 +149,14 @@ function getValues(
 
 export function parseUrl(template: string) {
   return {
-    expand: expand.bind(null, template)
+    expand: expand.bind(null, template),
   };
 }
 
 function expand(template: string, context: object): string {
   var operators = ["+", "#", ".", "/", ";", "?", "&"];
 
-  return template.replace(/\{([^\{\}]+)\}|([^\{\}]+)/g, function(
+  return template.replace(/\{([^\{\}]+)\}|([^\{\}]+)/g, function (
     _,
     expression,
     literal
@@ -178,7 +170,7 @@ function expand(template: string, context: object): string {
         expression = expression.substr(1);
       }
 
-      expression.split(/,/g).forEach(function(variable: string) {
+      expression.split(/,/g).forEach(function (variable: string) {
         var tmp = /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable) as string[];
         values.push(getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
       });

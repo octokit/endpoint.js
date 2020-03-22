@@ -13,32 +13,32 @@ describe("endpoint.merge()", () => {
     const myProjectEndpoint = endpoint.defaults({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       headers: {
-        "user-agent": "myApp/1.2.3"
+        "user-agent": "myApp/1.2.3",
       },
-      org: "my-project"
+      org: "my-project",
     });
     const options = myProjectEndpoint.merge("GET /orgs/:org/repos", {
       headers: {
-        authorization: `token 0000000000000000000000000000000000000001`
+        authorization: `token 0000000000000000000000000000000000000001`,
       },
-      type: "private"
+      type: "private",
     });
 
     expect(options).toEqual({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       mediaType: {
         format: "",
-        previews: []
+        previews: [],
       },
       method: "GET",
       url: "/orgs/:org/repos",
       headers: {
         accept: "application/vnd.github.v3+json",
         authorization: `token 0000000000000000000000000000000000000001`,
-        "user-agent": "myApp/1.2.3"
+        "user-agent": "myApp/1.2.3",
       },
       org: "my-project",
-      type: "private"
+      type: "private",
     });
   });
 
@@ -46,14 +46,14 @@ describe("endpoint.merge()", () => {
     const myProjectEndpoint = endpoint.defaults({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       headers: {
-        "user-agent": "myApp/1.2.3"
+        "user-agent": "myApp/1.2.3",
       },
-      org: "my-project"
+      org: "my-project",
     });
     const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
       headers: {
-        authorization: `token 0000000000000000000000000000000000000001`
-      }
+        authorization: `token 0000000000000000000000000000000000000001`,
+      },
     });
 
     const options = myProjectEndpointWithAuth.merge(`GET /orgs/:org/repos`);
@@ -62,16 +62,16 @@ describe("endpoint.merge()", () => {
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       mediaType: {
         format: "",
-        previews: []
+        previews: [],
       },
       method: "GET",
       url: "/orgs/:org/repos",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
-        authorization: `token 0000000000000000000000000000000000000001`
+        authorization: `token 0000000000000000000000000000000000000001`,
       },
-      org: "my-project"
+      org: "my-project",
     });
   });
 
@@ -81,27 +81,27 @@ describe("endpoint.merge()", () => {
       baseUrl: "https://api.github.com",
       mediaType: {
         format: "",
-        previews: []
+        previews: [],
       },
       method: "GET",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": userAgent
-      }
+        "user-agent": userAgent,
+      },
     });
   });
 
   it("does not mutate the route param", () => {
     const route = {
       owner: "octokit",
-      repo: "endpoint.js"
+      repo: "endpoint.js",
     };
 
     endpoint.merge(route);
 
     expect(route).toStrictEqual({
       owner: "octokit",
-      repo: "endpoint.js"
+      repo: "endpoint.js",
     });
   });
 
@@ -110,8 +110,8 @@ describe("endpoint.merge()", () => {
       owner: "octokit",
       repo: "endpoint.js",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     };
 
     endpoint.merge(route);
@@ -120,8 +120,8 @@ describe("endpoint.merge()", () => {
       owner: "octokit",
       repo: "endpoint.js",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
   });
 });

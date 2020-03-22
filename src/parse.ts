@@ -1,7 +1,7 @@
 import {
   EndpointDefaults,
   RequestMethod,
-  RequestOptions
+  RequestOptions,
 } from "@octokit/types";
 
 import { addQueryParameters } from "./util/add-query-parameters";
@@ -23,7 +23,7 @@ export function parse(options: EndpointDefaults): RequestOptions {
     "url",
     "headers",
     "request",
-    "mediaType"
+    "mediaType",
   ]);
 
   // extract variable names from URL to calculate remaining variables later
@@ -36,7 +36,7 @@ export function parse(options: EndpointDefaults): RequestOptions {
   }
 
   const omittedParameters = Object.keys(options)
-    .filter(option => urlVariableNames.includes(option))
+    .filter((option) => urlVariableNames.includes(option))
     .concat("baseUrl");
   const remainingParameters = omit(parameters, omittedParameters);
 
@@ -47,7 +47,7 @@ export function parse(options: EndpointDefaults): RequestOptions {
       // e.g. application/vnd.github.v3+json => application/vnd.github.v3.raw
       headers.accept = headers.accept
         .split(/,/)
-        .map(preview =>
+        .map((preview) =>
           preview.replace(
             /application\/vnd(\.\w+)(\.v3)?(\.\w+)?(\+json)?$/,
             `application/vnd$1$2.${options.mediaType.format}`
@@ -61,7 +61,7 @@ export function parse(options: EndpointDefaults): RequestOptions {
         headers.accept.match(/[\w-]+(?=-preview)/g) || [];
       headers.accept = previewsFromAcceptHeader
         .concat(options.mediaType.previews)
-        .map(preview => {
+        .map((preview) => {
           const format = options.mediaType.format
             ? `.${options.mediaType.format}`
             : "+json";

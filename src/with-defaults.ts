@@ -1,7 +1,7 @@
 import {
   EndpointInterface,
   RequestParameters,
-  EndpointDefaults
+  EndpointDefaults,
 } from "@octokit/types";
 
 import { endpointWithDefaults } from "./endpoint-with-defaults";
@@ -19,6 +19,6 @@ export function withDefaults(
     DEFAULTS,
     defaults: withDefaults.bind(null, DEFAULTS),
     merge: merge.bind(null, DEFAULTS),
-    parse
+    parse,
   });
 }

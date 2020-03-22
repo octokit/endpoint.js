@@ -10,10 +10,10 @@ describe("endpoint.defaults()", () => {
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       headers: {
         "user-agent": "myApp/1.2.3",
-        authorization: `token 0000000000000000000000000000000000000001`
+        authorization: `token 0000000000000000000000000000000000000001`,
       },
       org: "my-project",
-      per_page: 100
+      per_page: 100,
     });
 
     const options = myEndpoint(`GET /orgs/:org/repos`);
@@ -25,8 +25,8 @@ describe("endpoint.defaults()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
-        authorization: `token 0000000000000000000000000000000000000001`
-      }
+        authorization: `token 0000000000000000000000000000000000000001`,
+      },
     });
   });
 
@@ -34,14 +34,14 @@ describe("endpoint.defaults()", () => {
     const myProjectEndpoint = endpoint.defaults({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       headers: {
-        "user-agent": "myApp/1.2.3"
+        "user-agent": "myApp/1.2.3",
       },
-      org: "my-project"
+      org: "my-project",
     });
     const myProjectEndpointWithAuth = myProjectEndpoint.defaults({
       headers: {
-        authorization: `token 0000000000000000000000000000000000000001`
-      }
+        authorization: `token 0000000000000000000000000000000000000001`,
+      },
     });
 
     const options = myProjectEndpointWithAuth(`GET /orgs/:org/repos`);
@@ -53,15 +53,15 @@ describe("endpoint.defaults()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
-        authorization: `token 0000000000000000000000000000000000000001`
-      }
+        authorization: `token 0000000000000000000000000000000000000001`,
+      },
     });
   });
 
   it(".DEFAULTS", () => {
     expect(endpoint.DEFAULTS.baseUrl).toEqual("https://api.github.com");
     const myEndpoint = endpoint.defaults({
-      baseUrl: "https://github-enterprise.acme-inc.com/api/v3"
+      baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
     });
     expect(myEndpoint.DEFAULTS.baseUrl).toEqual(
       "https://github-enterprise.acme-inc.com/api/v3"
@@ -71,13 +71,13 @@ describe("endpoint.defaults()", () => {
   it(".defaults() merges options but does not yet parse", () => {
     const myEndpoint = endpoint.defaults({
       url: "/orgs/:org",
-      org: "test1"
+      org: "test1",
     });
     expect(myEndpoint.DEFAULTS.url).toEqual("/orgs/:org");
     expect(myEndpoint.DEFAULTS.org).toEqual("test1");
     const myEndpoint2 = myEndpoint.defaults({
       url: "/orgs/:org",
-      org: "test2"
+      org: "test2",
     });
     expect(myEndpoint2.DEFAULTS.url).toEqual("/orgs/:org");
     expect(myEndpoint2.DEFAULTS.org).toEqual("test2");
@@ -86,56 +86,56 @@ describe("endpoint.defaults()", () => {
   it(".defaults() sets mediatType.format", () => {
     const myEndpoint = endpoint.defaults({
       mediaType: {
-        format: "raw"
-      }
+        format: "raw",
+      },
     });
     expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "raw",
-      previews: []
+      previews: [],
     });
   });
 
   it(".defaults() merges mediatType.previews", () => {
     const myEndpoint = endpoint.defaults({
       mediaType: {
-        previews: ["foo"]
-      }
+        previews: ["foo"],
+      },
     });
     const myEndpoint2 = myEndpoint.defaults({
       mediaType: {
-        previews: ["bar"]
-      }
+        previews: ["bar"],
+      },
     });
 
     expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "",
-      previews: ["foo"]
+      previews: ["foo"],
     });
     expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
       format: "",
-      previews: ["foo", "bar"]
+      previews: ["foo", "bar"],
     });
   });
 
   it('.defaults() merges mediatType.previews with "-preview" suffix', () => {
     const myEndpoint = endpoint.defaults({
       mediaType: {
-        previews: ["foo-preview"]
-      }
+        previews: ["foo-preview"],
+      },
     });
     const myEndpoint2 = myEndpoint.defaults({
       mediaType: {
-        previews: ["bar-preview"]
-      }
+        previews: ["bar-preview"],
+      },
     });
 
     expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "",
-      previews: ["foo"]
+      previews: ["foo"],
     });
     expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
       format: "",
-      previews: ["foo", "bar"]
+      previews: ["foo", "bar"],
     });
   });
 });

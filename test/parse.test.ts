@@ -12,7 +12,7 @@ describe("endpoint.parse()", () => {
       method: "GET",
       url: "/orgs/:org/repos",
       org: "octokit",
-      type: "private"
+      type: "private",
     };
 
     expect(endpoint(input)).toEqual(endpoint.parse(endpoint.merge(input)));
@@ -24,12 +24,12 @@ describe("endpoint.parse()", () => {
       baseUrl: "https://example.com",
       headers: {
         accept: "foo",
-        "user-agent": "bar"
+        "user-agent": "bar",
       },
       mediaType: {
         format: "",
-        previews: []
-      }
+        previews: [],
+      },
     });
     expect(url).toEqual("https://example.com/");
   });
@@ -41,12 +41,12 @@ describe("endpoint.parse()", () => {
       url: "/",
       headers: {
         accept: "application/vnd.github.v3+json",
-        "user-agent": "myApp v1.2.3"
+        "user-agent": "myApp v1.2.3",
       },
       mediaType: {
         format: "",
-        previews: ["foo", "bar"]
-      }
+        previews: ["foo", "bar"],
+      },
     };
 
     endpoint.parse(input);

@@ -12,10 +12,10 @@ export const DEFAULTS: EndpointDefaults = {
   baseUrl: "https://api.github.com",
   headers: {
     accept: "application/vnd.github.v3+json",
-    "user-agent": userAgent
+    "user-agent": userAgent,
   },
   mediaType: {
     format: "",
-    previews: [] as string[]
-  }
+    previews: [] as string[],
+  },
 };
