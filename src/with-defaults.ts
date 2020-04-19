@@ -15,10 +15,12 @@ export function withDefaults(
   const DEFAULTS = merge(oldDefaults, newDefaults);
   const endpoint = endpointWithDefaults.bind(null, DEFAULTS);
 
-  return Object.assign(endpoint, {
-    DEFAULTS,
-    defaults: withDefaults.bind(null, DEFAULTS),
-    merge: merge.bind(null, DEFAULTS),
-    parse,
-  });
+  return (
+    Object.assign(endpoint, {
+      DEFAULTS,
+      defaults: withDefaults.bind(null, DEFAULTS),
+      merge: merge.bind(null, DEFAULTS),
+      parse,
+    }) as EndpointInterface<typeof oldDefaults & typeof newDefaults>
+  );
 }
