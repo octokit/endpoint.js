@@ -40,9 +40,9 @@ export function parse(options: EndpointDefaults): RequestOptions {
     .concat("baseUrl");
   const remainingParameters = omit(parameters, omittedParameters);
 
-  const isBinaryRequset = /application\/octet-stream/i.test(headers.accept);
+  const isBinaryRequest = /application\/octet-stream/i.test(headers.accept);
 
-  if (!isBinaryRequset) {
+  if (!isBinaryRequest) {
     if (options.mediaType.format) {
       // e.g. application/vnd.github.v3+json => application/vnd.github.v3.raw
       headers.accept = headers.accept
