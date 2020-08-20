@@ -83,7 +83,7 @@ describe("endpoint.defaults()", () => {
     expect(myEndpoint2.DEFAULTS.org).toEqual("test2");
   });
 
-  it(".defaults() sets mediatType.format", () => {
+  it(".defaults() sets mediaType.format", () => {
     const myEndpoint = endpoint.defaults({
       mediaType: {
         format: "raw",
@@ -95,7 +95,7 @@ describe("endpoint.defaults()", () => {
     });
   });
 
-  it(".defaults() merges mediatType.previews", () => {
+  it(".defaults() merges mediaType.previews", () => {
     const myEndpoint = endpoint.defaults({
       mediaType: {
         previews: ["foo"],
@@ -117,7 +117,7 @@ describe("endpoint.defaults()", () => {
     });
   });
 
-  it('.defaults() merges mediatType.previews with "-preview" suffix', () => {
+  it('.defaults() merges mediaType.previews with "-preview" suffix', () => {
     const myEndpoint = endpoint.defaults({
       mediaType: {
         previews: ["foo-preview"],

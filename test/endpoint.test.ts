@@ -177,7 +177,7 @@ describe("endpoint()", () => {
     });
   });
 
-  it("URL with query parameter and aditional options", () => {
+  it("URL with query parameter and additional options", () => {
     const options = endpoint("GET /orgs/octokit/repos?access_token=abc4567", {
       type: "private",
     });
