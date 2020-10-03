@@ -427,4 +427,16 @@ describe("endpoint()", () => {
       },
     });
   });
+
+  it("Undefined header value", () => {
+    const options = endpoint({
+      method: "GET",
+      url: "/notifications",
+      headers: {
+        "if-modified-since": undefined,
+      },
+    });
+
+    expect(options).not.toHaveProperty("headers.if-modified-since");
+  });
 });
