@@ -3,7 +3,9 @@ export function addQueryParameters(
   parameters: { [x: string]: string | undefined; q?: string }
 ) {
   const separator = /\?/.test(url) ? "&" : "?";
-  const names = Object.keys(parameters);
+  const names = Object.keys(parameters).filter(
+    (name) => parameters[name] !== undefined
+  );
 
   if (names.length === 0) {
     return url;

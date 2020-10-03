@@ -410,4 +410,21 @@ describe("endpoint()", () => {
       },
     });
   });
+
+  it("Undefined query parameter", () => {
+    const options = endpoint({
+      method: "GET",
+      url: "/notifications",
+      before: undefined,
+    });
+
+    expect(options).toEqual({
+      method: "GET",
+      url: "https://api.github.com/notifications",
+      headers: {
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+  });
 });
