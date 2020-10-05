@@ -14,7 +14,7 @@ export function parse(options: EndpointDefaults): RequestOptions {
   let method = options.method.toUpperCase() as RequestMethod;
 
   // replace :varname with {varname} to make it RFC 6570 compatible
-  let url = (options.url || "/").replace(/:([a-z]\w+)/g, "{+$1}");
+  let url = (options.url || "/").replace(/:([a-z]\w+)/g, "{$1}");
   let headers = Object.assign({}, options.headers);
   let body: string | object | undefined;
   let parameters = omit(options, [
