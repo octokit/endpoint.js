@@ -2,6 +2,7 @@ import { EndpointDefaults, RequestParameters, Route } from "@octokit/types";
 
 import { lowercaseKeys } from "./util/lowercase-keys";
 import { mergeDeep } from "./util/merge-deep";
+import { removeUndefinedProperties } from "./util/remove-undefined-properties";
 
 export function merge(
   defaults: EndpointDefaults | null,
@@ -17,6 +18,10 @@ export function merge(
 
   // lowercase header names before merging with defaults to avoid duplicates
   options.headers = lowercaseKeys(options.headers);
+
+  // remove properties with undefined values before merging
+  removeUndefinedProperties(options);
+  removeUndefinedProperties(options.headers);
 
   const mergedOptions = mergeDeep(defaults || {}, options) as EndpointDefaults;
 
