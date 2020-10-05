@@ -93,6 +93,23 @@ describe("endpoint()", () => {
     });
   });
 
+  it("Should properly handle either placeholder format on url", () => {
+    const { url: url1 } = endpoint(
+      "GET /repos/{owner}/{repo}/contents/{path}",
+      {
+        owner: "owner",
+        repo: "repo",
+        path: "path/to/file.txt",
+      }
+    );
+    const { url: url2 } = endpoint("GET /repos/:owner/:repo/contents/:path", {
+      owner: "owner",
+      repo: "repo",
+      path: "path/to/file.txt",
+    });
+    expect(url1).toEqual(url2);
+  });
+
   it("Request body", () => {
     const options = endpoint("POST /repos/:owner/:repo/issues", {
       owner: "octocat",
