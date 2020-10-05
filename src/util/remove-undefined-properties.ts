@@ -1,9 +1,8 @@
 export function removeUndefinedProperties(obj: any): any {
-  const copy = Object.assign({}, obj);
-  for (const key in copy) {
-    if (copy[key] === undefined) {
-      delete copy[key];
+  for (const key in obj) {
+    if (obj[key] === undefined) {
+      delete obj[key];
     }
   }
-  return copy;
+  return obj;
 }

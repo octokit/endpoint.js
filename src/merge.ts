@@ -20,8 +20,8 @@ export function merge(
   options.headers = lowercaseKeys(options.headers);
 
   // remove properties with undefined values before merging
-  options.headers = removeUndefinedProperties(options.headers);
-  options = removeUndefinedProperties(options);
+  removeUndefinedProperties(options);
+  removeUndefinedProperties(options.headers);
 
   const mergedOptions = mergeDeep(defaults || {}, options) as EndpointDefaults;
 
