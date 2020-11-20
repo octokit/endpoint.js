@@ -156,39 +156,38 @@ export function parseUrl(template: string) {
 function expand(template: string, context: object): string {
   var operators = ["+", "#", ".", "/", ";", "?", "&"];
 
-  return template.replace(/\{([^\{\}]+)\}|([^\{\}]+)/g, function (
-    _,
-    expression,
-    literal
-  ) {
-    if (expression) {
-      let operator: string = "";
-      const values: string[][] = [];
+  return template.replace(
+    /\{([^\{\}]+)\}|([^\{\}]+)/g,
+    function (_, expression, literal) {
+      if (expression) {
+        let operator: string = "";
+        const values: string[][] = [];
 
-      if (operators.indexOf(expression.charAt(0)) !== -1) {
-        operator = expression.charAt(0);
-        expression = expression.substr(1);
-      }
-
-      expression.split(/,/g).forEach(function (variable: string) {
-        var tmp = /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable) as string[];
-        values.push(getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
-      });
-
-      if (operator && operator !== "+") {
-        var separator = ",";
-
-        if (operator === "?") {
-          separator = "&";
-        } else if (operator !== "#") {
-          separator = operator;
+        if (operators.indexOf(expression.charAt(0)) !== -1) {
+          operator = expression.charAt(0);
+          expression = expression.substr(1);
         }
-        return (values.length !== 0 ? operator : "") + values.join(separator);
+
+        expression.split(/,/g).forEach(function (variable: string) {
+          var tmp = /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable) as string[];
+          values.push(getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
+        });
+
+        if (operator && operator !== "+") {
+          var separator = ",";
+
+          if (operator === "?") {
+            separator = "&";
+          } else if (operator !== "#") {
+            separator = operator;
+          }
+          return (values.length !== 0 ? operator : "") + values.join(separator);
+        } else {
+          return values.join(",");
+        }
       } else {
-        return values.join(",");
+        return encodeReserved(literal);
       }
-    } else {
-      return encodeReserved(literal);
     }
-  });
+  );
 }
