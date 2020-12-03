@@ -17,7 +17,7 @@ describe("endpoint.merge()", () => {
       },
       org: "my-project",
     });
-    const options = myProjectEndpoint.merge("GET /orgs/:org/repos", {
+    const options = myProjectEndpoint.merge("GET /orgs/{org}/repos", {
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`,
       },
@@ -31,7 +31,7 @@ describe("endpoint.merge()", () => {
         previews: [],
       },
       method: "GET",
-      url: "/orgs/:org/repos",
+      url: "/orgs/{org}/repos",
       headers: {
         accept: "application/vnd.github.v3+json",
         authorization: `token 0000000000000000000000000000000000000001`,
@@ -56,7 +56,7 @@ describe("endpoint.merge()", () => {
       },
     });
 
-    const options = myProjectEndpointWithAuth.merge(`GET /orgs/:org/repos`);
+    const options = myProjectEndpointWithAuth.merge(`GET /orgs/{org}/repos`);
 
     expect(options).toEqual({
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
@@ -65,7 +65,7 @@ describe("endpoint.merge()", () => {
         previews: [],
       },
       method: "GET",
-      url: "/orgs/:org/repos",
+      url: "/orgs/{org}/repos",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",

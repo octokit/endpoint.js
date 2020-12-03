@@ -16,7 +16,7 @@ describe("endpoint.defaults()", () => {
       per_page: 100,
     });
 
-    const options = myEndpoint(`GET /orgs/:org/repos`);
+    const options = myEndpoint(`GET /orgs/{org}/repos`);
 
     expect(options).toEqual({
       method: "GET",
@@ -44,7 +44,7 @@ describe("endpoint.defaults()", () => {
       },
     });
 
-    const options = myProjectEndpointWithAuth(`GET /orgs/:org/repos`);
+    const options = myProjectEndpointWithAuth(`GET /orgs/{org}/repos`);
 
     expect(options).toEqual({
       method: "GET",
@@ -70,16 +70,16 @@ describe("endpoint.defaults()", () => {
 
   it(".defaults() merges options but does not yet parse", () => {
     const myEndpoint = endpoint.defaults({
-      url: "/orgs/:org",
+      url: "/orgs/{org}",
       org: "test1",
     });
-    expect(myEndpoint.DEFAULTS.url).toEqual("/orgs/:org");
+    expect(myEndpoint.DEFAULTS.url).toEqual("/orgs/{org}");
     expect(myEndpoint.DEFAULTS.org).toEqual("test1");
     const myEndpoint2 = myEndpoint.defaults({
-      url: "/orgs/:org",
+      url: "/orgs/{org}",
       org: "test2",
     });
-    expect(myEndpoint2.DEFAULTS.url).toEqual("/orgs/:org");
+    expect(myEndpoint2.DEFAULTS.url).toEqual("/orgs/{org}");
     expect(myEndpoint2.DEFAULTS.org).toEqual("test2");
   });
 

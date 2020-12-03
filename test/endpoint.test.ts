@@ -15,7 +15,7 @@ describe("endpoint()", () => {
   it("README example", () => {
     const options = endpoint({
       method: "GET",
-      url: "/orgs/:org/repos",
+      url: "/orgs/{org}/repos",
       org: "octokit",
       type: "private",
     });
@@ -31,7 +31,7 @@ describe("endpoint()", () => {
   });
 
   it("Pass route string as first argument", () => {
-    const options = endpoint("GET /orgs/:org/repos", {
+    const options = endpoint("GET /orgs/{org}/repos", {
       org: "octokit",
       type: "private",
     });
@@ -102,16 +102,19 @@ describe("endpoint()", () => {
         path: "path/to/file.txt",
       }
     );
-    const { url: url2 } = endpoint("GET /repos/:owner/:repo/contents/:path", {
-      owner: "owner",
-      repo: "repo",
-      path: "path/to/file.txt",
-    });
+    const { url: url2 } = endpoint(
+      "GET /repos/{owner}/{repo}/contents/{path}",
+      {
+        owner: "owner",
+        repo: "repo",
+        path: "path/to/file.txt",
+      }
+    );
     expect(url1).toEqual(url2);
   });
 
   it("Request body", () => {
-    const options = endpoint("POST /repos/:owner/:repo/issues", {
+    const options = endpoint("POST /repos/{owner}/{repo}/issues", {
       owner: "octocat",
       repo: "hello-world",
       headers: {
@@ -143,7 +146,7 @@ describe("endpoint()", () => {
   });
 
   it("Put without request body", () => {
-    const options = endpoint("PUT /user/starred/:owner/:repo", {
+    const options = endpoint("PUT /user/starred/{owner}/{repo}", {
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`,
       },
@@ -288,7 +291,7 @@ describe("endpoint()", () => {
   it("options.mediaType.format", () => {
     const options = endpoint({
       method: "GET",
-      url: "/repos/:owner/:repo/issues/:number",
+      url: "/repos/{owner}/{repo}/issues/{number}",
       mediaType: {
         format: "raw",
       },
@@ -310,7 +313,7 @@ describe("endpoint()", () => {
   it("options.mediaType.previews", () => {
     const options = endpoint({
       method: "GET",
-      url: "/repos/:owner/:repo/issues/:number",
+      url: "/repos/{owner}/{repo}/issues/{number}",
       mediaType: {
         previews: ["symmetra"],
       },
@@ -332,7 +335,7 @@ describe("endpoint()", () => {
   it("options.mediaType.previews with -preview suffix", () => {
     const options = endpoint({
       method: "GET",
-      url: "/repos/:owner/:repo/issues/:number",
+      url: "/repos/{owner}/{repo}/issues/{number}",
       mediaType: {
         previews: ["jean-grey-preview", "symmetra-preview"],
       },
@@ -355,7 +358,7 @@ describe("endpoint()", () => {
   it("options.mediaType.format + options.mediaType.previews", () => {
     const options = endpoint({
       method: "GET",
-      url: "/repos/:owner/:repo/issues/:number",
+      url: "/repos/{owner}/{repo}/issues/{number}",
       mediaType: {
         format: "raw",
         previews: ["symmetra"],
@@ -378,7 +381,7 @@ describe("endpoint()", () => {
   it("options.mediaType.format + options.mediaType.previews + accept header", () => {
     const options = endpoint({
       method: "GET",
-      url: "/repos/:owner/:repo/issues/:number",
+      url: "/repos/{owner}/{repo}/issues/{number}",
       headers: {
         accept: "application/vnd.foo-preview,application/vnd.bar-preview",
       },
@@ -405,7 +408,7 @@ describe("endpoint()", () => {
   it("application/octet-stream accept header + previews", () => {
     const options = endpoint({
       method: "GET",
-      url: "/repos/:owner/:repo/releases/assets/:asset_id",
+      url: "/repos/{owner}/{repo}/releases/assets/{asset_id}",
       headers: {
         accept: "application/octet-stream",
       },

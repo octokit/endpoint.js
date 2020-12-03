@@ -10,7 +10,7 @@ describe("endpoint.parse()", () => {
   it("README example", () => {
     const input: EndpointOptions = {
       method: "GET",
-      url: "/orgs/:org/repos",
+      url: "/orgs/{org}/repos",
       org: "octokit",
       type: "private",
     };
