@@ -92,5 +92,10 @@
         "@pika/plugin-build-web"
       ]
     ]
+  },
+  "renovate": {
+    "extends": [
+      "github>octokit/.github"
+    ]
   }
 }
