@@ -20,8 +20,7 @@ describe("endpoint.defaults()", () => {
 
     expect(options).toEqual({
       method: "GET",
-      url:
-        "https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos?per_page=100",
+      url: "https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos?per_page=100",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
@@ -48,8 +47,7 @@ describe("endpoint.defaults()", () => {
 
     expect(options).toEqual({
       method: "GET",
-      url:
-        "https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos",
+      url: "https://github-enterprise.acme-inc.com/api/v3/orgs/my-project/repos",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
