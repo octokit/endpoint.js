@@ -84,8 +84,7 @@ describe("endpoint()", () => {
 
     expect(options).toEqual({
       method: "GET",
-      url:
-        "https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master",
+      url: "https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
@@ -184,8 +183,7 @@ describe("endpoint()", () => {
 
     expect(options).toEqual({
       method: "POST",
-      url:
-        "https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets?name=example.zip&label=short%20description",
+      url: "https://uploads.github.com/repos/octocat/Hello-World/releases/1/assets?name=example.zip&label=short%20description",
       headers: {
         accept: "application/vnd.github.v3+json",
         authorization: `token 0000000000000000000000000000000000000001`,
@@ -204,8 +202,7 @@ describe("endpoint()", () => {
 
     expect(options).toEqual({
       method: "GET",
-      url:
-        "https://api.github.com/orgs/octokit/repos?access_token=abc4567&type=private",
+      url: "https://api.github.com/orgs/octokit/repos?access_token=abc4567&type=private",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
@@ -241,8 +238,7 @@ describe("endpoint()", () => {
 
     expect(options).toEqual({
       method: "GET",
-      url:
-        "https://api.github.com/search/issues?q=location%3AJyv%C3%A4skyl%C3%A4",
+      url: "https://api.github.com/search/issues?q=location%3AJyv%C3%A4skyl%C3%A4",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
@@ -422,8 +418,7 @@ describe("endpoint()", () => {
 
     expect(options).toEqual({
       method: "GET",
-      url:
-        "https://api.github.com/repos/octokit/endpoint.js/releases/assets/123",
+      url: "https://api.github.com/repos/octokit/endpoint.js/releases/assets/123",
       headers: {
         accept: "application/octet-stream",
         "user-agent": userAgent,
