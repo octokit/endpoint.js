@@ -1,4 +1,5 @@
-export function removeUndefinedProperties(obj: any): any {
+/** @param {any} obj */
+export function removeUndefinedProperties(obj) {
   for (const key in obj) {
     if (obj[key] === undefined) {
       delete obj[key];

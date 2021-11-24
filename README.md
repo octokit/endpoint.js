@@ -33,10 +33,10 @@
 Browsers
 </th><td width=100%>
 Load <code>@octokit/endpoint</code> directly from <a href="https://cdn.skypack.dev">cdn.skypack.dev</a>
-        
+
 ```html
 <script type="module">
-import { endpoint } from "https://cdn.skypack.dev/@octokit/endpoint";
+  import { endpoint } from "https://cdn.skypack.dev/@octokit/endpoint";
 </script>
 ```
 
@@ -48,8 +48,7 @@ Node
 Install with <code>npm install @octokit/endpoint</code>
 
 ```js
-const { endpoint } = require("@octokit/endpoint");
-// or: import { endpoint } from "@octokit/endpoint";
+import { endpoint } from "@octokit/endpoint";
 ```
 
 </td></tr>
@@ -278,8 +277,10 @@ All other options will be passed depending on the `method` and `url` options.
 Override or set default options. Example:
 
 ```js
-const request = require("request");
-const myEndpoint = require("@octokit/endpoint").defaults({
+import request from "request";
+import endpoint from "@octokit/endpoint";
+
+const myEndpoint = endpoint.defaults({
   baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
   headers: {
     "user-agent": "myApp/1.2.3",

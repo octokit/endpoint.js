@@ -1,14 +1,17 @@
-import { EndpointDefaults, RequestParameters, Route } from "@octokit/types";
+import { lowercaseKeys } from "./util/lowercase-keys.js";
+import { mergeDeep } from "./util/merge-deep.js";
+import { removeUndefinedProperties } from "./util/remove-undefined-properties.js";
 
-import { lowercaseKeys } from "./util/lowercase-keys";
-import { mergeDeep } from "./util/merge-deep";
-import { removeUndefinedProperties } from "./util/remove-undefined-properties";
+/** @typedef {import('@octokit/types').EndpointDefaults} EndpointDefaults */
+/** @typedef {import('@octokit/types').Route} Route */
+/** @typedef {import('@octokit/types').RequestParameters} RequestParameters */
 
-export function merge(
-  defaults: EndpointDefaults | null,
-  route?: Route | RequestParameters,
-  options?: RequestParameters
-) {
+/**
+ * @param {EndpointDefaults | null} defaults
+ * @param {Route | RequestParameters} [route]
+ * @param {RequestParameters} [options]
+ */
+export function merge(defaults, route, options) {
   if (typeof route === "string") {
     let [method, url] = route.split(" ");
     options = Object.assign(url ? { method, url } : { url: method }, options);
@@ -23,7 +26,9 @@ export function merge(
   removeUndefinedProperties(options);
   removeUndefinedProperties(options.headers);
 
-  const mergedOptions = mergeDeep(defaults || {}, options) as EndpointDefaults;
+  const mergedOptions = /** @type {EndpointDefaults} */ (
+    mergeDeep(defaults || {}, options)
+  );
 
   // mediaType.previews arrays are merged, instead of overwritten
   if (defaults && defaults.mediaType.previews.length) {
@@ -33,7 +38,7 @@ export function merge(
   }
 
   mergedOptions.mediaType.previews = mergedOptions.mediaType.previews.map(
-    (preview: string) => preview.replace(/-preview/, "")
+    (preview) => preview.replace(/-preview/, "")
   );
 
   return mergedOptions;

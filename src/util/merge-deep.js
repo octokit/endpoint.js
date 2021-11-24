@@ -1,7 +1,12 @@
 import { isPlainObject } from "is-plain-object";
 
-export function mergeDeep(defaults: any, options: any): object {
-  const result = Object.assign({}, defaults);
+/**
+ * @param {any} defaults
+ * @param {any} options
+ * @returns {object}
+ */
+export function mergeDeep(defaults, options) {
+  const result = { ...defaults };
 
   Object.keys(options).forEach((key) => {
     if (isPlainObject(options[key])) {

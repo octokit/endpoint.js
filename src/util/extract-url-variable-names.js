@@ -1,10 +1,12 @@
 const urlVariableRegex = /\{[^}]+\}/g;
 
-function removeNonChars(variableName: string) {
+/** @param {string} variableName */
+function removeNonChars(variableName) {
   return variableName.replace(/^\W+|\W+$/g, "").split(/,/);
 }
 
-export function extractUrlVariableNames(url: string) {
+/** @param {string} url */
+export function extractUrlVariableNames(url) {
   const matches = url.match(urlVariableRegex);
 
   if (!matches) {

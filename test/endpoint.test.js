@@ -2,8 +2,8 @@ import { Agent } from "http";
 
 import { getUserAgent } from "universal-user-agent";
 
-import { endpoint } from "../src";
-import { VERSION } from "../src/version";
+import { endpoint } from "../src/index.js";
+import { VERSION } from "../src/version.js";
 
 const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
@@ -273,7 +273,7 @@ describe("endpoint()", () => {
       },
     });
 
-    expect(options.request!.agent).toBeInstanceOf(Agent);
+    expect(options.request.agent).toBeInstanceOf(Agent);
   });
 
   it("Just URL", () => {

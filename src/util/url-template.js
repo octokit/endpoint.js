@@ -28,7 +28,8 @@
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* istanbul ignore file */
-function encodeReserved(str: string): string {
+/** @param {string} str */
+function encodeReserved(str) {
   return str
     .split(/(%[0-9A-Fa-f]{2})/g)
     .map(function (part) {
@@ -40,13 +41,19 @@ function encodeReserved(str: string): string {
     .join("");
 }
 
-function encodeUnreserved(str: string): string {
+/** @param {string} str */
+function encodeUnreserved(str) {
   return encodeURIComponent(str).replace(/[!'()*]/g, function (c) {
     return "%" + c.charCodeAt(0).toString(16).toUpperCase();
   });
 }
 
-function encodeValue(operator: string, value: string, key?: string): string {
+/**
+ * @param {string} operator
+ * @param {string} value
+ * @param {string} [key]
+ */
+function encodeValue(operator, value, key) {
   value =
     operator === "+" || operator === "#"
       ? encodeReserved(value)
@@ -54,29 +61,31 @@ function encodeValue(operator: string, value: string, key?: string): string {
 
   if (key) {
     return encodeUnreserved(key) + "=" + value;
-  } else {
-    return value;
   }
+
+  return value;
 }
 
-function isDefined(value: any): boolean {
+/** @param {*} value */
+function isDefined(value) {
   return value !== undefined && value !== null;
 }
 
-function isKeyOperator(operator: string): boolean {
+/** @param {string} operator */
+function isKeyOperator(operator) {
   return operator === ";" || operator === "&" || operator === "?";
 }
 
-type Context = {
-  [key: string]: any;
-};
+/** @typedef {Object<string, any>} Context */
 
-function getValues(
-  context: Context,
-  operator: string,
-  key: string,
-  modifier?: string
-): string[] {
+/**
+ * @param {Context} context
+ * @param {string} operator
+ * @param {string} key
+ * @param {string} [modifier]
+ * @returns {string[]}
+ */
+function getValues(context, operator, key, modifier) {
   var value = context[key],
     result = [];
 
@@ -111,7 +120,8 @@ function getValues(
           });
         }
       } else {
-        const tmp: string[] = [];
+        /** @type {string[]} */
+        const tmp = [];
 
         if (Array.isArray(value)) {
           value.filter(isDefined).forEach(function (value) {
@@ -147,29 +157,38 @@ function getValues(
   return result;
 }
 
-export function parseUrl(template: string) {
+/** @param {string} template */
+export function parseUrl(template) {
   return {
     expand: expand.bind(null, template),
   };
 }
 
-function expand(template: string, context: object): string {
+/**
+ * @param {string} template
+ * @param {object} context
+ */
+function expand(template, context) {
   var operators = ["+", "#", ".", "/", ";", "?", "&"];
+  var regex = /\{([^\{\}]+)\}|([^\{\}]+)/g;
 
   return template.replace(
-    /\{([^\{\}]+)\}|([^\{\}]+)/g,
-    function (_, expression, literal) {
+    regex,
+    (_, /** @type {string} */ expression, literal) => {
       if (expression) {
-        let operator: string = "";
-        const values: string[][] = [];
+        let operator = "";
+        /** @type {string[][]} */
+        const values = [];
 
         if (operators.indexOf(expression.charAt(0)) !== -1) {
           operator = expression.charAt(0);
-          expression = expression.substr(1);
+          expression = expression.slice(1);
         }
 
-        expression.split(/,/g).forEach(function (variable: string) {
-          var tmp = /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable) as string[];
+        expression.split(/,/g).forEach(function (variable) {
+          var tmp = /** @type {string[]}*/ (
+            /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable)
+          );
           values.push(getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
         });
 

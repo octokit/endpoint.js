@@ -1,22 +1,26 @@
-import {
-  EndpointDefaults,
-  RequestMethod,
-  RequestOptions,
-} from "@octokit/types";
+/** @typedef {import('@octokit/types').EndpointDefaults} EndpointDefaults */
+/** @typedef {import('@octokit/types').RequestOptions} RequestOptions */
+/** @typedef {import('@octokit/types').RequestMethod} RequestMethod */
 
-import { addQueryParameters } from "./util/add-query-parameters";
-import { extractUrlVariableNames } from "./util/extract-url-variable-names";
-import { omit } from "./util/omit";
-import { parseUrl } from "./util/url-template";
+import { addQueryParameters } from "./util/add-query-parameters.js";
+import { extractUrlVariableNames } from "./util/extract-url-variable-names.js";
+import { omit } from "./util/omit.js";
+import { parseUrl } from "./util/url-template.js";
 
-export function parse(options: EndpointDefaults): RequestOptions {
+/**
+ * @param {EndpointDefaults} options
+ * @returns {RequestOptions}
+ */
+export function parse(options) {
   // https://fetch.spec.whatwg.org/#methods
-  let method = options.method.toUpperCase() as RequestMethod;
+
+  let method = /** @type {RequestMethod} */ (options.method.toUpperCase());
 
   // replace :varname with {varname} to make it RFC 6570 compatible
   let url = (options.url || "/").replace(/:([a-z]\w+)/g, "{$1}");
   let headers = Object.assign({}, options.headers);
-  let body: string | object | undefined;
+  /** @type {string | object | undefined} */
+  let body;
   let parameters = omit(options, [
     "method",
     "baseUrl",
