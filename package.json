@@ -6,7 +6,7 @@
   },
   "description": "Turns REST API endpoints into generic request options",
   "scripts": {
-    "build": "pika build",
+    "build": "pika-pack build",
     "lint": "prettier --check '{scripts,src,test}/**/*' README.md package.json",
     "lint:fix": "prettier --write '{scripts,src,test}/**/*' README.md package.json",
     "pretest": "npm run -s lint",
