@@ -36,6 +36,7 @@ describe("endpoint.merge()", () => {
         accept: "application/vnd.github.v3+json",
         authorization: `token 0000000000000000000000000000000000000001`,
         "user-agent": "myApp/1.2.3",
+        "x-github-api-version": "2022-08-09",
       },
       org: "my-project",
       type: "private",
@@ -70,6 +71,7 @@ describe("endpoint.merge()", () => {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
         authorization: `token 0000000000000000000000000000000000000001`,
+        "x-github-api-version": "2022-08-09",
       },
       org: "my-project",
     });
@@ -87,6 +89,7 @@ describe("endpoint.merge()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });

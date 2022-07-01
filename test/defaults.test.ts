@@ -24,6 +24,7 @@ describe("endpoint.defaults()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
+        "x-github-api-version": "2022-08-09",
         authorization: `token 0000000000000000000000000000000000000001`,
       },
     });
@@ -51,6 +52,7 @@ describe("endpoint.defaults()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "myApp/1.2.3",
+        "x-github-api-version": "2022-08-09",
         authorization: `token 0000000000000000000000000000000000000001`,
       },
     });

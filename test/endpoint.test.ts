@@ -26,6 +26,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -42,6 +43,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -55,6 +57,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -73,6 +76,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": "my-app/1.2.3",
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -88,6 +92,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -133,6 +138,7 @@ describe("endpoint()", () => {
         accept: "text/html;charset=utf-8",
         "content-type": "application/json; charset=utf-8",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
       body: {
         assignees: ["octocat"],
@@ -161,6 +167,7 @@ describe("endpoint()", () => {
         accept: "application/vnd.github.v3+json",
         "content-length": 0,
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
       body: "",
     });
@@ -190,6 +197,7 @@ describe("endpoint()", () => {
         "content-type": "text/plain",
         "content-length": 14,
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
       body: "Hello, world!",
     });
@@ -206,6 +214,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -226,6 +235,7 @@ describe("endpoint()", () => {
         accept: "text/html;charset=utf-8",
         "content-type": "text/plain",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
       body: "Hello world github/linguist#1 **cool**, and #1!",
     });
@@ -242,6 +252,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -259,6 +270,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
       request: {
         timeout: 100,
@@ -302,6 +314,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3.raw",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -324,6 +337,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.symmetra-preview+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -347,6 +361,7 @@ describe("endpoint()", () => {
         accept:
           "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -370,6 +385,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.symmetra-preview.raw",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -397,6 +413,7 @@ describe("endpoint()", () => {
         accept:
           "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.symmetra-preview.raw",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -422,6 +439,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/octet-stream",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
@@ -439,6 +457,7 @@ describe("endpoint()", () => {
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
+        "x-github-api-version": "2022-08-09",
       },
     });
   });
