@@ -144,7 +144,7 @@ describe("endpoint()", () => {
     });
   });
 
-  it("Put without request body", () => {
+  it("PUT without request body", () => {
     const options = endpoint("PUT /user/starred/{owner}/{repo}", {
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`,
@@ -154,15 +154,71 @@ describe("endpoint()", () => {
     });
 
     expect(options).toEqual({
+      body: "",
       method: "PUT",
       url: "https://api.github.com/user/starred/octocat/hello-world",
       headers: {
         authorization: `token 0000000000000000000000000000000000000001`,
         accept: "application/vnd.github.v3+json",
-        "content-length": 0,
         "user-agent": userAgent,
       },
+    });
+  });
+
+  it("DELETE without request body", () => {
+    const options = endpoint("DELETE /user/following/{username}", {
+      headers: {
+        authorization: `token 0000000000000000000000000000000000000001`,
+      },
+      username: "octocat",
+    });
+
+    expect(options).toEqual({
+      method: "DELETE",
+      url: "https://api.github.com/user/following/octocat",
+      headers: {
+        authorization: `token 0000000000000000000000000000000000000001`,
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+  });
+
+  it("POST without request body", () => {
+    const options = endpoint("POST /widgets", {
+      headers: {
+        authorization: `token 0000000000000000000000000000000000000001`,
+      },
+    });
+
+    expect(options).toEqual({
+      method: "POST",
+      url: "https://api.github.com/widgets",
+      headers: {
+        authorization: `token 0000000000000000000000000000000000000001`,
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+  });
+
+  it("PATCH without request body", () => {
+    const options = endpoint("PATCH /widgets/{id}", {
+      headers: {
+        authorization: `token 0000000000000000000000000000000000000001`,
+      },
+      id: "my-widget",
+    });
+
+    expect(options).toEqual({
       body: "",
+      method: "PATCH",
+      url: "https://api.github.com/widgets/my-widget",
+      headers: {
+        authorization: `token 0000000000000000000000000000000000000001`,
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
     });
   });
 

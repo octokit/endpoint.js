@@ -81,8 +81,6 @@ export function parse(options: EndpointDefaults): RequestOptions {
     } else {
       if (Object.keys(remainingParameters).length) {
         body = remainingParameters;
-      } else {
-        headers["content-length"] = 0;
       }
     }
   }
