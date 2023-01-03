@@ -89,51 +89,6 @@ describe("endpoint.defaults()", () => {
     });
     expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "raw",
-      previews: [],
-    });
-  });
-
-  it(".defaults() merges mediaType.previews", () => {
-    const myEndpoint = endpoint.defaults({
-      mediaType: {
-        previews: ["foo"],
-      },
-    });
-    const myEndpoint2 = myEndpoint.defaults({
-      mediaType: {
-        previews: ["bar"],
-      },
-    });
-
-    expect(myEndpoint.DEFAULTS.mediaType).toEqual({
-      format: "",
-      previews: ["foo"],
-    });
-    expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
-      format: "",
-      previews: ["foo", "bar"],
-    });
-  });
-
-  it('.defaults() merges mediaType.previews with "-preview" suffix', () => {
-    const myEndpoint = endpoint.defaults({
-      mediaType: {
-        previews: ["foo-preview"],
-      },
-    });
-    const myEndpoint2 = myEndpoint.defaults({
-      mediaType: {
-        previews: ["bar-preview"],
-      },
-    });
-
-    expect(myEndpoint.DEFAULTS.mediaType).toEqual({
-      format: "",
-      previews: ["foo"],
-    });
-    expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
-      format: "",
-      previews: ["foo", "bar"],
     });
   });
 });

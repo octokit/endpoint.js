@@ -28,7 +28,6 @@ describe("endpoint.parse()", () => {
       },
       mediaType: {
         format: "",
-        previews: [],
       },
     });
     expect(url).toEqual("https://example.com/");
@@ -45,7 +44,6 @@ describe("endpoint.parse()", () => {
       },
       mediaType: {
         format: "",
-        previews: ["foo", "bar"],
       },
     };
 
