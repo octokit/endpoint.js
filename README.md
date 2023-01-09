@@ -36,7 +36,7 @@ Load <code>@octokit/endpoint</code> directly from <a href="https://cdn.skypack.d
 
 ```html
 <script type="module">
-import { endpoint } from "https://cdn.skypack.dev/@octokit/endpoint";
+  import { endpoint } from "https://cdn.skypack.dev/@octokit/endpoint";
 </script>
 ```
 
