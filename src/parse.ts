@@ -58,7 +58,7 @@ export function parse(options: EndpointDefaults): RequestOptions {
 
     if (options.mediaType.previews.length) {
       const previewsFromAcceptHeader =
-        headers.accept.match(/[\w-]+(?=-preview)/g) || [];
+        headers.accept.match(/[\w-]+(?=-preview)/g) || ([] as string[]);
       headers.accept = previewsFromAcceptHeader
         .concat(options.mediaType.previews)
         .map((preview) => {
