@@ -2,7 +2,7 @@ name: Test
 "on":
   push:
     branches:
-      - master
+      - main
   pull_request:
     types:
       - opened
@@ -13,9 +13,8 @@ jobs:
     strategy:
       matrix:
         node_version:
-          - 14
-          - 16
           - 18
+          - 20
     steps:
       - uses: actions/checkout@v3
       - name: Test with Node.js ${{ matrix.node_version }}
