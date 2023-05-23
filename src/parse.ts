@@ -47,8 +47,8 @@ export function parse(options: EndpointDefaults): RequestOptions {
       // e.g. application/vnd.github.v3+json => application/vnd.github.v3.raw
       headers.accept = headers.accept
         .split(/,/)
-        .map((preview) =>
-          preview.replace(
+        .map((format) =>
+          format.replace(
             /application\/vnd(\.\w+)(\.v3)?(\.\w+)?(\+json)?$/,
             `application/vnd$1$2.${options.mediaType.format}`
           )
