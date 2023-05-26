@@ -56,7 +56,7 @@ export function parse(options: EndpointDefaults): RequestOptions {
         .join(",");
     }
 
-    if (url === "/graphql") {
+    if (url.endsWith("/graphql")) {
       if (options.mediaType.previews?.length) {
         const previewsFromAcceptHeader =
           headers.accept.match(/[\w-]+(?=-preview)/g) || ([] as string[]);
