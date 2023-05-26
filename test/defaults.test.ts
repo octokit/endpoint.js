@@ -91,4 +91,52 @@ describe("endpoint.defaults()", () => {
       format: "raw",
     });
   });
+
+  it(".defaults() merges mediaType.previews", () => {
+    const myEndpoint = endpoint.defaults({
+      url: "/graphql",
+      mediaType: {
+        previews: ["foo"],
+      },
+    });
+    const myEndpoint2 = myEndpoint.defaults({
+      url: "/graphql",
+      mediaType: {
+        previews: ["bar"],
+      },
+    });
+
+    expect(myEndpoint.DEFAULTS.mediaType).toEqual({
+      format: "",
+      previews: ["foo"],
+    });
+    expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
+      format: "",
+      previews: ["foo", "bar"],
+    });
+  });
+
+  it('.defaults() merges mediaType.previews with "-preview" suffix', () => {
+    const myEndpoint = endpoint.defaults({
+      url: "/graphql",
+      mediaType: {
+        previews: ["foo-preview"],
+      },
+    });
+    const myEndpoint2 = myEndpoint.defaults({
+      url: "/graphql",
+      mediaType: {
+        previews: ["bar-preview"],
+      },
+    });
+
+    expect(myEndpoint.DEFAULTS.mediaType).toEqual({
+      format: "",
+      previews: ["foo"],
+    });
+    expect(myEndpoint2.DEFAULTS.mediaType).toEqual({
+      format: "",
+      previews: ["foo", "bar"],
+    });
+  });
 });
