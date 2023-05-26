@@ -51,4 +51,26 @@ describe("endpoint.parse()", () => {
 
     expect(input.headers.accept).toEqual("application/vnd.github.v3+json");
   });
+
+  it("parses previews for /graphql endpoint", () => {
+    const input: EndpointDefaults = {
+      baseUrl: "https://api.github.com/",
+      method: "POST",
+      url: "/graphql",
+      headers: {
+        accept: "application/json",
+        "user-agent": "myApp v1.2.3",
+      },
+      mediaType: {
+        format: "json",
+        previews: ["package-deletes", "flash-preview"],
+      },
+    };
+
+    endpoint.parse(input);
+
+    expect(input.headers.accept).toEqual(
+      "application/vnd.github.package-deletes-preview+json,application/vnd.github.flash-preview+json"
+    );
+  });
 });
