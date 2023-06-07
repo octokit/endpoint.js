@@ -1,4 +1,4 @@
-import {
+import type {
   EndpointInterface,
   RequestParameters,
   EndpointDefaults,
