@@ -1,4 +1,4 @@
-import { EndpointOptions, RequestParameters, Route } from "@octokit/types";
+import type { EndpointOptions, RequestParameters, Route } from "@octokit/types";
 
 import { DEFAULTS } from "./defaults";
 import { merge } from "./merge";
