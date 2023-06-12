@@ -1,5 +1,5 @@
 import { getUserAgent } from "universal-user-agent";
-import { EndpointDefaults } from "@octokit/types";
+import type { EndpointDefaults } from "@octokit/types";
 
 import { VERSION } from "./version";
 

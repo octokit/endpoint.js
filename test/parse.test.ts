@@ -1,4 +1,4 @@
-import { EndpointOptions, EndpointDefaults } from "@octokit/types";
+import type { EndpointOptions, EndpointDefaults } from "@octokit/types";
 
 import { endpoint } from "../src";
 

@@ -1,4 +1,8 @@
-import { EndpointDefaults, RequestParameters, Route } from "@octokit/types";
+import type {
+  EndpointDefaults,
+  RequestParameters,
+  Route,
+} from "@octokit/types";
 
 import { lowercaseKeys } from "./util/lowercase-keys";
 import { mergeDeep } from "./util/merge-deep";
