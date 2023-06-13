@@ -32,8 +32,8 @@ export function merge(
   if (options.url === "/graphql") {
     // mediaType.previews arrays are merged, instead of overwritten
     if (defaults && defaults.mediaType.previews?.length) {
-      mergedOptions.mediaType.previews = defaults.mediaType.previews!
-        .filter(
+      mergedOptions.mediaType.previews = defaults.mediaType
+        .previews!.filter(
           (preview) => !mergedOptions.mediaType.previews!.includes(preview)
         )
         .concat(mergedOptions.mediaType.previews!);
