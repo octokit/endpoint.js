@@ -28,7 +28,6 @@ describe("endpoint.merge()", () => {
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       mediaType: {
         format: "",
-        previews: [],
       },
       method: "GET",
       url: "/orgs/{org}/repos",
@@ -62,7 +61,6 @@ describe("endpoint.merge()", () => {
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
       mediaType: {
         format: "",
-        previews: [],
       },
       method: "GET",
       url: "/orgs/{org}/repos",
@@ -81,7 +79,6 @@ describe("endpoint.merge()", () => {
       baseUrl: "https://api.github.com",
       mediaType: {
         format: "",
-        previews: [],
       },
       method: "GET",
       headers: {

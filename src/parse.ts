@@ -47,8 +47,8 @@ export function parse(options: EndpointDefaults): RequestOptions {
       // e.g. application/vnd.github.v3+json => application/vnd.github.v3.raw
       headers.accept = headers.accept
         .split(/,/)
-        .map((preview) =>
-          preview.replace(
+        .map((format) =>
+          format.replace(
             /application\/vnd(\.\w+)(\.v3)?(\.\w+)?(\+json)?$/,
             `application/vnd$1$2.${options.mediaType.format}`
           )
@@ -56,18 +56,20 @@ export function parse(options: EndpointDefaults): RequestOptions {
         .join(",");
     }
 
-    if (options.mediaType.previews.length) {
-      const previewsFromAcceptHeader =
-        headers.accept.match(/[\w-]+(?=-preview)/g) || ([] as string[]);
-      headers.accept = previewsFromAcceptHeader
-        .concat(options.mediaType.previews)
-        .map((preview) => {
-          const format = options.mediaType.format
-            ? `.${options.mediaType.format}`
-            : "+json";
-          return `application/vnd.github.${preview}-preview${format}`;
-        })
-        .join(",");
+    if (url.endsWith("/graphql")) {
+      if (options.mediaType.previews?.length) {
+        const previewsFromAcceptHeader =
+          headers.accept.match(/[\w-]+(?=-preview)/g) || ([] as string[]);
+        headers.accept = previewsFromAcceptHeader
+          .concat(options.mediaType.previews!)
+          .map((preview) => {
+            const format = options.mediaType.format
+              ? `.${options.mediaType.format}`
+              : "+json";
+            return `application/vnd.github.${preview}-preview${format}`;
+          })
+          .join(",");
+      }
     }
   }
 

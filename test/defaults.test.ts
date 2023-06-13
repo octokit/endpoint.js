@@ -89,17 +89,18 @@ describe("endpoint.defaults()", () => {
     });
     expect(myEndpoint.DEFAULTS.mediaType).toEqual({
       format: "raw",
-      previews: [],
     });
   });
 
   it(".defaults() merges mediaType.previews", () => {
     const myEndpoint = endpoint.defaults({
+      url: "/graphql",
       mediaType: {
         previews: ["foo"],
       },
     });
     const myEndpoint2 = myEndpoint.defaults({
+      url: "/graphql",
       mediaType: {
         previews: ["bar"],
       },
@@ -117,11 +118,13 @@ describe("endpoint.defaults()", () => {
 
   it('.defaults() merges mediaType.previews with "-preview" suffix', () => {
     const myEndpoint = endpoint.defaults({
+      url: "/graphql",
       mediaType: {
         previews: ["foo-preview"],
       },
     });
     const myEndpoint2 = myEndpoint.defaults({
+      url: "/graphql",
       mediaType: {
         previews: ["bar-preview"],
       },
