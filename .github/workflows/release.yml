@@ -2,6 +2,9 @@
   push:
     branches:
       - main
+      - beta
+      - next
+      - "*.x"
 name: Release
 jobs:
   build:
