@@ -16,6 +16,5 @@ export const DEFAULTS: EndpointDefaults = {
   },
   mediaType: {
     format: "",
-    previews: [] as string[],
   },
 };

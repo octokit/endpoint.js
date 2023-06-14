@@ -364,19 +364,16 @@ describe("endpoint()", () => {
 
   it("options.mediaType.previews", () => {
     const options = endpoint({
-      method: "GET",
-      url: "/repos/{owner}/{repo}/issues/{number}",
+      method: "POST",
+      url: "/graphql",
       mediaType: {
         previews: ["symmetra"],
       },
-      owner: "octokit",
-      repo: "endpoint.js",
-      number: 123,
     });
 
     expect(options).toEqual({
-      method: "GET",
-      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
+      method: "POST",
+      url: "https://api.github.com/graphql",
       headers: {
         accept: "application/vnd.github.symmetra-preview+json",
         "user-agent": userAgent,
@@ -386,19 +383,16 @@ describe("endpoint()", () => {
 
   it("options.mediaType.previews with -preview suffix", () => {
     const options = endpoint({
-      method: "GET",
-      url: "/repos/{owner}/{repo}/issues/{number}",
+      method: "POST",
+      url: "/graphql",
       mediaType: {
         previews: ["jean-grey-preview", "symmetra-preview"],
       },
-      owner: "octokit",
-      repo: "endpoint.js",
-      number: 123,
     });
 
     expect(options).toEqual({
-      method: "GET",
-      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
+      method: "POST",
+      url: "https://api.github.com/graphql",
       headers: {
         accept:
           "application/vnd.github.jean-grey-preview+json,application/vnd.github.symmetra-preview+json",
@@ -409,20 +403,17 @@ describe("endpoint()", () => {
 
   it("options.mediaType.format + options.mediaType.previews", () => {
     const options = endpoint({
-      method: "GET",
-      url: "/repos/{owner}/{repo}/issues/{number}",
+      method: "POST",
+      url: "/graphql",
       mediaType: {
         format: "raw",
         previews: ["symmetra"],
       },
-      owner: "octokit",
-      repo: "endpoint.js",
-      number: 123,
     });
 
     expect(options).toEqual({
-      method: "GET",
-      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
+      method: "POST",
+      url: "https://api.github.com/graphql",
       headers: {
         accept: "application/vnd.github.symmetra-preview.raw",
         "user-agent": userAgent,
@@ -432,8 +423,8 @@ describe("endpoint()", () => {
 
   it("options.mediaType.format + options.mediaType.previews + accept header", () => {
     const options = endpoint({
-      method: "GET",
-      url: "/repos/{owner}/{repo}/issues/{number}",
+      method: "POST",
+      url: "/graphql",
       headers: {
         accept: "application/vnd.foo-preview,application/vnd.bar-preview",
       },
@@ -441,14 +432,11 @@ describe("endpoint()", () => {
         format: "raw",
         previews: ["symmetra"],
       },
-      owner: "octokit",
-      repo: "endpoint.js",
-      number: 123,
     });
 
     expect(options).toEqual({
-      method: "GET",
-      url: "https://api.github.com/repos/octokit/endpoint.js/issues/123",
+      method: "POST",
+      url: "https://api.github.com/graphql",
       headers: {
         accept:
           "application/vnd.github.foo-preview.raw,application/vnd.github.bar-preview.raw,application/vnd.github.symmetra-preview.raw",
@@ -459,22 +447,19 @@ describe("endpoint()", () => {
 
   it("application/octet-stream accept header + previews", () => {
     const options = endpoint({
-      method: "GET",
-      url: "/repos/{owner}/{repo}/releases/assets/{asset_id}",
+      method: "POST",
+      url: "/graphql",
       headers: {
         accept: "application/octet-stream",
       },
       mediaType: {
         previews: ["symmetra"],
       },
-      owner: "octokit",
-      repo: "endpoint.js",
-      asset_id: 123,
     });
 
     expect(options).toEqual({
-      method: "GET",
-      url: "https://api.github.com/repos/octokit/endpoint.js/releases/assets/123",
+      method: "POST",
+      url: "https://api.github.com/graphql",
       headers: {
         accept: "application/octet-stream",
         "user-agent": userAgent,

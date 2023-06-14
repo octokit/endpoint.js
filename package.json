@@ -34,7 +34,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "@octokit/types": "^9.0.0",
+    "@octokit/types": "^10.0.0",
     "is-plain-object": "^5.0.0",
     "universal-user-agent": "^6.0.0"
   },
@@ -89,6 +89,6 @@
     }
   },
   "engines": {
-    "node": ">= 14"
+    "node": ">= 18"
   }
 }
