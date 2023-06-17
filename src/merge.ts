@@ -39,9 +39,9 @@ export function merge(
         .concat(mergedOptions.mediaType.previews!);
     }
 
-    mergedOptions.mediaType.previews = mergedOptions.mediaType.previews!.map(
-      (preview: string) => preview.replace(/-preview/, "")
-    );
+    mergedOptions.mediaType.previews = (
+      mergedOptions.mediaType.previews! || ([] as string[])
+    ).map((preview: string) => preview.replace(/-preview/, ""));
   }
 
   return mergedOptions;
