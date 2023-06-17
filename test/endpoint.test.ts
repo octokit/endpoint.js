@@ -340,6 +340,22 @@ describe("endpoint()", () => {
     );
   });
 
+  it("options.mediaType.previews is undefined", () => {
+    const options = endpoint({
+      method: "POST",
+      url: "/graphql",
+    });
+
+    expect(options).toEqual({
+      method: "POST",
+      url: "https://api.github.com/graphql",
+      headers: {
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+  });
+
   it("options.mediaType.format", () => {
     const options = endpoint({
       method: "GET",
