@@ -1,6 +1,6 @@
 export function addQueryParameters(
   url: string,
-  parameters: { [x: string]: string | undefined; q?: string }
+  parameters: { [x: string]: string | undefined; q?: string },
 ) {
   const separator = /\?/.test(url) ? "&" : "?";
   const names = Object.keys(parameters);

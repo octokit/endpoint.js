@@ -75,7 +75,7 @@ function getValues(
   context: Context,
   operator: string,
   key: string,
-  modifier?: string
+  modifier?: string,
 ): string[] {
   var value = context[key],
     result = [];
@@ -93,14 +93,14 @@ function getValues(
       }
 
       result.push(
-        encodeValue(operator, value, isKeyOperator(operator) ? key : "")
+        encodeValue(operator, value, isKeyOperator(operator) ? key : ""),
       );
     } else {
       if (modifier === "*") {
         if (Array.isArray(value)) {
           value.filter(isDefined).forEach(function (value) {
             result.push(
-              encodeValue(operator, value, isKeyOperator(operator) ? key : "")
+              encodeValue(operator, value, isKeyOperator(operator) ? key : ""),
             );
           });
         } else {
@@ -188,6 +188,6 @@ function expand(template: string, context: object): string {
       } else {
         return encodeReserved(literal);
       }
-    }
+    },
   );
 }

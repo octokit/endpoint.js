@@ -1,6 +1,6 @@
 export function omit(
   object: { [key: string]: any },
-  keysToOmit: string[]
+  keysToOmit: string[],
 ): { [key: string]: any } {
   return Object.keys(object)
     .filter((option) => !keysToOmit.includes(option))

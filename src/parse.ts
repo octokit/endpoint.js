@@ -50,8 +50,8 @@ export function parse(options: EndpointDefaults): RequestOptions {
         .map((format) =>
           format.replace(
             /application\/vnd(\.\w+)(\.v3)?(\.\w+)?(\+json)?$/,
-            `application/vnd$1$2.${options.mediaType.format}`
-          )
+            `application/vnd$1$2.${options.mediaType.format}`,
+          ),
         )
         .join(",");
     }
@@ -102,6 +102,6 @@ export function parse(options: EndpointDefaults): RequestOptions {
   return Object.assign(
     { method, url, headers },
     typeof body !== "undefined" ? { body } : null,
-    options.request ? { request: options.request } : null
+    options.request ? { request: options.request } : null,
   );
 }
