@@ -401,7 +401,7 @@ endpoint(
       authorization: `token 0000000000000000000000000000000000000001`,
     },
     data: "Hello, world!",
-  }
+  },
 );
 ```
 
