@@ -10,7 +10,7 @@ import { parse } from "./parse";
 
 export function withDefaults(
   oldDefaults: EndpointDefaults | null,
-  newDefaults: RequestParameters
+  newDefaults: RequestParameters,
 ): EndpointInterface {
   const DEFAULTS = merge(oldDefaults, newDefaults);
   const endpoint = endpointWithDefaults.bind(null, DEFAULTS);

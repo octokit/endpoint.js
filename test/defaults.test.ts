@@ -62,7 +62,7 @@ describe("endpoint.defaults()", () => {
       baseUrl: "https://github-enterprise.acme-inc.com/api/v3",
     });
     expect(myEndpoint.DEFAULTS.baseUrl).toEqual(
-      "https://github-enterprise.acme-inc.com/api/v3"
+      "https://github-enterprise.acme-inc.com/api/v3",
     );
   });
 

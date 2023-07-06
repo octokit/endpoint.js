@@ -11,7 +11,7 @@ import { removeUndefinedProperties } from "./util/remove-undefined-properties";
 export function merge(
   defaults: EndpointDefaults | null,
   route?: Route | RequestParameters,
-  options?: RequestParameters
+  options?: RequestParameters,
 ) {
   if (typeof route === "string") {
     let [method, url] = route.split(" ");
@@ -34,7 +34,7 @@ export function merge(
     if (defaults && defaults.mediaType.previews?.length) {
       mergedOptions.mediaType.previews = defaults.mediaType
         .previews!.filter(
-          (preview) => !mergedOptions.mediaType.previews!.includes(preview)
+          (preview) => !mergedOptions.mediaType.previews!.includes(preview),
         )
         .concat(mergedOptions.mediaType.previews!);
     }

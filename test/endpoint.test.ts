@@ -79,7 +79,7 @@ describe("endpoint()", () => {
 
   it("Full URL", () => {
     const options = endpoint(
-      "GET https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master"
+      "GET https://codeload.github.com/octokit/endpoint-abcde/legacy.tar.gz/master",
     );
 
     expect(options).toEqual({
@@ -99,7 +99,7 @@ describe("endpoint()", () => {
         owner: "owner",
         repo: "repo",
         path: "path/to/file.txt",
-      }
+      },
     );
     const { url: url2 } = endpoint(
       "GET /repos/{owner}/{repo}/contents/{path}",
@@ -107,7 +107,7 @@ describe("endpoint()", () => {
         owner: "owner",
         repo: "repo",
         path: "path/to/file.txt",
-      }
+      },
     );
     expect(url1).toEqual(url2);
   });
@@ -234,7 +234,7 @@ describe("endpoint()", () => {
           authorization: `token 0000000000000000000000000000000000000001`,
         },
         data: "Hello, world!",
-      }
+      },
     );
 
     expect(options).toEqual({
@@ -336,7 +336,7 @@ describe("endpoint()", () => {
     expect(endpoint("/").url).toEqual("https://api.github.com/");
     expect(endpoint("/").method).toEqual("GET");
     expect(endpoint("https://github.acme-inc/api/v3/").url).toEqual(
-      "https://github.acme-inc/api/v3/"
+      "https://github.acme-inc/api/v3/",
     );
   });
 
