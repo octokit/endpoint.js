@@ -336,7 +336,7 @@ describe("endpoint()", () => {
     expect(endpoint("/").url).toEqual("https://api.github.com/");
     expect(endpoint("/").method).toEqual("GET");
     expect(endpoint("https://github.acme-inc/api/v3/").url).toEqual(
-      "https://github.acme-inc/api/v3/",
+      "https://github.acme-inc/api/v3",
     );
   });
 
@@ -493,6 +493,36 @@ describe("endpoint()", () => {
     expect(options).toEqual({
       method: "GET",
       url: "https://api.github.com/notifications",
+      headers: {
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+  });
+
+  it("Undefined placeholder value with no trailing slash in URL", () => {
+    const options1 = endpoint("GET /repos/{owner}/{repo}/branches/{branch}", {
+      owner: "owner",
+      repo: "repo",
+    });
+
+    expect(options1).toEqual({
+      method: "GET",
+      url: "https://api.github.com/repos/owner/repo/branches",
+      headers: {
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+
+    const options2 = endpoint("GET /repos/{owner}/{repo}/branches{/branch}", {
+      owner: "owner",
+      repo: "repo",
+    });
+
+    expect(options2).toEqual({
+      method: "GET",
+      url: "https://api.github.com/repos/owner/repo/branches",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,

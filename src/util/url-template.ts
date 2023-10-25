@@ -156,7 +156,7 @@ export function parseUrl(template: string) {
 function expand(template: string, context: object): string {
   var operators = ["+", "#", ".", "/", ";", "?", "&"];
 
-  return template.replace(
+  template = template.replace(
     /\{([^\{\}]+)\}|([^\{\}]+)/g,
     function (_, expression, literal) {
       if (expression) {
@@ -190,4 +190,10 @@ function expand(template: string, context: object): string {
       }
     },
   );
+
+  if (template === "/") {
+    return template;
+  } else {
+    return template.replace(/\/$/, "");
+  }
 }
