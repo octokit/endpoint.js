@@ -552,13 +552,13 @@ describe("endpoint()", () => {
     const options2 = endpoint("GET /repos/{owner}/{repo}/contents/{path}", {
       owner: "owner",
       repo: "repo",
-      path: "heads/",
+      path: "my-folder/",
       ref: "feature/branch",
     });
 
     expect(options2).toEqual({
       method: "GET",
-      url: "https://api.github.com/repos/owner/repo/contents/heads%2F?ref=feature%2Fbranch",
+      url: "https://api.github.com/repos/owner/repo/contents/my-folder%2F?ref=feature%2Fbranch",
       headers: {
         accept: "application/vnd.github.v3+json",
         "user-agent": userAgent,
