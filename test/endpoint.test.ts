@@ -530,6 +530,42 @@ describe("endpoint()", () => {
     });
   });
 
+  it("Trailing slash in URL in expression is encoded", () => {
+    const options1 = endpoint(
+      "GET /repos/{owner}/{repo}/git/matching-refs/{ref}",
+      {
+        owner: "owner",
+        repo: "repo",
+        ref: "heads/",
+      },
+    );
+
+    expect(options1).toEqual({
+      method: "GET",
+      url: "https://api.github.com/repos/owner/repo/git/matching-refs/heads%2F",
+      headers: {
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+
+    const options2 = endpoint("GET /repos/{owner}/{repo}/contents/{path}", {
+      owner: "owner",
+      repo: "repo",
+      path: "heads/",
+      ref: "feature/branch",
+    });
+
+    expect(options2).toEqual({
+      method: "GET",
+      url: "https://api.github.com/repos/owner/repo/contents/heads%2F?ref=feature%2Fbranch",
+      headers: {
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+  });
+
   it("Undefined header value", () => {
     const options = endpoint({
       method: "GET",
