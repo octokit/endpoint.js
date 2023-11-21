@@ -1,4 +1,4 @@
-import { isPlainObject } from "is-plain-object";
+import { isPlainObject } from "./is-plain-object";
 
 export function mergeDeep(defaults: any, options: any): object {
   const result = Object.assign({}, defaults);
