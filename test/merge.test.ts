@@ -1,7 +1,7 @@
 import { getUserAgent } from "universal-user-agent";
 
-import { endpoint } from "../src";
-import { VERSION } from "../src/version";
+import { endpoint } from "../src/index.ts";
+import { VERSION } from "../src/version.ts";
 const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
 describe("endpoint.merge()", () => {

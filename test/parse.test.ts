@@ -1,6 +1,6 @@
 import type { EndpointOptions, EndpointDefaults } from "@octokit/types";
 
-import { endpoint } from "../src";
+import { endpoint } from "../src/index.ts";
 
 describe("endpoint.parse()", () => {
   it("is a function", () => {

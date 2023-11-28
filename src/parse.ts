@@ -4,10 +4,10 @@ import type {
   RequestOptions,
 } from "@octokit/types";
 
-import { addQueryParameters } from "./util/add-query-parameters";
-import { extractUrlVariableNames } from "./util/extract-url-variable-names";
-import { omit } from "./util/omit";
-import { parseUrl } from "./util/url-template";
+import { addQueryParameters } from "./util/add-query-parameters.js";
+import { extractUrlVariableNames } from "./util/extract-url-variable-names.js";
+import { omit } from "./util/omit.js";
+import { parseUrl } from "./util/url-template.js";
 
 export function parse(options: EndpointDefaults): RequestOptions {
   // https://fetch.spec.whatwg.org/#methods

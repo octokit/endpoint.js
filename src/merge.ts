@@ -4,9 +4,9 @@ import type {
   Route,
 } from "@octokit/types";
 
-import { lowercaseKeys } from "./util/lowercase-keys";
-import { mergeDeep } from "./util/merge-deep";
-import { removeUndefinedProperties } from "./util/remove-undefined-properties";
+import { lowercaseKeys } from "./util/lowercase-keys.js";
+import { mergeDeep } from "./util/merge-deep.js";
+import { removeUndefinedProperties } from "./util/remove-undefined-properties.js";
 
 export function merge(
   defaults: EndpointDefaults | null,
