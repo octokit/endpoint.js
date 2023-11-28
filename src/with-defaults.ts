@@ -4,9 +4,9 @@ import type {
   EndpointDefaults,
 } from "@octokit/types";
 
-import { endpointWithDefaults } from "./endpoint-with-defaults";
-import { merge } from "./merge";
-import { parse } from "./parse";
+import { endpointWithDefaults } from "./endpoint-with-defaults.js";
+import { merge } from "./merge.js";
+import { parse } from "./parse.js";
 
 export function withDefaults(
   oldDefaults: EndpointDefaults | null,

@@ -1,7 +1,7 @@
 import { getUserAgent } from "universal-user-agent";
 import type { EndpointDefaults } from "@octokit/types";
 
-import { VERSION } from "./version";
+import { VERSION } from "./version.js";
 
 const userAgent = `octokit-endpoint.js/${VERSION} ${getUserAgent()}`;
 
