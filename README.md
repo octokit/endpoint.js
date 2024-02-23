@@ -48,8 +48,7 @@ Node
 Install with <code>npm install @octokit/endpoint</code>
 
 ```js
-const { endpoint } = require("@octokit/endpoint");
-// or: import { endpoint } from "@octokit/endpoint";
+import { endpoint } from "@octokit/endpoint";
 ```
 
 </td></tr>
