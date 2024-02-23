@@ -35,27 +35,14 @@ async function main() {
 
   const entryPoints = ["./pkg/dist-src/index.js"];
 
-  await Promise.all([
-    // Build the a CJS Node.js bundle
-    esbuild.build({
-      entryPoints,
-      outdir: "pkg/dist-node",
-      bundle: true,
-      platform: "node",
-      target: "node18",
-      format: "esm",
-      ...sharedOptions,
-    }),
-    // Build an ESM browser bundle
-    esbuild.build({
-      entryPoints,
-      outdir: "pkg/dist-web",
-      bundle: true,
-      platform: "browser",
-      format: "esm",
-      ...sharedOptions,
-    }),
-  ]);
+  await esbuild.build({
+    entryPoints,
+    outdir: "pkg/dist-bundle",
+    bundle: true,
+    platform: "neutral",
+    format: "esm",
+    ...sharedOptions,
+  });
 
   // Copy the README, LICENSE to the pkg folder
   await copyFile("LICENSE", "pkg/LICENSE");
@@ -77,7 +64,7 @@ async function main() {
         exports: {
           ".": {
             types: "./dist-types/index.d.ts",
-            import: "./dist-src/index.js",
+            import: "./dist-bundle/index.js",
           },
         },
         sideEffects: false,
