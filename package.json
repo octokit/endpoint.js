@@ -3,7 +3,8 @@
   "version": "0.0.0-development",
   "type": "module",
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   },
   "description": "Turns REST API endpoints into generic request options",
   "scripts": {
