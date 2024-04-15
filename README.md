@@ -95,6 +95,9 @@ got[options.method](url, options);
 axios(requestOptions);
 ```
 
+> [!IMPORTANT]
+> As we use [conditional exports](https://nodejs.org/api/packages.html#conditional-exports), you will need to adapt your `tsconfig.json`. See the TypeScript docs on [package.json "exports"](https://www.typescriptlang.org/docs/handbook/modules/reference.html#packagejson-exports).
+
 ## API
 
 ### `endpoint(route, options)` or `endpoint(options)`
