@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { getUserAgent } from "universal-user-agent";
 
 import { endpoint } from "../src/index.ts";

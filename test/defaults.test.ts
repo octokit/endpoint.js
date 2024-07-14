@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { endpoint } from "../src/index.js";
 
 describe("endpoint.defaults()", () => {

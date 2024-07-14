@@ -27,7 +27,7 @@
 // NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
 // EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-/* istanbul ignore file */
+/* c8 ignore start */
 function encodeReserved(str: string): string {
   return str
     .split(/(%[0-9A-Fa-f]{2})/g)
@@ -197,3 +197,4 @@ function expand(template: string, context: object): string {
     return template.replace(/\/$/, "");
   }
 }
+/* c8 ignore stop */

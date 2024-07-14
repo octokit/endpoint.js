@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import { Agent } from "node:http";
 
 import { getUserAgent } from "universal-user-agent";
