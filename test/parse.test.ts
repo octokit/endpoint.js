@@ -1,3 +1,4 @@
+import { describe, it, expect } from "vitest";
 import type { EndpointOptions, EndpointDefaults } from "@octokit/types";
 
 import { endpoint } from "../src/index.ts";
