@@ -74,11 +74,15 @@ describe("endpoint.parse()", () => {
     }
     const endTime = performance.now();
     const elapsedTime = endTime - startTime;
-    const reDosThreshold = 2000; 
+    const reDosThreshold = 2000;
 
     expect(elapsedTime).toBeLessThanOrEqual(reDosThreshold);
     if (elapsedTime > reDosThreshold) {
-      console.warn(`🚨 Potential ReDoS Attack! getDuration method took ${elapsedTime.toFixed(2)} ms, exceeding threshold of ${reDosThreshold} ms.`);
+      console.warn(
+        `🚨 Potential ReDoS Attack! getDuration method took ${elapsedTime.toFixed(
+          2,
+        )} ms, exceeding threshold of ${reDosThreshold} ms.`,
+      );
     }
   });
 
@@ -104,11 +108,15 @@ describe("endpoint.parse()", () => {
     }
     const endTime = performance.now();
     const elapsedTime = endTime - startTime;
-    const reDosThreshold = 2000; 
+    const reDosThreshold = 2000;
 
     expect(elapsedTime).toBeLessThanOrEqual(reDosThreshold);
     if (elapsedTime > reDosThreshold) {
-      console.warn(`🚨 Potential ReDoS Attack! getDuration method took ${elapsedTime.toFixed(2)} ms, exceeding threshold of ${reDosThreshold} ms.`);
+      console.warn(
+        `🚨 Potential ReDoS Attack! getDuration method took ${elapsedTime.toFixed(
+          2,
+        )} ms, exceeding threshold of ${reDosThreshold} ms.`,
+      );
     }
   });
 
@@ -117,7 +125,7 @@ describe("endpoint.parse()", () => {
     try {
       endpoint.parse({
         method: "POST",
-        url: "{"+"00"+"\u0000".repeat(100000)+"a!a"+"}", // Pass in the attack string
+        url: "{" + "00" + "\u0000".repeat(100000) + "a!a" + "}", // Pass in the attack string
         headers: {
           accept: "application/vnd.github.v3+json",
           "content-type": "text/plain",
@@ -134,11 +142,15 @@ describe("endpoint.parse()", () => {
     }
     const endTime = performance.now();
     const elapsedTime = endTime - startTime;
-    const reDosThreshold = 2000; 
+    const reDosThreshold = 2000;
 
     expect(elapsedTime).toBeLessThanOrEqual(reDosThreshold);
     if (elapsedTime > reDosThreshold) {
-      console.warn(`🚨 Potential ReDoS Attack! getDuration method took ${elapsedTime.toFixed(2)} ms, exceeding threshold of ${reDosThreshold} ms.`);
+      console.warn(
+        `🚨 Potential ReDoS Attack! getDuration method took ${elapsedTime.toFixed(
+          2,
+        )} ms, exceeding threshold of ${reDosThreshold} ms.`,
+      );
     }
   });
 });
