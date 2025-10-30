@@ -36,7 +36,7 @@
     "vitest": "^3.0.0"
   },
   "dependencies": {
-    "@octokit/types": "^15.0.0",
+    "@octokit/types": "^16.0.0",
     "universal-user-agent": "^7.0.2"
   },
   "release": {
