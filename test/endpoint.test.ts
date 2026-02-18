@@ -531,6 +531,23 @@ describe("endpoint()", () => {
     });
   });
 
+  it("bigint placeholder value", () => {
+    const options = endpoint(
+      "POST /app/hook/deliveries/{delivery_id}/attempts",
+      {
+        delivery_id: 123n,
+      },
+    );
+    expect(options).toEqual({
+      method: "POST",
+      url: "https://api.github.com/app/hook/deliveries/123/attempts",
+      headers: {
+        accept: "application/vnd.github.v3+json",
+        "user-agent": userAgent,
+      },
+    });
+  });
+
   it("Trailing slash in URL in expression is encoded", () => {
     const options1 = endpoint(
       "GET /repos/{owner}/{repo}/git/matching-refs/{ref}",

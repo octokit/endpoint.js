@@ -84,6 +84,7 @@ function getValues(
     if (
       typeof value === "string" ||
       typeof value === "number" ||
+      typeof value === "bigint" ||
       typeof value === "boolean"
     ) {
       value = value.toString();
