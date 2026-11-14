@@ -162,7 +162,7 @@ function expand(template: string, context: object): string {
     function (_, expression, literal) {
       if (expression) {
         let operator: string = "";
-        const values: string[][] = [];
+        const values: string[] = [];
 
         if (operators.indexOf(expression.charAt(0)) !== -1) {
           operator = expression.charAt(0);
@@ -171,7 +171,9 @@ function expand(template: string, context: object): string {
 
         expression.split(/,/g).forEach(function (variable: string) {
           var tmp = /([^:\*]*)(?::(\d+)|(\*))?/.exec(variable) as string[];
-          values.push(getValues(context, operator, tmp[1], tmp[2] || tmp[3]));
+          values.push(
+            ...getValues(context, operator, tmp[1], tmp[2] || tmp[3]),
+          );
         });
 
         if (operator && operator !== "+") {
