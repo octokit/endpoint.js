@@ -252,6 +252,53 @@ describe("endpoint()", () => {
     });
   });
 
+  it("Omitted query parameters and exploded values", () => {
+    expect(
+      endpoint(
+        "DELETE /repos/{owner}/{repo}/code-scanning/analyses/{analysis_id}{?confirm_delete}",
+        {
+          owner: "octocat",
+          repo: "hello-world",
+          analysis_id: 42,
+        },
+      ).url,
+    ).toEqual(
+      "https://api.github.com/repos/octocat/hello-world/code-scanning/analyses/42",
+    );
+
+    expect(
+      endpoint(
+        "POST /orgs/{org}/attestations/bulk-list{?per_page,before,after}",
+        {
+          org: "octokit",
+          after: "cursor1",
+        },
+      ).url,
+    ).toEqual(
+      "https://api.github.com/orgs/octokit/attestations/bulk-list?after=cursor1",
+    );
+
+    expect(
+      endpoint("GET /repos/{owner}/{repo}{?label*}", {
+        owner: "octocat",
+        repo: "hello-world",
+        label: ["bug", "triage"],
+      }).url,
+    ).toEqual(
+      "https://api.github.com/repos/octocat/hello-world?label=bug&label=triage",
+    );
+
+    expect(
+      endpoint("GET /repos/{owner}/{repo}/contents{/path*}", {
+        owner: "octocat",
+        repo: "hello-world",
+        path: ["src", "index.ts"],
+      }).url,
+    ).toEqual(
+      "https://api.github.com/repos/octocat/hello-world/contents/src/index.ts",
+    );
+  });
+
   it("URL with query parameter and additional options", () => {
     const options = endpoint("GET /orgs/octokit/repos?access_token=abc4567", {
       type: "private",
